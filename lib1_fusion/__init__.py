@@ -26,6 +26,20 @@ Fusion Strategies:
   - Cross-Modal Attention : cross-attention between modalities
 """
 
+# ── Confirmed Data Files (data/raw/) ──────────────────────────────────────────
+# Rule: always use _Clip / _clip variants — spatial extent matches Gsat_z17.tif
+# GEO-Sat  : Gsat_z17.tif                               (1,594 MB) — 3 bands RGB
+# S1 (USE) : S1_IW_mosaic_2026044_47PQQ_VVVH_Clip.tif  (   14 MB) — 2 bands VV/VH, clipped
+# S1 (skip): S1_IW_mosaic_2026044_47PQQ_VVVH_full.tif  (  191 MB) — larger than Gsat, skip
+# S2 (USE) : S2C_MSIL2A_20260410_7band_stacked_clip.tif (  102 MB) — 7 bands, clipped
+# S2 (skip): S2C_MSIL2A_20260410_7band_stacked_full.tif (1,609 MB) — larger than Gsat, skip
+
+DATA_FILES = {
+    "gsat": "Gsat_z17.tif",
+    "s1"  : "S1_IW_mosaic_2026044_47PQQ_VVVH_Clip.tif",
+    "s2"  : "S2C_MSIL2A_20260410_7band_stacked_clip.tif",
+}
+
 from lib1_fusion.s1_processor import S1Processor
 from lib1_fusion.s2_processor import S2Processor
 from lib1_fusion.gsat_processor import GSatProcessor
