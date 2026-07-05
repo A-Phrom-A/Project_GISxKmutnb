@@ -1,0 +1,43 @@
+# ============================================================
+# GISxKMUTNB — .gitignore
+# Large satellite/model files → tracked via Git LFS (.gitattributes)
+# ============================================================
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build / dist
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temp output
+logs/
+*.log
+runs/
+
+# NOTE: *.tif, *.pth, *.pt, *.ckpt, *.h5, *.nc
+# are tracked by Git LFS via .gitattributes — do NOT add them here
