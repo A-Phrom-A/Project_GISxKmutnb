@@ -1,0 +1,36 @@
+# ─── GISxKMUTNB Requirements ────────────────────────────────────
+# Platform: Local — RTX 5060 Ti 16 GB, Python 3.12
+#
+# ⚠️  PyTorch CUDA must be installed separately:
+#     pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+#
+# Then install the rest:
+#     pip install -r requirements.txt
+# ────────────────────────────────────────────────────────────────
+
+# --- Core ---
+numpy>=2.0
+scipy>=1.12
+
+# --- Geospatial ---
+rasterio>=1.3
+# GDAL is a dependency of rasterio — installs automatically on Windows via wheels
+
+# --- Deep Learning (PyTorch installed separately, see above) ---
+# torch>=2.2         # ← install via --index-url cu126
+# torchvision>=0.17  # ← install via --index-url cu126
+
+# --- Training Utilities ---
+albumentations>=2.0
+tqdm>=4.60
+pyyaml>=6.0
+
+# --- Experiment Tracking ---
+wandb>=0.19
+
+# --- Visualization ---
+matplotlib>=3.8
+pillow>=10.0
+
+# --- Testing ---
+pytest>=8.0

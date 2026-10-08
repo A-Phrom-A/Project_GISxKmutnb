@@ -319,7 +319,7 @@ def test_integration_raw_to_fused():
     assert fused.min() >= 0.0
     assert fused.max() <= 1.0
 
-    print("  [OK] Integration: raw → processors → early_fusion → (12, 256, 256)")
+    print("  [OK] Integration: raw -> processors -> early_fusion -> (12, 256, 256)")
 
 
 # ─── Runner ───────────────────────────────────────────────────────────────────
