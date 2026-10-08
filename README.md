@@ -71,4 +71,7 @@ indicating palm coverage probability per pixel.
 
 ## Requirements
 
-> ⚠️ Framework and environment details TBD (PyTorch / TensorFlow / JAX)
+- Python 3.12+
+- PyTorch 2.2+ (CUDA 12.x)
+- rasterio, albumentations, wandb
+- See `requirements.txt` for full list
