@@ -39,5 +39,8 @@ logs/
 *.log
 runs/
 
+# Large Pretraining datasets (14.5 GB raw GeoTIFFs and 8,996 tiles)
+data/pretrain/
+
 # NOTE: *.tif, *.pth, *.pt, *.ckpt, *.h5, *.nc
 # are tracked by Git LFS via .gitattributes — do NOT add them here

@@ -16,6 +16,7 @@ from lib2_vitpalm.model.vit_encoder import ViTEncoder
 from lib2_vitpalm.model.seg_decoder import SegDecoder
 from lib2_vitpalm.model.vitpalm    import ViTPalmModel
 from lib2_vitpalm.model.mae_model  import MAEModel, MAEDecoder, random_masking
+from lib2_vitpalm.model.cloud_mae  import CloudMAEModel, CloudMAEEncoder, CloudMaskGenerator
 
 __all__ = [
     "PatchEmbed",
@@ -25,4 +26,7 @@ __all__ = [
     "MAEModel",
     "MAEDecoder",
     "random_masking",
+    "CloudMAEModel",
+    "CloudMAEEncoder",
+    "CloudMaskGenerator",
 ]

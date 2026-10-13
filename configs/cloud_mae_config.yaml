@@ -1,0 +1,34 @@
+# Cloud-MAE Pretraining Configuration (5 Eastern Thailand Provinces)
+model:
+  s1_channels: 2
+  s2_channels: 7
+  img_size: 256
+  patch_size: 16
+  embed_dim: 256
+  depth: 6
+  num_heads: 8
+  decoder_dim: 128
+  decoder_depth: 3
+  mask_ratio: 0.65
+  mask_type: "block"
+
+training:
+  epochs: 500
+  batch_size: 16
+  lr: 2.0e-4
+  min_lr: 1.0e-6
+  weight_decay: 0.05
+  use_amp: true
+  patience: 20
+  save_every: 10
+  num_workers: 0
+
+data:
+  tiles_dir: "data/pretrain/tiles"
+  val_split: 0.10
+  seed: 42
+
+logging:
+  use_wandb: false
+  project: "GISxKMUTNB-CloudMAE"
+  run_name: "cloud-mae-5provinces-v1"

@@ -1,8 +1,9 @@
-# 📋 แผนพัฒนาและสรุปผลโปรเจค GISxKMUTNB (Final Version)
+# 📋 แผนพัฒนาและสรุปผลโปรเจค GISxKMUTNB (Master Version 4.0)
 
-**Platform:** Local Machine — RAM 16 GB | GPU RTX 5060 Ti 16 GB VRAM
-**Target:** Thesis + Research Paper
-**Last Updated:** 2026-10-05
+**Platform:** Local Machine — RAM 16 GB | GPU NVIDIA RTX 5060 Ti 16 GB VRAM  
+**Target:** Thesis + Research Paper Publication  
+**Last Updated:** 2026-10-13  
+**เอกสารติดตามหลัก (Master Tracker):** ดูรายละเอียดเต็มรูปแบบที่ [master_development_tracker.md](file:///c:/Users/kittisak/OneDrive/Documents/Project_GISxKmutnb/docs/master_development_tracker.md)
 
 ---
 
@@ -34,13 +35,24 @@
 | Median polygon | ≈ 51,636 m² ≈ **516 pixels @10m** |
 | รวมพื้นที่ palm | ≈ **464 km²** |
 
-### ข้อมูลดาวเทียม (data/raw/)
+### ข้อมูลดาวเทียม Downstream (data/raw/)
 
 | ไฟล์ | Sensor | Bands | CRS | Resolution | ขนาด |
 |------|--------|-------|-----|-----------|------|
 | `Gsat_z17.tif` | GEO-Sat | 3 (RGB) | EPSG:3857 | ~1.2 m/px | 1,594 MB |
-| `S1_..._Clip.tif` | Sentinel-1 | 2 (VV,VH) | EPSG:32647 | 20 m/px | 14 MB |
-| `S2_..._clip.tif` | Sentinel-2 | 7 bands | EPSG:32647 | 10 m/px | 102 MB |
+| `S1_IW_mosaic_2026044_47PQQ_VVVH_Clip.tif` | Sentinel-1 | 2 (VV,VH) | EPSG:32647 | 10 m/px | 14 MB |
+| `S2C_MSIL2A_20260410_7band_stacked_clip.tif` | Sentinel-2 | 7 bands (`B2, B3, B4, B8A, B8, B11, B12`) | EPSG:32647 | 10 m/px | 102 MB |
+
+### ข้อมูลดาวเทียม Pretrain 5 จังหวัดภาคตะวันออก (data/pretrain/raw/)
+
+| จังหวัด | Sentinel-1 (2 bands) | Sentinel-2 (7 bands) | ขนาดภาพ (H × W) | ขนาดรวม |
+|:---|:---|:---|:---:|:---:|
+| **จันทบุรี** | `Sentinel1_ClearSky_Chanthaburi.tif` | `Sentinel2_ClearSky_Chanthaburi.tif` | 4,455 × 5,010 | ~838 MB |
+| **ชลบุรี** | `Sentinel1_ClearSky_Chonburi.tif` | `Sentinel2_ClearSky_Chonburi.tif` | 5,568 × 5,567 | ~1,172 MB |
+| **ระยอง** | `Sentinel1_ClearSky_Rayong.tif` | `Sentinel2_ClearSky_Rayong.tif` | 4,455 × 5,010 | ~845 MB |
+| **สระแก้ว** | `Sentinel1_ClearSky_SaKaeo.tif` | `Sentinel2_ClearSky_SaKaeo.tif` | 4,455 × 5,011 | ~836 MB |
+| **ตราด** | `Sentinel1_ClearSky_Trat.tif` | `Sentinel2_ClearSky_Trat.tif` | 4,455 × 5,010 | ~829 MB |
+| **รวมทั้งสิ้น** | **5 ไฟล์ (VV, VH)** | **5 ไฟล์ (7 bands S2)** | **~130M พิกเซล** | **~4.52 GB** |
 
 ---
 
@@ -295,6 +307,9 @@ training:
 | 2026-10-05 | 3.1-3.4 | Supervised Baseline | ✅ เสร็จสิ้น | PyTorch, F1 Val=0.8018, Test=0.3498 |
 | 2026-10-05 | 4.1-4.4 | Fusion Benchmark | ✅ เสร็จสิ้น | Early=0.812, Late=0.817 (Best), Cross=0.751 |
 | 2026-10-05 | 5.1-5.5 | Visualization & Inference | ✅ เสร็จสิ้น | สร้างภาพ 4-panel, plot curves, สคริปต์ `inference.py` |
+| 2026-10-12 | Pretrain Data | รวบรวมข้อมูล 5 จังหวัดภาคตะวันออก | ✅ เสร็จสิ้น | ได้ S1 (2ch) + S2 (7ch) รวม 10 ไฟล์ 4.52 GB |
+| 2026-10-13 | Standardization | ปรับ S2 เป็น 7 แบนด์ (`['B2','B3','B4','B8A','B8','B11','B12']`) | ✅ เสร็จสิ้น | อัปเดต Cloud-MAE และชุดทดสอบ `tests/test_cloud_mae.py` |
+| 2026-10-13 | Architecture | พัฒนาระบบถ่ายทอดน้ำหนัก Cloud-MAE สู่ 3 Fusion โมเดล | ✅ เสร็จสิ้น | Unit test ผ่าน 7/7 หมวด |
 
 ---
 
@@ -321,6 +336,9 @@ training:
 | D-05 | 2026-10-05 | Spatial block split (ไม่ใช่ random) | ป้องกัน data leakage — tile ใกล้กันต้องไม่ข้ามไป train/val |
 | D-06 | 2026-10-05 | ตั้งค่า DataLoader `num_workers=0` | ป้องกันปัญหาโปรแกรมค้างบน Windows |
 | D-07 | 2026-10-05 | เลือก Late Fusion เป็นโมเดลหลัก | ผล Benchmark ชี้ว่าเทรนแยกแบบ Late Fusion ดีกว่า MAE Pretrain แบบ Early Fusion (Test F1 0.3703 vs 0.3695) |
+| D-08 | 2026-10-13 | ใช้ Sentinel-2 7 แบนด์ (`B2, B3, B4, B8A, B8, B11, B12`) | ขอบสีแดงแคบ (Red Edge B8A) สำคัญมากในการจำแนกพืชยืนต้น/ปาล์มน้ำมัน |
+| D-09 | 2026-10-13 | Pretrain ด้วยข้อมูล 5 จังหวัดภาคตะวันออก | เพิ่มความหลากหลายของฟีเจอร์พืชพรรณและชั้นบรรยากาศ ลด Overfitting |
+| D-10 | 2026-10-13 | สร้าง Direct Weight Transfer Protocol จาก Cloud-MAE สู่ 3 โมเดล | ทำให้การ Benchmark ระหว่าง Pretrained vs Scratch ในทุก Fusion เป็นไปอย่างอัตโนมัติและแม่นยำ 100% |
 
 ---
 

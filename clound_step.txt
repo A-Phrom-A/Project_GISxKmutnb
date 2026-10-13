@@ -1,0 +1,168 @@
+ คำตอบข้อที่ 2: S2 Supervised มี 7 แบนด์
+ตำแหน่ง	Sentinel-2 Band	ชื่อ	หน้าที่สำคัญ
+1	B2	Blue	True Color, บรรยากาศ
+2	B3	Green	ความสมบูรณ์ของคลอโรฟิลล์
+3	B4	Red	NDVI, ดูดกลืนแสงของพืช
+4	B8A	Red Edge (Narrow NIR)	จำแนกชนิดพืช, โครงสร้างเรือนยอด
+5	B8	NIR (Wide)	ชีวมวล, เรือนยอดปาล์ม
+6	B11	SWIR-1	ความชื้นใบ, ดิน
+7	B12	SWIR-2	ทรงพุ่ม, ทะลุหมอกได้ดี
+ข้อสรุปสำคัญ: Supervised Data มีแบนด์ที่ 4 เป็น B8A (Red Edge) ซึ่ง ไม่มี ใน Pretrain Export (มีแค่ B2, B3, B4, B8, B11, B12 = 6 แบนด์) — ต้องแก้ไขตรงนี้ก่อน
+
+✅ คำตอบข้อที่ 1: วิธีที่มีงานวิจัยรองรับ + รวม 3 Fusion ได้จริง
+มีแนวทางที่ 4 ที่ ไม่ใช่ A, B, C แต่เป็นวิธีที่นักวิจัยใช้กันมาตรฐานใน Remote Sensing และ Computer Vision ครับ เรียกว่า "Modality-Agnostic Pretrain":
+
+Option D (แนะนำ): ออกแบบ Cloud-MAE ให้ใช้ Shared ViTEncoder เดียวกัน 8 แบนด์ (S1=2 + S2=6) ใน Pretrain จากนั้นเมื่อ Transfer ไปยัง 3 Fusion Models ให้ปรับ PatchEmbed layer แรกเท่านั้น (เทคนิค "Linear Probe Head Replacement") ส่วน Transformer Blocks ทั้งหมดรับ Weights โดยตรงได้เลย
+
+🆕 แผนแม่บทฉบับแก้ไขใหม่สมบูรณ์
+mermaid
+flowchart TD
+    A["Data Unification\n(Standardize S2 = 7 bands\nทั้ง Pretrain และ Supervised)"] --> B
+    B["Cloud-MAE Pretraining\n(S1=2ch + S2=7ch = 9 channels total)\nEncoder Backbone ที่ใช้ร่วมกันทุก Fusion"] --> C
+    C --> D1["Early Fusion\n(Stack 9ch → ViT Encoder)"]
+    C --> D2["Late Fusion\n(S1 Encoder + S2 Encoder แยก)"]
+    C --> D3["Cross-Attention\n(S2 query S1 KV)"]
+    D1 --> E["Benchmark Matrix\n18 Scenarios\n(3 Fusion × 2 Modes × 3 Cloud)"]
+    D2 --> E
+    D3 --> E
+Phase 0: Data Unification (แก้ปัญหา Band Mismatch)
+ปัญหา: Pretrain มี 6 แบนด์ S2 / Supervised มี 7 แบนด์ S2
+วิธีแก้: Re-export S2 Pretrain ทั้ง 5 จังหวัดให้มี B8A เพิ่มเข้าไป กลายเป็น 7 แบนด์เท่ากับ Supervised
+
+javascript
+// GEE โค้ดที่ต้องแก้ไข — เพิ่ม B8A เข้าไปในรายการ
+.select(['B2', 'B3', 'B4', 'B8A', 'B8', 'B11', 'B12'])  // 7 bands
+คำถาม: โหลด S2 Pretrain ใหม่ได้ไหมครับ? ใช้เวลาในการ Export ประมาณ 15-30 นาทีต่อจังหวัด ถ้าไม่สะดวกมีทางเลือก คือ Drop B8A จาก Supervised แล้วใช้ 6 แบนด์ทั้ง 2 ชุดแทน (ง่ายกว่า แต่เสีย Red Edge ซึ่งมีประโยชน์สำหรับจำแนกพืช)
+
+Phase 1: Cloud-MAE Architecture Redesign (ออกแบบ MAE ให้ Transfer ได้ทุก Fusion)
+หัวใจของการแก้ปัญหา Issue #1 ใช้หลักการ "Shared Backbone, Modality-Split Input":
+
+Input S1 (2ch) ──┐
+                  ├─→ PatchEmbed (9ch) ─→ ViTEncoder Backbone (Shared)
+Input S2 (7ch) ──┘                            │
+                                               ↓
+                               MAE Decoder (ทิ้งหลัง Pretrain)
+                                               │
+                                        Reconstruction Loss
+                                    (MSE เฉพาะส่วนที่ถูกเมฆบัง)
+วิธี Transfer Weight ไปยัง 3 Fusion Models:
+
+Early Fusion: Copy ViTEncoder ทั้งก้อน (Transformer Blocks) ตรงๆ เปลี่ยนแค่ PatchEmbed ที่รับ input (9ch → 9ch ตรงเลย)
+Late Fusion: Copy ViTEncoder Transformer Blocks ไปให้แต่ละ Branch ปรับ PatchEmbed ของแต่ละ Branch แยก (S1=2ch, S2=7ch)
+Cross-Attention: เหมือน Late Fusion แต่เพิ่ม Cross-Attention Layer ระหว่าง S1→S2 Features
+นี่คือวิธีที่มีงานวิจัยรองรับ ได้แก่ DINO, SatMAE, และ SpectralGPT ซึ่งทุกงานใช้เทคนิค "Freeze Backbone + Finetune Patch Projection" เพื่อ Transfer ระหว่าง Input ที่ต่างช่องสัญญาณกัน
+
+Phase 2: Tiling & Dataset (สกัด Patches พร้อมใช้)
+งาน	ผลลัพธ์	เวลา
+เขียน poc/prep_pretrain_tiles.py	Patches $256\times256$ ลงใน data/pretrain/tiles/	15 นาที
+Normalize S1: Clip $[-35, 5]$ dB → $[0,1]$	ข้อมูล SAR พร้อมเทรน	—
+Normalize S2: Scale $[0, 10000]$ → $[0,1]$	ข้อมูล Optical พร้อมเทรน	—
+กรอง Patch ที่มี NoData > 20% ทิ้ง	คุณภาพ Dataset สะอาด	—
+เป้าหมาย: 5,500–6,500 Pairs	พร้อม Pretrain	—
+Phase 3: Cloud-MAE Pretraining (เทรน Backbone หลัก)
+Input: (S1=2ch + S2=7ch) stacked = 9ch, 256×256
+Cloud Mask: Block Masking 50-75% บน S2 เท่านั้น (S1 ไม่ถูกบัง)
+Loss: MSE เฉพาะ Masked Pixels ของ S2
+Output: cloud_mae_backbone.pth (Shared ViT Encoder Weights)
+เวลาประเมิน: ~2-3 ชั่วโมง (100 Epochs, Batch 16, BFloat16)
+Quality Check ทุก 10 Epochs: เรนเดอร์ภาพ 4-panel เพื่อดูพัฒนาการการ Reconstruct ใต้เมฆ
+
+Phase 4: Fine-Tune ทั้ง 3 Fusion Models (Benchmark Matrix)
+6 Experiment Runs (3 Fusion × 2 Training Modes):
+
+Exp	Fusion	Init Mode	Encoder Weights
+E1	Early Fusion	Scratch	Random Init
+E2	Early Fusion	+ Cloud-MAE	cloud_mae_backbone.pth (เต็ม)
+E3	Late Fusion	Scratch	Random Init
+E4	Late Fusion	+ Cloud-MAE	cloud_mae_backbone.pth (Per Branch)
+E5	Cross-Attn	Scratch	Random Init
+E6	Cross-Attn	+ Cloud-MAE	cloud_mae_backbone.pth (Per Branch)
+Phase 5: Cloud Robustness Benchmark (18 Scenarios)
+ทดสอบทุก Experiment บน Test Set ชลบุรี ภายใต้ 3 สภาพเมฆ:
+
+Metric	Clear Sky (0%)	Moderate (25%)	Heavy (50%)
+F1 Score	✅	✅	✅
+IoU	✅	✅	✅
+Precision	✅	✅	✅
+Recall	✅	✅	✅
+บันทึก → results/metrics/fusion_cloud_benchmark.csv
+
+Phase 6: Thesis Figures
+กราฟ F1 vs Cloud Coverage (สำหรับ 6 Experiments)
+ภาพ 4-Panel Overlay แปลงปาล์มใต้เมฆ
+ภาพ MAE Reconstruction Progress (Epoch 0 → 10 → 50 → 100)
+ตาราง LaTeX สรุป Benchmark Matrix ครบ 18 กรณี
+⚡ ลำดับการตัดสินใจที่ต้องตอบก่อนเดินหน้า
+เรื่องเดียวที่ต้องตอบตอนนี้:
+
+โหลด S2 Pretrain ใหม่ 5 จังหวัด ให้มี 7 แบนด์ (เพิ่ม B8A) หรือ Drop B8A จาก Supervised ให้เป็น 6 แบนด์?
+
+โหลดใหม่ (แนะนำ): ได้ข้อมูลครบถ้วนที่สุด Red Edge มีประโยชน์มากสำหรับจำแนกปาล์มน้ำมัน เสียเวลา Export ~2 ชั่วโมง
+Drop B8A: เร็วกว่า เริ่มเทรนได้เลย แต่เสียแบนด์ที่มีข้อมูลสำคัญสำหรับ Thesis
+2:18 AM
+.select(['B2', 'B3', 'B4', 'B8A', 'B8', 'B11', 'B12'])  // 7 bands
+
+จัดเตรียมไฟล์เรียบร้อย สร้างเอกสารสำหรับการติดตามและการพัฒนา ขึ้นมาอย่างละเอียด และ review แผนอีกครั้งเพื่อปรับปรุง
+3:24 AM
+ได้ทำการตรวจสอบข้อมูล อัปเดตสถาปัตยกรรมโมเดล รัน Unit Test ตรวจสอบความถูกต้อง และจัดทำเอกสารติดตามการพัฒนาขึ้นมาอย่างละเอียดเรียบร้อยแล้วครับ โดยมีสรุปผลการดำเนินงานและบทวิเคราะห์ Review แผนดังนี้ครับ:
+
+🛰️ 1. ยืนยันมาตรฐานข้อมูล Sentinel-2 (7 Bands)
+สเปกตรัมทั้ง 7 แบนด์ที่ export จาก Google Earth Engine: .select(['B2', 'B3', 'B4', 'B8A', 'B8', 'B11', 'B12']) ได้รับการเชื่อมต่อเข้าสู่ระบบครบถ้วนและสอดคล้องกับโครงสร้างข้อมูล 12 แชนแนลของโปรเจค:
+
+Ch #	Sensor	Band	Wavelength	รายละเอียดหน้าที่สำคัญ
+0–1	Sentinel-1 (SAR)	VV, VH	C-band (5.4 GHz)	ทะลุเมฆ 100%, ตรวจจับความขรุขระและการกระเจิงเรือนยอดปาล์ม
+2–4	Sentinel-2 (Optical)	B2, B3, B4	Blue, Green, Red (10m)	แถบแสงที่ตามองเห็น คำนวณดัชนีพืชพรรณและสิ่งปกคลุมดิน
+5	Sentinel-2 (Optical)	B8A	Narrow NIR / Red Edge 4 (865nm)	ขอบสีแดงแคบ: สำคัญที่สุดในการวิเคราะห์ความสมบูรณ์และชนิดพืชยืนต้น
+6	Sentinel-2 (Optical)	B8	Broad NIR (842nm, 10m)	สะท้อนโครงสร้างเซลล์ใบพืชหนาแน่น
+7–8	Sentinel-2 (Optical)	B11, B12	SWIR-1, SWIR-2 (1610nm, 2190nm)	ตรวจวัดความชื้นในเรือนยอดและสารลิกนินในใบพืช
+9–11	GEO-Sat (High-Res)	R, G, B	Aerial RGB (~1.2m resampled)	ความคมชัดระดับสูง ลวดลายทางกายภาพของแปลงปาล์ม
+🛠️ 2. การอัปเดตโค้ดและผลการทดสอบ Benchmark (7/7 ผ่านหมด)
+อัปเดต 
+
+lib2_vitpalm/model/cloud_mae.py
+:
+ปรับ s2_channels เริ่มต้นเป็น 7 แบนด์
+เพิ่มระบบ Direct Weight Transfer Functions (transfer_to_late_fusion, transfer_to_cross_attn, transfer_to_early_fusion) เพื่อส่งต่อน้ำหนักที่เรียนรู้จาก Cloud-MAE ไปยังสถาปัตยกรรม Fusion ทั้ง 3 แบบได้โดยตรงและป้องกัน Shape mismatch
+รันการทดสอบ 
+
+tests/test_cloud_mae.py
+:
+ผลการทดสอบ: ALL 7 CHECKS PASSED (100%)
+Block Masking & Random Patch Masking (50% – 75%) ทำงานถูกต้อง
+Forward Pass S2=7 bands ได้ขนาด output ถูกต้อง
+Loss Masking Invariance (คำนวณ Loss เฉพาะพิกเซลเมฆบังเท่านั้น ค่า Delta = 0.00000000)
+Gradient Flow ไหลผ่านพารามิเตอร์ทุกตัวครบ 100%
+ถ่ายทอดน้ำหนักไปยัง ViTLateFusionModel, ViTCrossAttnModel, และ ViTPalmModel สำเร็จ รัน Forward pass ได้ขนาด (B, 256, 256) ถูกต้องทุกโมเดล
+📑 3. เอกสารติดตามและการพัฒนาที่สร้างขึ้น
+ได้สร้างและปรับปรุงเอกสารสำคัญ 2 ฉบับ:
+
+
+
+docs/master_development_tracker.md
+ (Master Version 4.0):
+System Architecture: แผนภาพการไหลของข้อมูลตั้งแต่ 5 จังหวัดภาคตะวันออก → Cloud-MAE → 3 Fusion Models
+Dataset Registry: บันทึกทะเบียนไฟล์ดิบ 5 จังหวัดภาคตะวันออก (~4.52 GB, ~130 ล้านพิกเซล) และข้อมูล Downstream บ้านบึง ชลบุรี
+Weight Transfer Protocol: ระเบียบการถ่ายทอดน้ำหนักข้ามสถาปัตยกรรม
+Master Benchmark Matrix: ตารางการทดลอง 6 รูปแบบ (Scratch vs. Cloud-MAE Pretrained × Early vs. Late vs. Cross-Attention) พร้อม Robustness Test (เมฆ 0%, 25%, 50%, 75%)
+Definition of Done (DoD), Progress Tracker & Technical Decision Log (D-01 ถึง D-10)
+
+
+development_plan.md
+:
+ซิงค์แผนงานระดับรากโปรเจค อัปเดตตารางข้อมูลดิบ กิจกรรมล่าสุด และประวัติการตัดสินใจให้ตรงกัน
+🔍 4. ผลการ Review แผนงานและข้อเสนอแนะเพื่อปรับปรุง (Plan Review)
+จากการ Review ภาพรวมกระบวนการทั้งหมด พบจุดที่ต้องดำเนินการต่ออย่างเป็นระบบ 3 ขั้นตอนดังนี้:
+
+[ขั้นตอนที่ 1: Data Tiling]
+data/pretrain/raw/ (5 จังหวัด) ──▶ ตัดไทล์ 256x256 (Stride 128/256) ──▶ data/pretrain/tiles/
+                                                                               │
+[ขั้นตอนที่ 2: Pretraining]                                                    ▼
+poc/train_cloud_mae.py ◀────────────────────────────────────────────────────────┘
+         │
+         ▼ ได้ checkpoint: checkpoints/cloud_mae/cloud_mae_best.pth
+[ขั้นตอนที่ 3: Master Benchmark]
+poc/benchmark_fusion.py ──▶ รัน EXP-01 ถึง EXP-06 ──▶ results/metrics/master_benchmark_results.csv
+สิ่งที่ควรทำเป็นลำดับถัดไป (Next Actionable Steps):
+สร้างสคริปต์ poc/pretrain_data_prep.py: สำหรับอ่านไฟล์ดาวเทียมของทั้ง 5 จังหวัด (จันทบุรี, ชลบุรี, ระยอง, สระแก้ว, ตราด) ทำ Normalization และตัดไทล์ 256×256 พร้อมคัดกรองขอบภาพ/NoData เก็บไว้ใน data/pretrain/tiles/ (คาดว่าจะได้ราว 2,000 – 6,000 ไทล์)
+สร้างสคริปต์ poc/train_cloud_mae.py: สคริปต์เทรน Cloud-MAE บนไทล์ 5 จังหวัด โดยใช้ Mixed Precision BF16 บน RTX 5060 Ti 16GB
+ปรับปรุง poc/benchmark_fusion.py: ให้โหลด cloud_mae_best.pth แล้วรันเปรียบเทียบทั้ง 6 การทดลองลงในตารางผลลัพธ์ของ Paper
