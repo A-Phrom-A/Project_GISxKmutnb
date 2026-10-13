@@ -1,6 +1,6 @@
 # ============================================================
 # GISxKMUTNB — .gitignore
-# Large satellite/model files → tracked via Git LFS (.gitattributes)
+# Clean Open-Source AI Repository (Zero Git LFS / 100% Free Forever)
 # ============================================================
 
 # Python cache
@@ -33,14 +33,23 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # Logs & temp output
 logs/
 *.log
 runs/
 
-# Large Pretraining datasets (14.5 GB raw GeoTIFFs and 8,996 tiles)
-data/pretrain/
-
-# NOTE: *.tif, *.pth, *.pt, *.ckpt, *.h5, *.nc
-# are tracked by Git LFS via .gitattributes — do NOT add them here
+# Large Datasets & Model Weights (Kept on local disk / Google Drive / Releases)
+data/
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.tif
+*.tiff
+*.npy
+*.npz
+*.h5
+*.nc
+*.aux.xml
