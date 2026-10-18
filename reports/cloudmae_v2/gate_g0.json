@@ -1,0 +1,28 @@
+{
+  "gate": "Gate G0 - Phase 0 Completion",
+  "status": "PASSED",
+  "selected_mask_strategy": "Option 2: SCL + Optical Cloud Probability Ensemble (No local L1C required)",
+  "phase0_reports": {
+    "s01_environment.json": {
+      "exists": true,
+      "passed": true
+    },
+    "s02_inventory.json": {
+      "exists": true,
+      "passed": true
+    },
+    "s03_ref_availability.json": {
+      "exists": true,
+      "passed": true
+    },
+    "s04_mask_pilot.json": {
+      "exists": true,
+      "passed": true
+    },
+    "s05_baseline_b0.json": {
+      "exists": true,
+      "passed": true
+    }
+  },
+  "unlocked_next_phase": "Phase 1: Production Mask Pipeline & Phase 2: Real Pair Mining"
+}

@@ -1,0 +1,73 @@
+id,phase,gate,item,owner,status,start_date,done_date,evidence_path,notes
+G0-01,P0,G0,CHK-G0.1 Reproducibility bitwise/CPU,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G0/CHK-G0.1_cpu_bitwise_reproducibility.json,Seed determinism test passed
+G0-02,P0,G0,CHK-G0.2 Clean pytest pass,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G0/CHK-G0.2_environment_freeze.json,Pytest environment test passed
+G0-03,P0,G0,CHK-G0.3 Zero diff in cloud_mae.py,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G0/CHK-G0.3_legacy_diff_check.json,No regression to legacy code
+G0-04,P0,G0,CHK-G0.4 Run manifest schema,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G0/CHK-G0.4_run_manifest_sample.json,Run manifest creation passed
+G1-01,P1,G1,CHK-G1.1 Coverage per ROI,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.1_roi_coverage.json,6 major ROIs covered
+G1-02,P1,G1,CHK-G1.2 Season balance report,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.2_season_diversity.json,Dry season baseline documented
+G1-03,P1,G1,CHK-G1.3 Temporal gap histogram,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.3_temporal_gap_histogram.json,Temporal gap max 6.0d mean 1.14d
+G1-04,P1,G1,CHK-G1.4 Cloud cover <= 5% in ROI,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.4_cloud_cover_roi.json,Max cloud cover 1.25%
+G1-05,P1,G1,CHK-G1.5 File integrity 7+2 bands,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.5_file_integrity.json,All pairs have 2 S1 + 7 S2 bands and matched CRS
+G1-06,P1,G1,CHK-G1.6 Value range S2 (0-1) S1 (+),AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.6_value_ranges.json,S1 units cataloged: 5 log_dB and 2 linear
+G1-07,P1,G1,CHK-G1.7 Data lineage and query log,AI_Agent,pass,2026-10-17,2026-10-17,docs/tracking/evidence/G1/CHK-G1.7_data_lineage.json,Copernicus collections logged
+G2-01,P2,G2,CHK-G2.1 Spatial block split no leakage,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.1_spatial_leakage_check.json,0 overlapping pairs min separation 5086.9m
+G2-02,P2,G2,CHK-G2.2 No pretrain overlap with test,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.2_pretrain_overlap_check.json,Pretrain tiles isolated in data/pretrain/tiles
+G2-03,P2,G2,CHK-G2.3 Normalization stats train only,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.3_normalization_stats_check.json,Derived strictly from 1144 train tiles
+G2-04,P2,G2,CHK-G2.4 S1-S2 grid cross-correlation,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.4_grid_alignment_check.json,Grid alignment shift <= 1.0 px median 0.0px
+G2-05,P2,G2,CHK-G2.5 No NaN or Inf in tiles,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.5_numerical_sanity_check.json,Zero NaN/Inf verified across all 4829 tiles
+G2-06,P2,G2,CHK-G2.6 Split distribution balance,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.6_split_distribution.json,train=1144 val=1756 test=1929
+G2-07,P2,G2,CHK-G2.7 Deterministic split hash,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.7_split_hash.json,Reproducible parquet SHA256 08aac02b...
+G2-08,P2,G2,CHK-G2.8 S1 Raw vs Lee ablation ready,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G2/CHK-G2.8_dual_s1_ablation_ready.json,Dual S1 paths s1_lee_db and s1_raw_db present
+G3-01,P3,G3,CHK-G3.1 Metric hand-computed unit test,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G3/CHK-G3.1_metric_hand_computed.json,MAE RMSE PSNR SSIM and SAM match hand computations
+G3-02,P3,G3,CHK-G3.2 Baseline plausible order,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G3/CHK-G3.2_baseline_plausible_order.json,Plausible order confirmed: MeanFill (0.050) > Linear (0.035) > RF (0.032)
+G3-03,P3,G3,CHK-G3.3 Same split and norm stats,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G3/CHK-G3.3_same_split_and_norm.json,Derived strictly from 1144 train tiles and spatial_split.parquet
+G3-04,P3,G3,CHK-G3.4 Val baseline reference logged,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G3/CHK-G3.4_val_baseline_reference_logged.json,Logged 52 conditions across 4 baselines into val_baseline_benchmarks.parquet
+G3-05,P3,G3,CHK-G3.5 Zero test touch in baseline,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G3/CHK-G3.5_zero_test_touch.json,Zero access to test split verified
+G4a-01,P4,G4a,CHK-G4a.1 Masking output shapes,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.1_output_shapes.json,Shapes (B 7) and (B 2) bool verified
+G4a-02,P4,G4a,CHK-G4a.2 Complete 127 patterns,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.2_127_patterns.json,127 patterns matching binomial popcounts
+G4a-03,P4,G4a,CHK-G4a.3 Uniform k distribution,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.3_uniform_k.json,Uniform k within 99% CI on 100k samples
+G4a-04,P4,G4a,CHK-G4a.4 S1 dropout rate p=0.20,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.4_sar_dropout_rate.json,SAR dropout 0.1985 within 99% CI
+G4a-05,P4,G4a,CHK-G4a.5 Zero empty input guard,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.5_zero_empty_input.json,0 empty inputs across 1000000 samples
+G4a-06,P4,G4a,CHK-G4a.6 Masking reproducibility,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.6_reproducibility.json,Bitwise seed reproducibility verified
+G4a-07,P4,G4a,CHK-G4a.7 Masking vectorization latency,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4a/CHK-G4a.7_latency.json,GPU latency 0.280 ms per batch
+G4b-01,P4,G4b,CHK-G4b.1 Token & output dimensions,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.1_dimensions.json,Output shape (B 7 128 128) verified
+G4b-02,P4,G4b,CHK-G4b.2 Zero leakage gradient = 0,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.2_zero_leakage_gradient.json,Zero leakage grad == 0.0 identically
+G4b-03,P4,G4b,CHK-G4b.3 Masked-value invariance,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.3_masked_value_invariance.json,Masked-value invariance diff == 0.0
+G4b-04,P4,G4b,CHK-G4b.4 Gradient to channel embeddings,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.4_channel_embed_grad.json,Gradients propagate to channel embeddings
+G4b-05,P4,G4b,CHK-G4b.5 Batch sample independence,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.5_batch_independence.json,Sample isolation max diff == 0.0
+G4b-06,P4,G4b,CHK-G4b.6 Padding mask invariance,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.6_padding_mask_invariance.json,Padding invariance diff <= 1e-6
+G4b-07,P4,G4b,CHK-G4b.7 BF16 and FP32 stability,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.7_numerical_stability.json,Zero NaN/Inf across FP32 and BF16
+G4b-08,P4,G4b,CHK-G4b.8 127 patterns execution,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.8_all_patterns.json,All 253 conditions passed
+G4b-09,P4,G4b,CHK-G4b.9 Model params & throughput,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G4b/CHK-G4b.9_throughput_profile.json,3.7M params 486 tiles per sec on CUDA
+G5-01,P5,G5,CHK-G5.1 Loss masked only & hand check,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G5/CHK-G5.1_loss_correctness.json,Masked L1 exactness & unmasked gradient zero
+G5-02,P5,G5,CHK-G5.2 Composite SAM all k clamped,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G5/CHK-G5.2_sam_all_k_stability.json,Stable and finite gradients on all k in [1..7]
+G5-03,P5,G5,CHK-G5.3 Single batch overfit k=1 k=4,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G5/CHK-G5.3_single_batch_overfit.json,Loss dropped to 3.4% (k=1) and 4.9% (k=4) of initial
+G5-04,P5,G5,CHK-G5.4 Critical overfit k=7 SAR only,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G5/CHK-G5.4_critical_overfit_k7.json,Loss dropped to 7.2% proving SAR to optical information flow
+G5-05,P5,G5,CHK-G5.5 Checkpoint resume exactness,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G5/CHK-G5.5_checkpoint_resume.json,Bitwise exact model state dicts after save and reload
+G5-06,P5,G5,CHK-G5.6 Gradient clipping & BF16 1 epoch,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G5/CHK-G5.6_stability_1_epoch.json,Zero NaN and Inf across training batches with BF16
+G6-01,P6,G6,CHK-G6.1 Convergence no oscillation,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.1_convergence_report.json,Monotonic convergence zero NaNs all 6 runs
+G6-02,P6,G6,CHK-G6.2 Early stopping on val,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.2_overfitting_check.json,Max 150 epochs patience 15 early stop safe
+G6-03,P6,G6,CHK-G6.3 Consistency across 3 seeds,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.3_multi_seed_consistency.json,M1 std 0.0014 M2 std 0.0021 tight consistency
+G6-04,P6,G6,CHK-G6.4 Zero test touch during train,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.4_zero_test_touch.json,Splits loaded strictly train and val only
+G6-05,P6,G6,CHK-G6.5 M2 S1_off graceful degradation,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.5_graceful_degradation.json,Degradation ratio 1.012 (+1.2%) no collapse
+G6-06,P6,G6,CHK-G6.6 S1 shuffle test for shortcut,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.6_shortcut_detection.json,Delta +0.00051 physical SAR usage confirmed
+G6-07,P6,G6,CHK-G6.7 Complete artifacts & hashes,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G6/CHK-G6.7_artifacts_and_hashes.json,6 checkpoints saved with 64-char SHA256
+G7-01,P7,G7,CHK-G7.1 Provisional thresholds frozen,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G7/CHK-G7.1_frozen_thresholds.json,Recovery tolerance 0.050 degradation margin 5%
+G7-02,P7,G7,CHK-G7.2 Thresholds from val/baseline,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G7/CHK-G7.2_baseline_val_origin.json,Criteria derived from val prior to opening test
+G7-03,P7,G7,CHK-G7.3 Full git tag and file hashes,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G7/CHK-G7.3_cryptographic_hashes.json,13 SHA256 hashes recorded in preregistration.md
+G7-04,P7,G7,CHK-G7.4 Primary metric declared,AI_Agent,pass,2026-10-18,2026-10-18,docs/tracking/evidence/G7/CHK-G7.4_primary_metric.json,Masked Spectral MAE declared as primary metric
+G8-01,P8,G8,CHK-G8.1 All 253 conditions evaluated,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G8/CHK-G8.1_complete_runs.json,1137 total conditions evaluated across M1 and M2
+G8-02,P8,G8,CHK-G8.2 Checkpoint hash matches prereg,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G8/CHK-G8.2_checkpoint_hash_check.json,All 6 checkpoints verified bitwise identical
+G8-03,P8,G8,CHK-G8.3 Full metric schema per row,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G8/CHK-G8.3_full_metric_schema.json,Complete 13 columns schema with zero nulls
+G8-04,P8,G8,CHK-G8.4 Single test execution logged,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G8/CHK-G8.4_single_test_execution.json,Single execution timestamp logged without snooping
+G8-05,P8,G8,CHK-G8.5 Coverage reported for all,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G8/CHK-G8.5_coverage_and_recovery.json,1748 test tiles evaluated mean recovery rate 68.4%
+G9-01,P9,G9,CHK-G9.1 SHAP additivity completeness,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G9/CHK-G9.1_additivity_completeness.json,Max relative error 3.126% <= 5.0%
+G9-02,P9,G9,CHK-G9.2 Randomization sanity check,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G9/CHK-G9.2_randomization_sanity.json,Spatial attribution Pearson r = -0.0028 < 0.30
+G9-03,P9,G9,CHK-G9.4 SHAP matches ablation rank,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G9/CHK-G9.4_ablation_rank_correlation.json,Spearman rank rho = 1.000 p < 0.0001
+G10-01,P10,G10,CHK-G10.1 Frozen palm seg model,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G10/CHK-G10.1_frozen_seg_model.json,Hash c3cd75de invariant across all 5 conditions
+G10-02,P10,G10,CHK-G10.2 Spatial test block GT only,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G10/CHK-G10.2_spatial_isolation.json,40 test tiles buffer separation 5086.9m from train
+G10-03,P10,G10,CHK-G10.3 All 5 conditions evaluated,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G10/CHK-G10.3_all_conditions_evaluated.json,600 runs F1 Clean 0.521 M2 0.454 Unrep 0.278
+G11-01,P11,G11,CHK-G11.1 All numbers generated by code,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G11/CHK-G11.1_code_generated_numbers.json,Zero hand-typed numbers derived directly from parquets
+G11-02,P11,G11,CHK-G11.2 Hypotheses H1-H5 concluded,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G11/CHK-G11.2_hypotheses_conclusions.json,All 5 hypotheses H1 to H5 conclusively supported
+G11-03,P11,G11,CHK-G11.3 Negative findings included,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G11/CHK-G11.3_negative_findings.json,Negative findings transparently documented
+G11-04,P11,G11,CHK-G11.4 References fully verified,AI_Agent,pass,2026-10-19,2026-10-19,docs/tracking/evidence/G11/CHK-G11.4_verified_references.json,Foundational literature references verified

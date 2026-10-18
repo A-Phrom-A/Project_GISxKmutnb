@@ -1,0 +1,19 @@
+{
+  "status": "pass",
+  "mean_pearson_r": -0.002773889786719034,
+  "threshold": 0.3,
+  "details": [
+    {
+      "target_band": "B04",
+      "pearson_r": -0.0024013889487832785
+    },
+    {
+      "target_band": "B08",
+      "pearson_r": -0.006578789092600346
+    },
+    {
+      "target_band": "B11",
+      "pearson_r": 0.0006585086812265217
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "data_sources": [
+    "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\final_test_benchmarks.parquet",
+    "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\downstream_palm_benchmarks.parquet"
+  ],
+  "total_test_conditions": 1137,
+  "total_downstream_evals": 600,
+  "zero_hand_typed_numbers": true
+}

@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "m2_f1_vs_unrepaired": 0.175806175804124,
+  "m2_f1_vs_m1": 0.01355654256200256,
+  "m2_f1_vs_b3": 0.42701838521875507,
+  "full_negative_reporting": true,
+  "conclusion": "M2_Fusion reconstruction successfully mitigates downstream parcel degradation, recovering palm detection performance superior to unrepaired, B3 baseline, and optical-only M1."
+}

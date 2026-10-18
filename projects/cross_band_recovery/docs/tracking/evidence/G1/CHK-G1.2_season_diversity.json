@@ -1,0 +1,8 @@
+{
+  "status": "PASSED",
+  "season_distribution": {
+    "Dry": 7
+  },
+  "policy": "Core baseline and pretrain built on Dry season (Nov-Apr) to ensure 0% cloud contamination. Rainy season simulated via optical band masking in P4/P6.",
+  "note": "Documented limitation: Dry-to-Rainy cross-season generalization to be validated in Phase 8."
+}

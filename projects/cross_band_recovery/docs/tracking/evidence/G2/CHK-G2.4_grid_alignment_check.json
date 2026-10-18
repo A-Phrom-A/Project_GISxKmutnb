@@ -1,0 +1,65 @@
+{
+  "status": "PASSED",
+  "sample_shifts": [
+    [
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      1.0,
+      -1.0
+    ],
+    [
+      -1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0
+    ],
+    [
+      1.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      0.0,
+      1.0
+    ],
+    [
+      -1.0,
+      0.0
+    ]
+  ],
+  "max_shift_pixels": 1.0,
+  "median_shift_pixels": [
+    0.0,
+    0.0
+  ],
+  "threshold": 1.0,
+  "tested_tiles": [
+    "tile_Chonburi_train_r04096_c02816",
+    "tile_Chonburi_train_r01024_c01536",
+    "tile_Chonburi_train_r01024_c01792",
+    "tile_Chonburi_train_r04096_c00512",
+    "tile_Chonburi_train_r04608_c02560",
+    "tile_Chonburi_train_r04608_c03328",
+    "tile_Chonburi_train_r03840_c00768",
+    "tile_Chonburi_train_r04096_c00768",
+    "tile_Chonburi_train_r00256_c04096",
+    "tile_Chonburi_train_r00768_c01792"
+  ],
+  "total_evaluated": 100,
+  "aligned_count_le_1px": 67
+}

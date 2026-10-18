@@ -1,0 +1,7 @@
+{
+  "status": "PASSED",
+  "stats_source": "train_only",
+  "num_train_tiles_used": 1144,
+  "train_set_hash": "0c30e16db4b1bcf2dc0c65063d6c6963dc5b8d76c43dfb7fe56f03e77d7b31cf",
+  "stats_file": "projects/cross_band_recovery/data/manifests/norm_stats.json"
+}

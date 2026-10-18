@@ -1,0 +1,11 @@
+{
+  "status": "pass",
+  "checks": {
+    "CHK-G9.1": "pass",
+    "CHK-G9.2": "pass",
+    "CHK-G9.3": "pass",
+    "CHK-G9.4": "pass",
+    "CHK-G9.5": "pass"
+  },
+  "target_model": "M2_Fusion_seed101_best.pt"
+}

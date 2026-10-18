@@ -1,0 +1,7 @@
+{
+  "status": "PASSED",
+  "all_s1_2band": true,
+  "all_s2_7band": true,
+  "all_crs_match": true,
+  "total_pairs_checked": 7
+}

@@ -43,6 +43,9 @@ runs/
 # Large Datasets & Model Weights (Kept on local disk / Google Drive / Releases)
 data/
 checkpoints/
+uploads/
+outputs/
+sam_segment/
 *.pth
 *.pt
 *.ckpt
@@ -53,3 +56,6 @@ checkpoints/
 *.h5
 *.nc
 *.aux.xml
+*.gpkg
+scratch_*.png
+

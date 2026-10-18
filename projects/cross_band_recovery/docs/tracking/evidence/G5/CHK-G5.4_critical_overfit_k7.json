@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "k": 7,
+  "initial_loss": 0.7992793321609497,
+  "final_loss": 0.0584021732211113,
+  "loss_ratio": 0.07306853829502694,
+  "sar_structural_flow_confirmed": true
+}

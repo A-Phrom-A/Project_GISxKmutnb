@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard & Audit Trail — GISxKMUTNB</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      overflow-y: auto !important;
+      background: #090b0e;
+    }
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .table-responsive {
+      overflow-x: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.82rem;
+    }
+    th, td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-h);
+      font-family: 'Mitr', sans-serif;
+      font-weight: 500;
+    }
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .action-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: var(--r-pill);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .action-cloud_repair {
+      background: rgba(58, 175, 255, 0.15);
+      color: var(--accent-blue);
+    }
+    .action-segmentation_inference {
+      background: rgba(53, 199, 120, 0.15);
+      color: var(--accent-green);
+    }
+    .action-custom_upload {
+      background: rgba(255, 179, 71, 0.15);
+      color: var(--accent-amber);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header-bar">
+    <div class="brand-section">
+      <div class="brand-logo" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));">AD</div>
+      <div>
+        <h1 class="brand-title">Admin Telemetry & Audit</h1>
+        <div class="brand-subtitle">GISxKMUTNB Monitoring Hub</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="/" class="admin-link-btn" id="btn-back-map">🗺️ กลับหน้าแผนที่ (Map View)</a>
+      <button class="btn-primary" id="btn-refresh-logs" style="padding: 6px 14px; font-size: 0.8rem;">
+        🔄 รีเฟรชทันที
+      </button>
+    </div>
+  </header>
+
+  <!-- Admin Main Workspace -->
+  <main class="admin-container">
+
+    <!-- KPI Summary Row -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+      <div class="bento-card">
+        <span class="card-subtitle">TOTAL API CALLS</span>
+        <div class="kpi-value" id="stat-total-reqs" style="font-size: 2rem;">0</div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">จำนวนครั้งที่มีการเรียกใช้งาน</span>
+      </div>
+      <div class="bento-card">
+        <span class="card-subtitle">AVERAGE GPU LATENCY</span>
+        <div class="kpi-value" id="stat-avg-latency" style="font-size: 2rem; color: var(--accent-blue);">0.0 ms</div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">เวลาประมวลผลโมเดลเฉลี่ย</span>
+      </div>
+      <div class="bento-card">
+        <span class="card-subtitle">UNIQUE CLIENT IPS</span>
+        <div class="kpi-value" id="stat-unique-ips" style="font-size: 2rem; color: var(--accent-amber);">0</div>
+        <span style="font-size: 0.75rem; color: var(--text-muted);">จำนวนเครื่อง/ผู้เข้าชมที่ไม่ซ้ำ</span>
+      </div>
+      <div class="bento-card">
+        <span class="card-subtitle">ACTIVE GPU & VRAM</span>
+        <div class="kpi-value" id="stat-gpu-vram" style="font-size: 1.15rem; color: var(--accent-green);">-- / -- MB</div>
+        <span id="stat-gpu-name" style="font-size: 0.75rem; color: var(--text-muted);">NVIDIA RTX 5060 Ti</span>
+      </div>
+    </div>
+
+    <!-- Middle Row: Popular Models -->
+    <div class="bento-card">
+      <div class="card-header">
+        <h2 class="card-title">📊 สถิติการเลือกใช้งานโมเดล AI (Model Distribution)</h2>
+      </div>
+      <div id="popular-models-list" style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="color: var(--text-muted);">กำลังโหลดข้อมูล...</div>
+      </div>
+    </div>
+
+    <!-- Live Audit Trail Table -->
+    <div class="bento-card" style="padding: 0; overflow: hidden;">
+      <div style="padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+        <h2 class="card-title">📜 บันทึกประวัติการเรียกใช้งานล่าสุด (Recent 50 Requests)</h2>
+        <span style="font-size: 0.75rem; color: var(--accent-green);">● Auto-refreshing ทุก 5 วินาที</span>
+      </div>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>วัน-เวลา (Timestamp)</th>
+              <th>Client IP</th>
+              <th>Action</th>
+              <th>พื้นที่ (Zone)</th>
+              <th>โมเดล (Model)</th>
+              <th>Latency</th>
+              <th>รายละเอียดเพิ่มเติม (Details)</th>
+            </tr>
+          </thead>
+          <tbody id="logs-table-body">
+            <tr>
+              <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 24px;">กำลังโหลดประวัติ...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>

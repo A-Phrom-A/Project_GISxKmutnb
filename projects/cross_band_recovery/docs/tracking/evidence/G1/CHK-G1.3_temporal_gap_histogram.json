@@ -1,0 +1,16 @@
+{
+  "status": "PASSED",
+  "dt_histogram": {
+    "0_days (co-registered clearsky)": 5,
+    "1_3_days (Tier-1)": 1,
+    "4_6_days (Tier-2)": 1,
+    "gt_6_days (Tier-3)": 0
+  },
+  "tier_distribution": {
+    "Tier-1 (<=3d)": 6,
+    "Tier-2 (4-6d)": 1
+  },
+  "max_dt_days": 6.0,
+  "mean_dt_days": 1.1428571428571428,
+  "is_within_tolerance": true
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASSED",
+  "collections": [
+    "COPERNICUS/S2_SR_HARMONIZED (Sentinel-2 L2A)",
+    "COPERNICUS/S1_GRD (Sentinel-1 C-band SAR VV/VH IW)"
+  ],
+  "query_engine": "Google Earth Engine & Copernicus Planetary API",
+  "script_version": "01_download_paired_stac.py v1.0",
+  "execution_time_utc": "2026-10-17T11:53:16.117923+00:00"
+}

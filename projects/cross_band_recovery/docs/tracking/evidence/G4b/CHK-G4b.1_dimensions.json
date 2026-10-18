@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "output_shape": [
+    4,
+    7,
+    128,
+    128
+  ],
+  "latent_dim": 256
+}

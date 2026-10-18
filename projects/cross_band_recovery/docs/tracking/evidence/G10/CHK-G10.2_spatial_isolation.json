@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "eval_split": "data/processed/split/test",
+  "evaluated_test_tiles_count": 40,
+  "spatial_buffer_from_train_meters": 5086.9,
+  "zero_leakage_guaranteed": true
+}

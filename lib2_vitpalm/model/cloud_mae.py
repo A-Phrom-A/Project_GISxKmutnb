@@ -106,7 +106,7 @@ class CloudMAEEncoder(nn.Module):
         s2_channels: int = 7,
         img_size: int = 256,
         patch_size: int = 16,
-        embed_dim: int = 512,
+        embed_dim: int = 256,
         depth: int = 6,
         num_heads: int = 8,
         mlp_ratio: float = 4.0,
@@ -203,8 +203,8 @@ class CloudMAEDecoder(nn.Module):
         self,
         s2_channels: int = 7,
         patch_size: int = 16,
-        embed_dim: int = 512,
-        decoder_dim: int = 256,
+        embed_dim: int = 256,
+        decoder_dim: int = 128,
         depth: int = 3,
         num_heads: int = 8,
         mlp_ratio: float = 4.0,
@@ -265,10 +265,10 @@ class CloudMAEModel(nn.Module):
         s2_channels: int = 7,
         img_size: int = 256,
         patch_size: int = 16,
-        embed_dim: int = 512,
+        embed_dim: int = 256,
         depth: int = 6,
         num_heads: int = 8,
-        decoder_dim: int = 256,
+        decoder_dim: int = 128,
         decoder_depth: int = 3,
         mask_ratio: float = 0.65,
         mask_type: str = "block",
@@ -353,6 +353,31 @@ class CloudMAEModel(nn.Module):
             "mask_patch": mask_patch,
             "latent": latent,
         }
+
+    def reconstruct(
+        self,
+        s1: torch.Tensor,
+        s2: torch.Tensor,
+        mask_pixel: Optional[torch.Tensor] = None,
+        composite: bool = True,
+    ) -> torch.Tensor:
+        """
+        Inference helper: Reconstructs optical image from radar S1 and cloudy S2.
+
+        Args:
+            s1: Radar SAR tensor (B, 2, H, W)
+            s2: Optical tensor (B, 7, H, W)
+            mask_pixel: Optional binary cloud mask (B, 1, H, W) where 1 indicates cloud.
+            composite: If True, merges clean optical pixels with predicted cloud-inpainted pixels.
+        Returns:
+            Reconstructed S2 tensor (B, 7, H, W)
+        """
+        out = self.forward(s1, s2, mask_pixel=mask_pixel)
+        pred = out["pred_s2"]
+        mask = out["mask_pixel"]
+        if composite:
+            return s2 * (1.0 - mask) + pred * mask
+        return pred
 
     def get_encoder(self) -> CloudMAEEncoder:
         """Returns encoder for downstream segmentation fine-tuning."""

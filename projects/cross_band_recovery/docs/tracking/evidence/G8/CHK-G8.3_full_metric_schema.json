@@ -1,0 +1,20 @@
+{
+  "status": "pass",
+  "columns": [
+    "model",
+    "seed",
+    "pattern_id",
+    "k",
+    "masked_bands",
+    "s1_condition",
+    "mae",
+    "rmse",
+    "psnr",
+    "ssim",
+    "sam_deg",
+    "bias",
+    "recovery_rate"
+  ],
+  "row_count": 1137,
+  "has_nulls": false
+}

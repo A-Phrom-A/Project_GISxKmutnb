@@ -48,7 +48,7 @@ from lib1_fusion.fusion.late_fusion import LateFusion
 from lib1_fusion.fusion.cross_modal_attention import CrossModalAttention
 from lib1_fusion import utils
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 __all__ = [
     "S1Processor",
     "S2Processor",

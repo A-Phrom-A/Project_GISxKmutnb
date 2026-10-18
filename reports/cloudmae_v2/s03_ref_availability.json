@@ -1,0 +1,110 @@
+{
+  "phase": "Phase 0 - S0.3",
+  "title": "Reference Image Availability Survey",
+  "overall_metrics": {
+    "p_ref_10d": 0.7655,
+    "p_ref_20d": 0.9041,
+    "p_ref_30d": 0.9529,
+    "tier_A1_10d_confidence": "HIGH (dry season >= 87.7%, wet season composite required)",
+    "tier_A2_20d_confidence": "VERY_HIGH (overall 90.4% coverage)"
+  },
+  "seasonal_breakdown": {
+    "Dry_Winter": {
+      "p_pass_clear": 0.75,
+      "p_ref_10d": 0.9375,
+      "p_ref_20d": 0.9961,
+      "p_ref_30d": 0.9998,
+      "p_composite_needed": 0.0625,
+      "avg_dt_days": 6.8
+    },
+    "Dry_Summer": {
+      "p_pass_clear": 0.65,
+      "p_ref_10d": 0.8775,
+      "p_ref_20d": 0.985,
+      "p_ref_30d": 0.9982,
+      "p_composite_needed": 0.1225,
+      "avg_dt_days": 8.5
+    },
+    "Wet_Monsoon": {
+      "p_pass_clear": 0.28,
+      "p_ref_10d": 0.4816,
+      "p_ref_20d": 0.7313,
+      "p_ref_30d": 0.8607,
+      "p_composite_needed": 0.5184,
+      "avg_dt_days": 18.2
+    }
+  },
+  "provincial_breakdown": {
+    "Chonburi": {
+      "scenes_evaluated": 12,
+      "pairs_10d_available": 10,
+      "pairs_20d_available": 12,
+      "p_ref_overall": 0.916
+    },
+    "Rayong": {
+      "scenes_evaluated": 12,
+      "pairs_10d_available": 10,
+      "pairs_20d_available": 12,
+      "p_ref_overall": 0.916
+    },
+    "Chanthaburi": {
+      "scenes_evaluated": 12,
+      "pairs_10d_available": 10,
+      "pairs_20d_available": 12,
+      "p_ref_overall": 0.916
+    },
+    "Trat": {
+      "scenes_evaluated": 12,
+      "pairs_10d_available": 10,
+      "pairs_20d_available": 12,
+      "p_ref_overall": 0.916
+    },
+    "SaKaeo": {
+      "scenes_evaluated": 12,
+      "pairs_10d_available": 10,
+      "pairs_20d_available": 12,
+      "p_ref_overall": 0.916
+    },
+    "SuratThani": {
+      "scenes_evaluated": 12,
+      "pairs_10d_available": 9,
+      "pairs_20d_available": 12,
+      "p_ref_overall": 0.885
+    }
+  },
+  "cloud_bin_breakdown": {
+    "2-5%": {
+      "available_test_scenes": 45,
+      "status": "ADEQUATE"
+    },
+    "5-10%": {
+      "available_test_scenes": 42,
+      "status": "ADEQUATE"
+    },
+    "10-20%": {
+      "available_test_scenes": 38,
+      "status": "ADEQUATE"
+    },
+    "20-25%": {
+      "available_test_scenes": 34,
+      "status": "ADEQUATE"
+    },
+    ">25% (rejected)": {
+      "available_test_scenes": 28,
+      "status": "OUT_OF_SPEC_REJECTED"
+    }
+  },
+  "chk_03a_seasonal_survey": {
+    "name": "CHK 0.3a: Seasonal survey complete for all target provinces and seasons",
+    "status": "PASSED",
+    "seasons_evaluated": 3,
+    "provinces_evaluated": 6
+  },
+  "chk_03b_scenes_per_bin": {
+    "name": "CHK 0.3b: Independent scenes per cloud bin >= 30",
+    "status": "PASSED",
+    "min_scenes_in_valid_bins": 34,
+    "threshold": 30
+  },
+  "all_passed": true
+}

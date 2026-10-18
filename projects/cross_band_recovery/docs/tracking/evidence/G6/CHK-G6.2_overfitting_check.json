@@ -1,0 +1,54 @@
+{
+  "status": "pass",
+  "m1_gap": [
+    -0.0034505838153739976,
+    -0.0037483917284306806,
+    -0.0024827855264432375
+  ],
+  "m2_gap": [
+    -0.00405650587496191,
+    -0.0022215676687495564,
+    -0.0017910625369478017
+  ],
+  "early_stopping_used_val": true,
+  "max_epochs": 150,
+  "patience": 15,
+  "runs_summary": {
+    "M1_S2only_s42": {
+      "total_epochs": 98,
+      "best_epoch": 83,
+      "best_val_loss": 0.063059416184626,
+      "stopped_early": true
+    },
+    "M1_S2only_s101": {
+      "total_epochs": 50,
+      "best_epoch": 35,
+      "best_val_loss": 0.06503160827156931,
+      "stopped_early": true
+    },
+    "M1_S2only_s2024": {
+      "total_epochs": 46,
+      "best_epoch": 31,
+      "best_val_loss": 0.06660721447355676,
+      "stopped_early": true
+    },
+    "M2_Fusion_s42": {
+      "total_epochs": 46,
+      "best_epoch": 31,
+      "best_val_loss": 0.06586349412503809,
+      "stopped_early": true
+    },
+    "M2_Fusion_s101": {
+      "total_epochs": 123,
+      "best_epoch": 108,
+      "best_val_loss": 0.060988432331250446,
+      "stopped_early": true
+    },
+    "M2_Fusion_s2024": {
+      "total_epochs": 80,
+      "best_epoch": 65,
+      "best_val_loss": 0.0648489374630522,
+      "stopped_early": true
+    }
+  }
+}

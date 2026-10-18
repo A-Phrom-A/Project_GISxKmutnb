@@ -1,0 +1,3316 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GeoAI Data Import Studio — True Miracle GeoAI | GISxKMUTNB</title>
+  <meta name="description" content="Dedicated GeoAI Data Ingestion & Import Studio for Multi-Modal Satellite Oil Palm Intelligence by KMUTNB">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=20261015_09">
+  <style>
+    :root {
+      --bg-studio: #0a0d14;
+      --card-bg: rgba(18, 24, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-glow: rgba(58, 175, 255, 0.2);
+    }
+    
+    html {
+      height: auto !important;
+      min-height: 100% !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      scrollbar-width: thin !important;
+    }
+
+    body {
+      background: var(--bg-studio);
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(58, 175, 255, 0.09) 0%, transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(53, 199, 120, 0.08) 0%, transparent 45%);
+      color: #e2e8f0;
+      font-family: 'Kanit', 'Inter', 'Plus Jakarta Sans', 'Sarabun', sans-serif;
+      min-height: 100vh;
+      height: auto !important;
+      overflow-x: hidden !important;
+      overflow-y: auto !important;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+    }
+
+    .studio-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 24px;
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(20, 28, 45, 0.85) 0%, rgba(11, 16, 28, 0.95) 100%);
+      border: 1px solid rgba(58, 175, 255, 0.25);
+      border-radius: 16px;
+      padding: 30px 36px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(58, 175, 255, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(58, 175, 255, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(58, 175, 255, 0.35);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #94a3b8;
+      margin: 0;
+      max-width: 980px;
+    }
+
+    /* Main Ingestion Workflow Card */
+    .workflow-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .step-desc {
+      font-size: 0.82rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    /* Select Dropdown Control */
+    .select-control {
+      background: #111726;
+      border: 1.5px solid rgba(58, 175, 255, 0.35);
+      color: #ffffff;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      width: 100%;
+      outline: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .select-control:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(58, 175, 255, 0.25);
+    }
+
+    /* Ingestion Grid: Two Columns */
+    .ingestion-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 960px) {
+      .ingestion-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form Section */
+    .form-panel {
+      background: rgba(14, 19, 31, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Output Section */
+    .output-panel {
+      background: rgba(14, 19, 31, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Custom Dropzone */
+    .custom-dropzone {
+      border: 2px dashed rgba(58, 175, 255, 0.35);
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 10px;
+      padding: 22px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .custom-dropzone:hover {
+      border-color: #38bdf8;
+      background: rgba(58, 175, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .custom-dropzone.has-file {
+      border-color: #34d399;
+      background: rgba(52, 211, 153, 0.08);
+    }
+
+    .custom-dropzone.has-error {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    /* File Inspection Result Box */
+    .inspection-result-box {
+      margin-top: 10px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 0.78rem;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .inspection-result-box.passed {
+      border-color: rgba(52, 211, 153, 0.45);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .inspection-result-box.failed {
+      border-color: rgba(239, 68, 68, 0.45);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .inspect-meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      color: #cbd5e1;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .check-item.passed {
+      color: #34d399;
+    }
+
+    .check-item.failed {
+      color: #ef4444;
+    }
+
+    /* Warning Callout Box */
+    .warning-callout {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1.5px solid rgba(245, 158, 11, 0.4);
+      border-radius: 10px;
+      padding: 16px;
+      color: #fde68a;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .warning-title {
+      font-weight: 700;
+      color: #fbbf24;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+    }
+
+    .warning-text {
+      font-size: 0.82rem;
+      line-height: 1.6;
+      color: #fef3c7;
+      margin: 0;
+    }
+
+    /* Recommendation Callout Box */
+    .recommend-callout {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #e0f2fe;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    /* Low-Resource Parameter Pill */
+    .param-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      color: #cbd5e1;
+    }
+
+    .param-pill b {
+      color: #38bdf8;
+    }
+
+    /* Radio Strategy Cards */
+    .radio-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .radio-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(58, 175, 255, 0.3);
+    }
+
+    .radio-card.active {
+      border-color: #38bdf8;
+      background: rgba(58, 175, 255, 0.08);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
+    }
+
+    /* Action Button */
+    .btn-execute {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 1.05rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .btn-execute:hover:not(:disabled) {
+      background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(16, 185, 129, 0.45);
+    }
+
+    .btn-execute:disabled {
+      background: #1e293b !important;
+      color: #64748b !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      box-shadow: none !important;
+      cursor: not-allowed !important;
+      transform: none !important;
+    }
+
+    /* Test Samples Catalog Drawer */
+    .test-samples-panel {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(58, 175, 255, 0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .test-samples-summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      cursor: pointer;
+      user-select: none;
+      background: rgba(58, 175, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .test-samples-summary:hover {
+      background: rgba(58, 175, 255, 0.08);
+    }
+
+    .test-samples-content {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .test-category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 1050px) {
+      .test-category-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .test-scenario-card {
+      background: rgba(11, 16, 26, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .test-card-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 8px;
+    }
+
+    .test-file-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      font-size: 0.76rem;
+      transition: background 0.15s ease;
+    }
+
+    .test-file-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .test-file-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .test-folder-name {
+      font-family: monospace;
+      font-weight: 700;
+      color: #93c5fd;
+    }
+
+    .badge-pass {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.35);
+      padding: 1px 7px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge-fail {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      padding: 1px 7px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .btn-copy-path {
+      background: rgba(58, 175, 255, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(58, 175, 255, 0.35);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy-path:hover {
+      background: rgba(58, 175, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    /* Post-Ingestion Interactive Studio */
+    .ingestion-studio-section {
+      width: 100%;
+      max-width: 1300px;
+      margin: 32px auto 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .studio-header-card {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(20, 27, 45, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .studio-badge-pill {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .model-tuning-toolbar {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .model-select-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .studio-select-control {
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #ffffff;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .model-telemetry-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .telemetry-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+    }
+
+    .telemetry-pill b {
+      color: #38bdf8;
+    }
+
+    .studio-card {
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .studio-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      padding-bottom: 12px;
+    }
+
+    /* Delta Comparison Grid */
+    .delta-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .delta-metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .delta-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .delta-label {
+      font-size: 0.74rem;
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .delta-values-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+    }
+
+    .val-old {
+      color: #cbd5e1;
+    }
+
+    .val-arrow {
+      color: #64748b;
+      font-size: 0.75rem;
+    }
+
+    .val-new {
+      color: #34d399;
+      font-weight: 700;
+    }
+
+    .delta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      width: fit-content;
+      margin-top: 4px;
+    }
+
+    .delta-badge.positive {
+      background: rgba(52, 211, 153, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.35);
+    }
+
+    .delta-badge.negative {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+
+    /* Swipe Slider */
+    .swipe-mode-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-swipe-mode {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-swipe-mode.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    .swipe-container {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(58, 175, 255, 0.3);
+      user-select: none;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      container-type: inline-size;
+      background: #080b12;
+    }
+
+    .swipe-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .swipe-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      border-right: 3px solid #38bdf8;
+      box-shadow: 2px 0 12px rgba(56, 189, 248, 0.5);
+    }
+
+    .swipe-overlay img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100cqw;
+      object-fit: cover;
+      max-width: none;
+    }
+
+    .swipe-slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #38bdf8;
+      color: #0c0e12;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: ew-resize;
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    .swipe-slider-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+      margin: 0;
+      z-index: 30;
+    }
+
+    .swipe-badge-left {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 8;
+      background: rgba(10, 15, 26, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      color: #38bdf8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 8px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swipe-badge-right {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 8;
+      background: rgba(10, 15, 26, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(52, 211, 153, 0.45);
+      color: #34d399;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 8px;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* False Color Tabs */
+    .false-color-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .fc-tab-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .fc-tab-btn.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(56, 189, 248, 0.25) 100%);
+      border-color: #34d399;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);
+    }
+
+    .composite-viewer-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #080b12;
+      cursor: crosshair;
+    }
+
+    .inspector-reticle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #38bdf8;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      box-shadow: 0 0 10px #38bdf8;
+      z-index: 10;
+    }
+
+    .inspector-tooltip {
+      position: absolute;
+      background: rgba(10, 15, 26, 0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.75rem;
+      pointer-events: none;
+      z-index: 15;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+      transform: translate(15px, 15px);
+    }
+
+    .fc-legend-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.74rem;
+      line-height: 1.5;
+    }
+
+    /* KPI Mini Cards */
+    .kpi-mini-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .kpi-mini-label {
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+
+    .kpi-mini-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    /* Health Dist List */
+    .health-dist-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .health-dist-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .health-dist-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #e2e8f0;
+    }
+
+    .health-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .health-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+
+    .hover-inspect-panel {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(56, 189, 248, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 14px;
+    }
+
+    /* Cloud Repair Studio Specific Styles */
+    .cloud-telemetry-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    @media (max-width: 900px) {
+      .cloud-telemetry-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .cloud-telemetry-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cloud-telemetry-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cloud-telemetry-val {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .cloud-telemetry-sub {
+      font-size: 0.7rem;
+      color: #64748b;
+    }
+
+    .cloud-3way-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    @media (max-width: 950px) {
+      .cloud-3way-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cloud-inspect-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      transition: all 0.2s ease;
+    }
+    .cloud-inspect-card:hover {
+      border-color: rgba(56, 189, 248, 0.45);
+      transform: translateY(-2px);
+    }
+    .cloud-inspect-header {
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .cloud-inspect-body {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #080b12;
+      overflow: hidden;
+    }
+    .cloud-inspect-body img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .cloud-inspect-footer {
+      padding: 10px 14px;
+      font-size: 0.74rem;
+      color: #94a3b8;
+      line-height: 1.4;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-cloud-swipe-mode {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-cloud-swipe-mode.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header (Matching http://localhost:8080/cloudmae 1:1) -->
+  <header class="header-bar">
+    <div class="brand-section">
+      <div class="brand-logo">TM</div>
+      <div>
+        <h1 class="brand-title">True Miracle GeoAI</h1>
+        <div class="brand-subtitle">GISxKMUTNB • Oil Palm Intelligence</div>
+      </div>
+    </div>
+
+    <!-- Mode Switcher Tabs -->
+    <nav class="mode-tabs">
+      <a href="/" class="tab-btn" id="tab-explore" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+        <span>สำรวจและทดสอบโมเดล</span>
+      </a>
+      <a href="/cloudmae" class="tab-btn" id="tab-cloud" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+        <span>ซ่อมแซมเมฆ (Cloud-MAE)</span>
+      </a>
+      <a href="/?mode=health" class="tab-btn" id="tab-health" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        <span>สุขภาพพืช (NDVI)</span>
+      </a>
+      <a href="/import" class="tab-btn active" id="tab-upload" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        <span>นำเข้าและจัดการแปลง (Import)</span>
+      </a>
+      <a href="/research" class="tab-btn" id="tab-research" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+        <span>งานวิจัยและผลทดสอบ (Research)</span>
+      </a>
+    </nav>
+
+    <!-- Header Actions & GPU Status -->
+    <div class="header-actions">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span id="studio-gpu-name">NVIDIA GeForce RTX 5060 Ti</span>
+      </div>
+      <a href="/admin" class="admin-link-btn" id="link-admin" style="display: inline-flex; align-items: center; gap: 6px;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="8" rx="1"/><rect x="12" y="6" width="3" height="12" rx="1"/><rect x="17" y="13" width="3" height="5" rx="1"/></svg>
+        <span>แดชบอร์ด & Log</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Studio Main Content -->
+  <main class="studio-container">
+    
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-tag">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        <span>GeoAI Ingestion & Autonomous Segmentation Pipeline</span>
+      </div>
+      <h1 class="hero-title">ศูนย์จัดการและนำเข้าข้อมูลแปลงดาวเทียมอัจฉริยะ</h1>
+      <p class="hero-desc">
+        ออกแบบเพื่อรองรับกระบวนการทำงานจริงทางด้านรีโมทเซนซิง (Remote Sensing Workflows) โดยแบ่งตามวัตถุประสงค์ของการนำเข้าข้อมูล พร้อมระบบตรวจสอบความเข้ากันได้ของระบบพิกัด, สเปกตรัม, และระบบสกัดขอบเขตแปลงอัตโนมัติด้วย Foundation Model (SAM-1)
+      </p>
+    </section>
+
+
+
+    <!-- Main Ingestion Workflow Bento Card -->
+    <section class="workflow-card">
+      
+      <!-- STEP 1: Scenario Selector -->
+      <div>
+        <div class="step-header">
+          <span class="step-badge">1</span>
+          <div>
+            <h2 class="step-title">เลือกวัตถุประสงค์และรูปแบบการนำเข้าข้อมูล (Select Import Workflow Scenario)</h2>
+            <p class="step-desc">กรุณาเลือกรูปแบบที่สอดคล้องกับเป้าหมายการประมวลผล เพื่อให้ระบบจัดเตรียมช่องแนบไฟล์และเงื่อนไขการตรวจสอบที่ถูกต้อง:</p>
+          </div>
+        </div>
+
+        <select id="scenario-dropdown" class="select-control">
+          <option value="update_existing" selected>
+            🔄 1. นำเข้าข้อมูลแผนที่ใหม่ในพื้นที่เดิมที่มีอยู่แล้ว เพื่อคำนวณใหม่ (Update Satellite for Existing Zone)
+          </option>
+          <option value="cloud_repair">
+            ☁️ 2. การนำเข้า Sentinel-2 เพื่อซ่อมพื้นที่เมฆด้วยเรดาร์ Cloud-MAE (Cloud Inpainting & Restoration)
+          </option>
+          <option value="new_zone">
+            🌐 3. นำเข้าพื้นที่ศึกษาใหม่ทั้งหมด (Import Brand New Geographic Zone / Area of Interest)
+          </option>
+        </select>
+      </div>
+
+      <!-- STEP 2: Ingestion Requirements Grid -->
+      <div>
+        <div class="step-header">
+          <span class="step-badge">2</span>
+          <div>
+            <h2 class="step-title">ข้อกำหนดไฟล์และผลลัพธ์ที่จะได้รับ (Files Specification & Deliverables)</h2>
+            <p class="step-desc">ระบบตรวจสอบโครงสร้างไฟล์ระดับพิกเซลผ่าน rasterio และ geopandas ก่อนอนุญาตให้ประมวลผล</p>
+          </div>
+        </div>
+
+        <div class="ingestion-grid">
+          
+          <!-- Left: Dynamic Ingestion Form Fields -->
+          <div class="form-panel">
+            
+            <!-- Dynamic Content for Scenario 1: Update Existing -->
+            <div id="content-scenario-1" class="scenario-content">
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                  <label for="select-target-zone" style="font-size: 0.85rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 6px;">
+                    เลือกพื้นที่ศึกษาเป้าหมายที่ต้องการอัปเดต:
+                  </label>
+                  <select id="select-target-zone" class="select-control" style="width: 100%; padding: 10px 14px; font-size: 0.85rem;">
+                    <option value="1">Zone 1: บ้านบึง-ใต้ (509 แปลง • 5,569 ไร่)</option>
+                    <option value="2">Zone 2: บ้านบึง-ตะวันออก (344 แปลง • 4,223 ไร่)</option>
+                    <option value="3">Zone 3: บ้านบึง-เหนือ (250 แปลง • 2,995 ไร่)</option>
+                    <option value="4">Zone 4: ชลบุรี-ระยอง (124 แปลง • 1,794 ไร่)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.85rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 6px;">
+                    แนบไฟล์ภาพดาวเทียมรอบใหม่ (New Satellite GeoTIFF):
+                  </label>
+                  <div class="custom-dropzone" id="dropzone-s1-update">
+                    <svg class="svg-icon-lg" viewBox="0 0 24 24" style="color: #38bdf8;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                    <div>
+                      <b style="color: #ffffff; font-size: 0.88rem;">คลิกเพื่อเลือกไฟล์</b> <span style="color: #94a3b8; font-size: 0.82rem;">หรือลากไฟล์ GeoTIFF มาวาง</span>
+                    </div>
+                    <span style="font-size: 0.72rem; color: #64748b;">รองรับ .tif, .tiff (EPSG:4326 หรือ EPSG:3857)</span>
+                    <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.8rem; margin-top: 4px;"></span>
+                  </div>
+                  <input type="file" id="input-s1-update" style="display: none;" accept=".tif,.tiff">
+                  <!-- Real Inspection Box -->
+                  <div class="inspection-result-box" id="inspect-box-s1-update"></div>
+                </div>
+
+                <!-- Spec Info Card -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 12px; font-size: 0.76rem; line-height: 1.5; color: #94a3b8;">
+                  <b style="color: #38bdf8;">📋 ลักษณะข้อมูลที่ต้องเตรียม:</b>
+                  <ul style="margin: 6px 0 0 18px; padding: 0;">
+                    <li>ภาพถ่ายรอบใหม่ต้องมี Georeference ครอบคลุมพิกัด Bounding Box ของโซนเดิม</li>
+                    <li>หากเป็นภาพ Sentinel-2 ควรผ่านการแก้ชั้นบรรยากาศ (Level-2A BOA Reflectance)</li>
+                    <li>ขนาดพิกเซลควรมีความละเอียดสอดคล้องกับมาตรฐาน (10m สำหรับ Sentinel-1/2)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Content for Scenario 2: Cloud Repair -->
+            <div id="content-scenario-2" class="scenario-content" style="display: none;">
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+
+                <!-- Cloud Masking Source Configuration -->
+                <div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 14px;">
+                  <label style="font-size: 0.85rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                    รูปแบบหน้ากากเมฆของภาพ Sentinel-2 (Cloud Masking Source):
+                  </label>
+                  <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.80rem;">
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 6px 8px; border-radius: 6px; background: rgba(255,255,255,0.02);">
+                      <input type="radio" name="cloud-mask-mode" value="auto" checked style="margin-top: 3px; accent-color: #38bdf8;">
+                      <div>
+                        <b style="color: #ffffff;">1. ตรวจจับเมฆอัตโนมัติจากแบนด์สเปกตรัม (Auto Spectral Rule - 7 แบนด์)</b>
+                        <div style="color: #94a3b8; font-size: 0.74rem;">ใช้อัลกอริทึม SWIR + Whiteness + Brightness จำแนกแกนเมฆหนาและขอบเมฆอย่างแม่นยำ ไม่เกิดรูขาวตรงกลาง (ไม่ต้องมีแบนด์พิเศษ)</div>
+                      </div>
+                    </label>
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 6px 8px; border-radius: 6px; background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.15);">
+                      <input type="radio" name="cloud-mask-mode" value="scl" style="margin-top: 3px; accent-color: #38bdf8;">
+                      <div>
+                        <b style="color: #38bdf8;">2. ใช้แบนด์หน้ากากเมฆทางการ ESA (Official SCL - 8 แบนด์) [แนะนำที่สุดสำหรับภาพดาวเทียมจริง]</b>
+                        <div style="color: #94a3b8; font-size: 0.74rem;">ต้องการไฟล์ที่มี 8 แบนด์ (แบนด์ที่ 8 คือ SCL จาก ESA Sen2Cor) ระบุทั้งเมฆหนา เมฆเซอรัส และเงาเมฆ (Cloud Shadows) ครบถ้วน 100%</div>
+                      </div>
+                    </label>
+                    <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; padding: 6px 8px; border-radius: 6px; background: rgba(255,255,255,0.02);">
+                      <input type="radio" name="cloud-mask-mode" value="pre_masked" style="margin-top: 3px; accent-color: #34d399;">
+                      <div>
+                        <b style="color: #34d399;">3. ภาพผ่านการเจาะเมฆล่วงหน้าแล้ว (Pre-Masked / Alpha / Punch-Out GeoTIFF)</b>
+                        <div style="color: #94a3b8; font-size: 0.74rem;">สำหรับภาพที่ทำการเจาะเมฆออกแล้ว (พิกเซลเมฆเป็น 0, NaN หรือ Alpha) โมเดลจะเข้าซ่อมแซมเฉพาะช่องว่างที่เจาะไว้ทันที</div>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.85rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 6px;">
+                    1. ภาพถ่าย Optical Sentinel-2 ที่มีเมฆบัง (Cloudy S2):
+                  </label>
+                  <div class="custom-dropzone" id="dropzone-s2-cloudy">
+                    <svg class="svg-icon-lg" viewBox="0 0 24 24" style="color: #38bdf8;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                    <div>
+                      <b style="color: #ffffff; font-size: 0.88rem;">แนบภาพ Sentinel-2 ที่ติดเมฆ</b>
+                    </div>
+                    <span style="font-size: 0.72rem; color: #64748b;">7 Bands หรือ 8 Bands (พร้อมแบนด์ SCL) • .tif หรือ .npz</span>
+                    <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.8rem; margin-top: 4px;"></span>
+                  </div>
+                  <input type="file" id="input-s2-cloudy" style="display: none;" accept=".tif,.tiff,.npz">
+                  <div class="inspection-result-box" id="inspect-box-s2-cloudy"></div>
+                </div>
+
+                <div>
+                  <label style="font-size: 0.85rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 6px;">
+                    2. ภาพเรดาร์ Sentinel-1 SAR คู่กัน (Paired Radar S1):
+                  </label>
+                  <div class="custom-dropzone" id="dropzone-s1-sar">
+                    <svg class="svg-icon-lg" viewBox="0 0 24 24" style="color: #10b981;"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    <div>
+                      <b style="color: #ffffff; font-size: 0.88rem;">แนบภาพเรดาร์ Sentinel-1 SAR ทะลุเมฆ</b>
+                    </div>
+                    <span style="font-size: 0.72rem; color: #64748b;">Dual-Pol (VV + VH) ช่วงเวลาเดียวกัน • .tif หรือ .npz</span>
+                    <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.8rem; margin-top: 4px;"></span>
+                  </div>
+                  <input type="file" id="input-s1-sar" style="display: none;" accept=".tif,.tiff,.npz">
+                  <div class="inspection-result-box" id="inspect-box-s1-sar"></div>
+                </div>
+
+                <!-- Spec Info Card -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 12px; font-size: 0.76rem; line-height: 1.5; color: #94a3b8;">
+                  <b style="color: #38bdf8;">📋 เงื่อนไขเพื่อการซ่อมแซมที่สมบูรณ์แบบ:</b>
+                  <ul style="margin: 6px 0 0 18px; padding: 0;">
+                    <li>ภาพทั้งสองต้องผ่านการทำ Co-registration (พิกัดตรงกันแบบพิกเซลต่อพิกเซล)</li>
+                    <li>โมเดล Cloud-MAE จะใช้เรดาร์ส่องทะลุเมฆเป็นไกด์นำทางในการสร้างภาพ 7 แบนด์ขึ้นมาใหม่</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Content for Scenario 3: New Zone -->
+            <div id="content-scenario-3" class="scenario-content" style="display: none;">
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                  <label for="input-zone-name" style="font-size: 0.85rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 6px;">
+                    ชื่อและรายละเอียดพื้นที่ใหม่ (Zone Name & Province):
+                  </label>
+                  <input type="text" id="input-zone-name" class="select-control" placeholder="เช่น สวนปาล์มแปลงใหญ่ อ.พุนพิน จ.สุราษฎร์ธานี" style="width: 100%; box-sizing: border-box; padding: 10px 14px;">
+                </div>
+
+                <!-- 3 Satellite Layer Dropzones -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <div>
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 4px;">Sentinel-1 SAR (.tif)</span>
+                    <div class="custom-dropzone" id="dropzone-new-s1" style="padding: 16px 8px;">
+                      <svg class="svg-icon" viewBox="0 0 24 24" style="color: #38bdf8;"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+                      <span style="font-size: 0.75rem; color: #fff;">แนบไฟล์ S1</span>
+                      <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.75rem;"></span>
+                    </div>
+                    <input type="file" id="input-new-s1" style="display: none;" accept=".tif,.tiff">
+                    <div class="inspection-result-box" id="inspect-box-new-s1"></div>
+                  </div>
+                  <div>
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 4px;">Sentinel-2 Optical (.tif)</span>
+                    <div class="custom-dropzone" id="dropzone-new-s2" style="padding: 16px 8px;">
+                      <svg class="svg-icon" viewBox="0 0 24 24" style="color: #10b981;"><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/></svg>
+                      <span style="font-size: 0.75rem; color: #fff;">แนบไฟล์ S2</span>
+                      <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.75rem;"></span>
+                    </div>
+                    <input type="file" id="input-new-s2" style="display: none;" accept=".tif,.tiff">
+                    <div class="inspection-result-box" id="inspect-box-new-s2"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <span style="font-size: 0.78rem; font-weight: 700; color: #cbd5e1; display: block; margin-bottom: 4px;">Google Satellite / High-Res Imagery (0.5m RGB .tif)</span>
+                  <div class="custom-dropzone" id="dropzone-new-gsat" style="padding: 16px 8px;">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="color: #f59e0b;"><rect width="18" height="18" x="3" y="3" rx="2"/></svg>
+                    <span style="font-size: 0.78rem; color: #fff;">แนบภาพความละเอียดสูง 0.5m</span>
+                    <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.75rem;"></span>
+                  </div>
+                  <input type="file" id="input-new-gsat" style="display: none;" accept=".tif,.tiff">
+                  <div class="inspection-result-box" id="inspect-box-new-gsat"></div>
+                </div>
+
+                <!-- Segmentation Mode Selector -->
+                <div style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px;">
+                  <label style="font-size: 0.85rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 8px;">
+                    การจัดเตรียมแผนที่ขอบเขตแปลง (Parcel Boundary Strategy):
+                  </label>
+                  
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Radio A -->
+                    <label class="radio-card active" id="card-radio-vector">
+                      <input type="radio" name="seg_strategy" value="custom_vector" checked style="accent-color: #38bdf8; margin-top: 2px;">
+                      <div style="line-height: 1.4;">
+                        <b style="color: #38bdf8; font-size: 0.82rem;">มีไฟล์ขอบเขตแปลงอยู่แล้ว (Upload Verified Vector Parcels — แนะนำอย่างยิ่ง ★)</b>
+                        <p style="margin: 2px 0 0 0; font-size: 0.74rem; color: #94a3b8;">
+                          ใช้ข้อมูลแปลงที่สำรวจรังวัดจริง หรือนำเข้าไฟล์ GeoJSON, Shapefile, GPKG ที่ผ่านการตรวจแล้ว
+                        </p>
+                      </div>
+                    </label>
+
+                    <div id="vector-upload-box" style="margin-left: 24px;">
+                      <div class="custom-dropzone" id="dropzone-vector-parcels" style="padding: 14px 10px;">
+                        <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #38bdf8;"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                        <span style="font-size: 0.78rem; color: #fff;">แนบไฟล์แปลง (.geojson, .gpkg, .zip)</span>
+                        <span class="file-name-label" style="display: none; color: #34d399; font-weight: 700; font-size: 0.75rem;"></span>
+                      </div>
+                      <input type="file" id="input-vector-parcels" style="display: none;" accept=".geojson,.json,.gpkg,.zip">
+                      <div class="inspection-result-box" id="inspect-box-vector-parcels"></div>
+                    </div>
+
+                    <!-- Radio B -->
+                    <label class="radio-card" id="card-radio-sam">
+                      <input type="radio" name="seg_strategy" value="auto_sam1" style="accent-color: #f59e0b; margin-top: 2px;">
+                      <div style="line-height: 1.4;">
+                        <b style="color: #fbbf24; font-size: 0.82rem;">ไม่มีแผนที่ขอบเขตแปลง — ให้โมเดล SAM-1 สกัดแปลงให้อัตโนมัติ (Automated Fallback)</b>
+                        <p style="margin: 2px 0 0 0; font-size: 0.74rem; color: #94a3b8;">
+                          ใช้โมเดล Segment Anything (SAM-1) บนเครื่องเพื่อสแกนและสร้าง Polygon ของแปลงปาล์ม
+                        </p>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- SAM-1 Latency & Suboptimal Quality Warning Callout (shown when Radio B is selected) -->
+                <div id="sam-warning-container" style="display: none; flex-direction: column; gap: 10px;">
+                  <div class="warning-callout">
+                    <span class="warning-title">
+                      <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #fbbf24;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                      <span>ข้อควรทราบด้านระยะเวลาและคุณภาพการสกัดแปลง (SAM-1 Notice):</span>
+                    </span>
+                    <p class="warning-text">
+                      • <b>ระยะเวลาในการทำงาน:</b> การประมวลผลด้วยโมเดล Segment Anything (SAM-1) บนภาพถ่ายดาวเทียมขนาดใหญ่ <b>ใช้ระยะเวลาในการทำงานนาน</b> เนื่องจากต้องทำการสแกน Grid Point ทั่วทั้งภาพ<br>
+                      • <b>คุณภาพของแปลง:</b> ผลลัพธ์จากการ Segment ด้วยโมเดล SAM-1 ทั่วไปจะมี <b>คุณภาพต่ำกว่าที่ควรเป็น</b> เนื่องจาก SAM เป็น Generic Foundation Model ที่ไม่ได้ถูก Fine-tune เฉพาะทางสำหรับทรงพุ่มปาล์มน้ำมัน อาจเกิดขอบเขตแปลงแตกย่อยหรือซ้อนทับกัน
+                    </p>
+                  </div>
+
+                  <div class="recommend-callout">
+                    <svg class="svg-icon" viewBox="0 0 24 24" style="color: #38bdf8; min-width: 20px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    <div>
+                      <b style="color: #38bdf8;">ข้อความแนะนำจากผู้เชี่ยวชาญ GeoAI:</b><br>
+                      ขอแนะนำให้ใช้ <b>"พื้นที่ Segment ที่มั่นใจในคุณภาพ"</b> เช่น ไฟล์สำรวจรังวัดจริง เพื่อให้การประเมินคาร์บอนเครดิต, สถิติความแม่นยำ (F1-Score) และการคาดการณ์ผลผลิตมีความถูกต้องแม่นยำสูงสุดตามมาตรฐานวิชาการ
+                    </div>
+                  </div>
+
+                  <!-- Low Resource Configuration Badge -->
+                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 14px; font-size: 0.75rem;">
+                    <span style="color: #34d399; font-weight: 700; display: block; margin-bottom: 6px;">
+                      ⚙️ การปรับแต่งเพื่อประหยัดทรัพยากรการคำนวณ (Low-Resource Presets Configured):
+                    </span>
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+                      <span class="param-pill">Points per side: <b>16 (ลด 75%)</b></span>
+                      <span class="param-pill">Pred IOU Thresh: <b>0.70</b></span>
+                      <span class="param-pill">Stability Score: <b>0.80</b></span>
+                      <span class="param-pill">Min Mask Area: <b>500 px</b></span>
+                      <span class="param-pill">Multiscale Crops: <b>Disabled (Save VRAM)</b></span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Expected Deliverables & Flow Panel -->
+          <div class="output-panel">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">
+              <span style="font-weight: 700; color: #ffffff; font-size: 0.92rem; display: flex; align-items: center; gap: 8px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #34d399;"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>ผลลัพธ์ที่จะได้จากการประมวลผล (Deliverables):</span>
+              </span>
+              <span id="output-scenario-badge" style="background: rgba(58, 175, 255, 0.15); color: #38bdf8; font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;">
+                UPDATE PIPELINE
+              </span>
+            </div>
+
+            <div id="output-deliverables-list" style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem; line-height: 1.5; color: #cbd5e1;">
+              <!-- Populated dynamically by JS -->
+            </div>
+
+            <!-- Visual Flowchart Preview -->
+            <div style="margin-top: auto; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px;">
+              <span style="font-size: 0.72rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; display: block; margin-bottom: 8px;">
+                Pipeline Architecture Flow:
+              </span>
+              <div id="pipeline-flow-diagram" style="font-size: 0.75rem; color: #e2e8f0; line-height: 1.6;">
+                GeoTIFF Ingestion ➔ CRS Validation ➔ Zonal Overlay ➔ 3D Deck.GL Projection
+              </div>
+            </div>
+
+            <!-- Validation Checklist Summary Status -->
+            <div id="validation-summary-box" style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px; font-size: 0.78rem;">
+              <span style="color: #94a3b8; font-weight: 700; display: block; margin-bottom: 4px;">
+                🔍 สถานะการตรวจสอบไฟล์นำเข้า:
+              </span>
+              <span id="validation-status-text" style="color: #fbbf24; font-weight: 600;">
+                รอการแนบไฟล์ที่จำเป็นให้ครบถ้วน...
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- STEP 3: Execution Button & Status -->
+      <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px;">
+        <button id="btn-run-pipeline" class="btn-execute" disabled>
+          <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span id="btn-run-text">กรุณาแนบไฟล์และผ่านการตรวจสอบเงื่อนไขทั้งหมดก่อนเริ่มประมวลผล</span>
+        </button>
+
+        <!-- Progress State Container -->
+        <div id="pipeline-progress-box" style="display: none; max-width: 500px; margin: 16px auto 0 auto; flex-direction: column; gap: 8px; text-align: left;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+            <span id="progress-status-text" style="color: #38bdf8; font-weight: 600;">กำลังประมวลผลบน GPU...</span>
+            <span id="progress-pct-text" style="color: #34d399; font-weight: 700;">ประมวลผลจริง</span>
+          </div>
+          <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden;">
+            <div id="progress-bar-fill" style="width: 100%; height: 100%; background: linear-gradient(90deg, #38bdf8, #10b981); animation: pulse 1.5s infinite;"></div>
+          </div>
+        </div>
+
+        <!-- Success Result Card -->
+        <div id="pipeline-result-success" style="display: none; max-width: 720px; margin: 20px auto 0 auto; background: rgba(16, 185, 129, 0.1); border: 1.5px solid rgba(16, 185, 129, 0.4); border-radius: 12px; padding: 22px; text-align: left;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span style="color: #34d399; font-weight: 800; font-size: 1.05rem; display: flex; align-items: center; gap: 8px;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>ประมวลผลสำเร็จเรียบร้อย! (Ingestion Complete — Real Output)</span>
+            </span>
+            <span id="result-duration-badge" style="background: rgba(255,255,255,0.1); font-size: 0.75rem; color: #ffffff; padding: 2px 10px; border-radius: 4px;"></span>
+          </div>
+          <p id="result-message-text" style="font-size: 0.88rem; color: #e2e8f0; line-height: 1.5; margin: 0 0 14px 0;"></p>
+          
+          <!-- Dynamic Real Metrics Grid -->
+          <div id="result-metrics-container" style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; font-size: 0.8rem; line-height: 1.6;">
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button type="button" id="btn-scroll-studio" class="btn-execute" style="width: auto; padding: 10px 24px; font-size: 0.88rem; margin: 0; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+              <span>ดูห้องแล็บวิเคราะห์ข้อมูลใหม่ & ปรับแต่งโมเดลในหน้าเดิม (View Studio Below)</span>
+            </button>
+            <button type="button" id="btn-reset-form" style="background: rgba(255,255,255,0.08); border: 1px solid var(--card-border); color: #cbd5e1; padding: 10px 18px; border-radius: 10px; font-size: 0.82rem; cursor: pointer;">
+              นำเข้าชุดอื่นเพิ่ม
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         INTERACTIVE POST-INGESTION STUDIO (ผลลัพธ์การวิเคราะห์ข้อมูลใหม่ในหน้าเดิม)
+         ========================================================================= -->
+    <section id="ingestion-studio-container" class="ingestion-studio-section" style="display: none;">
+      
+      <!-- Studio Header with Dynamic Badge and Titles -->
+      <div class="studio-header-card">
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="studio-badge-pill" id="studio-badge-pill">🚀 ผลลัพธ์ข้อมูลใหม่ (Real Ingested Data)</div>
+            <h2 style="font-size: 1.25rem; font-weight: 800; color: #ffffff; margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span id="studio-main-title">ห้องแล็บวิเคราะห์ข้อมูลใหม่ & ปรับแต่งโมเดล AI</span>
+            </h2>
+          </div>
+          <p id="studio-main-subtitle" style="font-size: 0.8rem; color: #94a3b8; margin: 0;">
+            แสดงผลการวิเคราะห์พิกเซลจริงจากไฟล์ที่อัปโหลด • เปรียบเทียบข้อมูลเดิมกับข้อมูลใหม่ • สลับโมเดล AI และเลือกโหมด False Coloring ได้อิสระ
+          </p>
+        </div>
+      </div>
+
+      <!-- Scenario 2: Cloud-MAE Radar Inpainting & Cloud Repair Dedicated Studio (ห้องแล็บฟื้นฟูเรดาร์ & ซ่อมแซมเมฆ ขึ้นก่อน) -->
+      <div id="studio-scenario-2-wrap" style="display: none; flex-direction: column; gap: 20px;">
+
+        <!-- Architecture & Technology Overview Bar -->
+        <div style="background: rgba(14, 20, 32, 0.7); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 38px; height: 38px; border-radius: 8px; background: rgba(56, 189, 248, 0.15); display: flex; align-items: center; justify-content: center; color: #38bdf8;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff; font-size: 0.95rem;">โครงข่ายประสาทเทียม Radar-Guided Cloud-MAE ViT (500 Epochs Pretrained)</div>
+              <div style="font-size: 0.75rem; color: #94a3b8;">ผสานคลื่นเรดาร์ไมโครเวฟ Sentinel-1 SAR เพื่อสังเคราะห์พื้นผิวและโครงสร้างพืชพันธุ์ Sentinel-2 ที่ถูกเมฆบดบัง</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="badge-pass">Active Hardware: NVIDIA RTX 5060 Ti</span>
+            <span style="background: rgba(56, 189, 248, 0.12); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700;">Multi-Modal Inpainting</span>
+          </div>
+        </div>
+
+        <!-- 4 Real Telemetry Metrics Cards -->
+        <div class="cloud-telemetry-grid">
+          <div class="cloud-telemetry-card">
+            <span class="cloud-telemetry-label">ความคมชัดเทียบเดิม (PSNR)</span>
+            <div class="cloud-telemetry-val" id="cloud-psnr" style="color: #38bdf8;">-- dB</div>
+            <span class="cloud-telemetry-sub">Peak Signal-to-Noise Ratio ต่อพิกเซลเมฆ</span>
+          </div>
+
+          <div class="cloud-telemetry-card">
+            <span class="cloud-telemetry-label">ค่าความคลาดเคลื่อนเฉลี่ย (MSE Loss)</span>
+            <div class="cloud-telemetry-val" id="cloud-mse" style="color: #34d399;">--</div>
+            <span class="cloud-telemetry-sub">Mean Squared Error ในแถบสเปกตรัมที่ซ่อมแซม</span>
+          </div>
+
+          <div class="cloud-telemetry-card">
+            <span class="cloud-telemetry-label">พื้นที่เมฆที่กู้คืนสำเร็จ</span>
+            <div class="cloud-telemetry-val" id="cloud-coverage" style="color: #a78bfa;">--%</div>
+            <span class="cloud-telemetry-sub">สัดส่วนพิกเซลที่บดบังและได้รับการคืนค่า 100%</span>
+          </div>
+
+          <div class="cloud-telemetry-card">
+            <span class="cloud-telemetry-label">ความเร็วประมวลผล GPU</span>
+            <div class="cloud-telemetry-val" id="cloud-latency" style="color: #fbbf24;">-- ms</div>
+            <span class="cloud-telemetry-sub">ระยะเวลาส่งต่อผ่าน ViT Encoder-Decoder บน VRAM</span>
+          </div>
+        </div>
+
+        <!-- Before / After Interactive Split Swipe Slider for Cloud Inpainting -->
+        <div class="studio-card">
+          <div class="studio-card-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: #38bdf8;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <h3 style="margin: 0; font-size: 1rem; color: #ffffff;">เปรียบเทียบภาพก่อน-หลังซ่อมแซมเมฆ (Before vs After Cloud Repair)</h3>
+            </div>
+            <span style="font-size: 0.72rem; color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+              <span>💡 คลิกค้างแล้วลากเมาส์ หรือใช้ลูกกลิ้งเมาส์ (Mouse Wheel) เพื่อเลื่อนแถบเปรียบเทียบ</span>
+            </span>
+          </div>
+
+          <!-- Mode Pills for Cloud Swipe -->
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+            <div class="swipe-mode-pills">
+              <button type="button" class="btn-cloud-swipe-mode active" data-cloudswipemode="rgb">🟢 ภาพสีธรรมชาติ (True Color RGB)</button>
+              <button type="button" class="btn-cloud-swipe-mode" data-cloudswipemode="cir">🔴 ภาพอินฟราเรดสีสะท้อน (CIR: B8,B4,B3)</button>
+              <button type="button" class="btn-cloud-swipe-mode" data-cloudswipemode="ndvi">🌿 ดัชนีสุขภาพพืช (NDVI Heatmap)</button>
+              <button type="button" class="btn-cloud-swipe-mode" data-cloudswipemode="sar">📡 เรดาร์เจาะทะลุเมฆ (Radar SAR)</button>
+            </div>
+            <span style="font-size: 0.74rem; color: #94a3b8;">เปรียบเทียบการทะลุเมฆฟื้นฟูโครงสร้างพืชและพื้นดิน</span>
+          </div>
+
+          <div class="swipe-container" id="cloud-swipe-container">
+            <!-- Background Image: ภาพผลลัพธ์ที่ฟื้นฟูแล้ว (Restored S2) -->
+            <img id="img-cloud-swipe-restored" class="swipe-img" src="" alt="ภาพผลลัพธ์ฟื้นฟูลบเมฆแล้ว">
+
+            <!-- Foreground Overlaid Image: ภาพติดเมฆเดิม (Clipped by swipe width) -->
+            <div class="swipe-overlay" id="cloud-swipe-overlay" style="width: 50%;">
+              <img id="img-cloud-swipe-cloudy" src="" alt="ภาพถ่ายติดเมฆเดิม">
+            </div>
+
+            <!-- Draggable Swipe Handle -->
+            <div class="swipe-slider-handle" id="cloud-swipe-handle" style="left: 50%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
+            </div>
+
+            <!-- Transparent Range Slider Input -->
+            <input type="range" class="swipe-slider-input" id="cloud-swipe-input" min="0" max="100" value="50">
+
+            <!-- Floating Badges -->
+            <div class="swipe-badge-left" id="cloud-swipe-badge-left">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+              <span>ภาพถ่ายติดเมฆเดิม (Cloudy S2 RGB)</span>
+            </div>
+            <div class="swipe-badge-right" id="cloud-swipe-badge-right">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>ภาพฟื้นฟูไร้เมฆ (Cloud-Free Restored S2)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Way Comparative High-Resolution Inspection Grid -->
+        <div class="studio-card">
+          <div class="studio-card-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: #10b981;"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+              <h3 style="margin: 0; font-size: 1rem; color: #ffffff;">การวิเคราะห์เปรียบเทียบแบบ 3 มิติ (3-Way Multi-Modal Sensor Inspection)</h3>
+            </div>
+            <span style="font-size: 0.74rem; color: #94a3b8;">Sentinel-1 SAR + Sentinel-2 Multi-Spectral</span>
+          </div>
+
+          <div class="cloud-3way-grid">
+            <!-- 1. Cloudy Optical Input -->
+            <div class="cloud-inspect-card">
+              <div class="cloud-inspect-header">
+                <span style="color: #f87171; display: flex; align-items: center; gap: 6px;">
+                  <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                  <span>1. ภาพออปติคอลที่ติดเมฆ (Cloudy S2)</span>
+                </span>
+                <span style="font-size: 0.7rem; color: #94a3b8;">Input Optical</span>
+              </div>
+              <div class="cloud-inspect-body">
+                <img id="img-3way-cloudy" src="" alt="ภาพติดเมฆเดิม">
+              </div>
+              <div class="cloud-inspect-footer">
+                แบนด์แสงขาว (B4,B3,B2) ตรวจพบบริเวณเมฆจริงและเงาเมฆ โมเดลจะตัดส่วนเมฆจริงนี้เพื่อทำการซ่อมแซมอย่างแม่นยำ
+              </div>
+            </div>
+
+            <!-- 2. Sentinel-1 SAR Radar -->
+            <div class="cloud-inspect-card">
+              <div class="cloud-inspect-header">
+                <span style="color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+                  <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/></svg>
+                  <span>2. เรดาร์เจาะทะลุเมฆ (Sentinel-1 SAR)</span>
+                </span>
+                <span style="font-size: 0.7rem; color: #38bdf8;">C-Band Radar</span>
+              </div>
+              <div class="cloud-inspect-body">
+                <img id="img-3way-radar" src="" alt="สัญญาณเรดาร์">
+              </div>
+              <div class="cloud-inspect-footer">
+                คลื่นไมโครเวฟ Active Radar ความยาวคลื่น C-Band ขั้วคู่ (VV/VH) ทะลุทะลวงเมฆและหมอกควัน บันทึกโครงสร้างทางกายภาพและความหนาแน่นของต้นปาล์ม
+              </div>
+            </div>
+
+            <!-- 3. Cloud-Free Restored Output -->
+            <div class="cloud-inspect-card" style="border-color: rgba(52, 211, 153, 0.4);">
+              <div class="cloud-inspect-header">
+                <span style="color: #34d399; display: flex; align-items: center; gap: 6px;">
+                  <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>3. ภาพฟื้นฟูไร้เมฆ (Cloud-Free Restored)</span>
+                </span>
+                <span class="badge-pass">AI Restored</span>
+              </div>
+              <div class="cloud-inspect-body">
+                <img id="img-3way-restored" src="" alt="ภาพผลลัพธ์ฟื้นฟูลบเมฆ">
+              </div>
+              <div class="cloud-inspect-footer">
+                โมเดล Cloud-MAE ผสานเรดาร์เพื่อฟื้นฟูค่าการสะท้อนแสงครบทั้ง 7 แบนด์ของ Sentinel-2 อย่างถูกต้องทางวิทยาศาสตร์ ดึงรายละเอียดสวนปาล์มกลับมาครบถ้วน
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download & Export Restored GeoTIFF Bar -->
+        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 78, 59, 0.25) 100%); border: 1.5px solid rgba(52, 211, 153, 0.35); border-radius: 14px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(52, 211, 153, 0.2); display: flex; align-items: center; justify-content: center; color: #34d399;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <div>
+              <div style="font-size: 1rem; font-weight: 700; color: #ffffff;">ส่งออกภาพถ่ายดาวเทียมที่ผ่านการซ่อมแซมเสร็จสมบูรณ์</div>
+              <div style="font-size: 0.78rem; color: #94a3b8; margin-top: 2px;">
+                บันทึกเป็น GeoTIFF 7 แบนด์ (B2, B3, B4, B8A, B8, B11, B12) พิกัด CRS และ Georeference เดิม นำไปเปิดใน QGIS / ArcGIS หรือรันโมเดลต่อได้ทันที
+              </div>
+            </div>
+          </div>
+
+          <a id="btn-download-restored-tif" href="#" download class="btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #ffffff; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4); cursor: pointer; transition: all 0.2s ease;">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>ดาวน์โหลดภาพดาวเทียมที่ผ่านการซ่อมแซม (7-Bands GeoTIFF .tif)</span>
+          </a>
+        </div>
+
+        <!-- Bridge Action Card: Send Restored Image to NDVI & Parcel Analysis Lab Below -->
+        <div id="card-bridge-to-ndvi" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%); border: 1.5px solid rgba(56, 189, 248, 0.4); border-radius: 14px; padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);">
+          <div style="display: flex; align-items: center; gap: 14px; max-width: 650px;">
+            <div style="width: 46px; height: 46px; border-radius: 12px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); display: flex; align-items: center; justify-content: center; color: #38bdf8; flex-shrink: 0;">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+            </div>
+            <div>
+              <div style="font-size: 1.02rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+                <span>ส่งภาพที่ซ่อมแซมไร้เมฆไปวิเคราะห์ NDVI & แปลงเกษตรต่อ</span>
+                <span class="badge-pass" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">ขั้นตอนถัดไป</span>
+              </div>
+              <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px; line-height: 1.4;">
+                คำนวณดัชนีสุขภาพพืช (NDVI), ผสมสีมัลติสเปกตรัม (False Color CIR/SWIR), ตรวจสอบค่าพิกเซลรายจุด (Live Inspector) และประเมินสุขภาพสวนปาล์มในห้องแล็บด้านล่างทันที
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btn-proceed-to-ndvi" class="btn-primary" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 26px; border-radius: 10px; font-weight: 700; font-size: 0.92rem; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color: #ffffff; box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4); border: 1px solid rgba(56, 189, 248, 0.4); cursor: pointer; transition: all 0.2s ease;">
+            <svg class="svg-icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            <span>วิเคราะห์ NDVI & สุขภาพพืชใน LAB ด้านล่าง</span>
+          </button>
+        </div>
+
+      </div>
+      <!-- END OF studio-scenario-2-wrap -->
+
+      <!-- Scenario 1: Temporal Comparison & NDVI Studio Wrap (ห้องแล็บวิเคราะห์ NDVI & แปลงเกษตรด้านล่าง) -->
+      <div id="studio-scenario-1-wrap" style="display: none; flex-direction: column; gap: 20px;">
+
+        <!-- Model Architecture Selector Bar -->
+        <div class="model-tuning-toolbar">
+          <div class="model-select-group">
+            <label for="select-studio-model" style="font-size: 0.76rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+              <span>ปรับแต่งสถาปัตยกรรมโมเดล AI ที่ใช้ประมวลผล:</span>
+            </label>
+            <select id="select-studio-model" class="studio-select-control">
+              <option value="late_fusion_cloudmae" selected>* Tri-Stream Late Fusion (Cloud-MAE Pretrained) ★ โมเดลหลัก (F1: 88.7%)</option>
+              <option value="cross_attn_cloudmae">Cross-Attention (Cloud-MAE Pretrained) — (F1: 88.1%)</option>
+              <option value="early_fusion_cloudmae">Early Fusion (Cloud-MAE Pretrained) — (F1: 86.2%)</option>
+              <option value="late_fusion_scratch">Late Fusion (Trained from Scratch) — (F1: 84.1%)</option>
+              <option value="cross_attn_scratch">Cross-Attention (Trained from Scratch) — (F1: 83.5%)</option>
+            </select>
+          </div>
+
+          <div class="model-telemetry-pills">
+            <span class="telemetry-pill" id="studio-model-f1">F1: <b>88.7%</b></span>
+            <span class="telemetry-pill" id="studio-model-latency">Latency: <b>15.2 ms</b></span>
+            <span class="telemetry-pill" id="studio-model-coverage">พื้นที่ปาล์ม AI: <b>78.5%</b></span>
+          </div>
+
+          <!-- AI Mask Toggle -->
+          <div style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+            <label class="toggle-checkbox-label" style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #ffffff; cursor: pointer;">
+              <input type="checkbox" id="chk-show-ai-mask" style="accent-color: #34d399; width: 16px; height: 16px; cursor: pointer;">
+              <span>ฉายแผนที่ไบนารีแปลงปาล์ม (Binary Map)</span>
+            </label>
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 0.72rem; color: #94a3b8;">
+              <span>ความโปร่งแสง:</span>
+              <input type="range" id="slider-ai-mask-opacity" min="0" max="100" value="70" style="width: 70px; accent-color: #38bdf8;">
+              <span id="label-ai-mask-opacity">70%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Temporal Comparison Block (Scenario 1) -->
+        <div id="studio-temporal-section" class="studio-card">
+          <div class="studio-card-header">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: #38bdf8;"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              <h3 style="margin: 0; font-size: 1rem; color: #ffffff;">การเปรียบเทียบเชิงเวลาในพื้นที่เดิม (Temporal Comparison: ข้อมูลเดิม vs ข้อมูลรอบใหม่)</h3>
+            </div>
+            <span class="badge-status-neutral" id="temporal-zone-label" style="background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; color: #94a3b8;">เปรียบเทียบกับ Zone 1: บ้านบึง-ใต้</span>
+          </div>
+
+          <!-- 4 Comparative Metric Cards -->
+          <div class="delta-metrics-grid">
+            <div class="delta-card">
+              <span class="delta-label">ค่าเฉลี่ยสุขภาพ (Mean NDVI)</span>
+              <div class="delta-values-row">
+                <span class="val-old" title="ข้อมูลเดิม">เดิม: <b id="cmp-base-ndvi">--</b></span>
+                <span class="val-arrow">➔</span>
+                <span class="val-new" title="ข้อมูลใหม่">ใหม่: <b id="cmp-new-ndvi">--</b></span>
+              </div>
+              <div id="cmp-delta-ndvi-badge" class="delta-badge positive">+0.000 (คงที่)</div>
+            </div>
+
+            <div class="delta-card">
+              <span class="delta-label">แปลงสมบูรณ์แข็งแรงมาก (NDVI ≥ 0.70)</span>
+              <div class="delta-values-row">
+                <span class="val-old">เดิม: <b id="cmp-base-healthy">--</b> แปลง</span>
+                <span class="val-arrow">➔</span>
+                <span class="val-new">ใหม่: <b id="cmp-new-healthy">--</b> แปลง</span>
+              </div>
+              <div id="cmp-delta-healthy-badge" class="delta-badge positive">+0 แปลง</div>
+            </div>
+
+            <div class="delta-card">
+              <span class="delta-label">แปลงมีภาวะเครียด (NDVI < 0.45)</span>
+              <div class="delta-values-row">
+                <span class="val-old">เดิม: <b id="cmp-base-stressed">--</b> แปลง</span>
+                <span class="val-arrow">➔</span>
+                <span class="val-new">ใหม่: <b id="cmp-new-stressed">--</b> แปลง</span>
+              </div>
+              <div id="cmp-delta-stressed-badge" class="delta-badge positive">-0 แปลง</div>
+            </div>
+
+            <div class="delta-card">
+              <span class="delta-label">ดัชนีแนวโน้มสุขภาพพืช (Vegetation Trend)</span>
+              <div style="margin-top: 6px;">
+                <span id="cmp-trend-text" style="font-size: 0.88rem; font-weight: 700; color: #34d399;">🌿 สุขภาพพืชปรับตัวดีขึ้น</span>
+              </div>
+              <span style="font-size: 0.7rem; color: #94a3b8; margin-top: 4px; display: block;">คำนวณจากความแปรผันของพิกเซลจริง</span>
+            </div>
+          </div>
+
+          <!-- Before / After Interactive Split Swipe Slider -->
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <div class="swipe-mode-pills">
+                <button type="button" class="btn-swipe-mode active" data-swipemode="ndvi">🌿 เปรียบเทียบ NDVI Heatmap</button>
+                <button type="button" class="btn-swipe-mode" data-swipemode="cir">🔴 เปรียบเทียบ Color Infrared (CIR)</button>
+                <button type="button" class="btn-swipe-mode" data-swipemode="rgb">🟢 เปรียบเทียบภาพสีธรรมชาติ (RGB)</button>
+              </div>
+              <div style="font-size: 0.72rem; color: #38bdf8; display: flex; align-items: center; gap: 6px;">
+                <span>💡 คลิกค้างแล้วลากเมาส์ หรือใช้ลูกกลิ้งเมาส์ (Mouse Wheel) เพื่อเลื่อนแผ่นเปรียบเทียบ</span>
+              </div>
+            </div>
+
+            <div class="swipe-container" id="cmp-swipe-container">
+              <!-- Background Image: ข้อมูลรอบใหม่ที่อัปโหลด -->
+              <img id="img-swipe-new" class="swipe-img" src="" alt="ข้อมูลรอบใหม่ที่อัปโหลด">
+              
+              <!-- AI Mask Canvas Overlay on New Image (Hidden by default until toggled) -->
+              <img id="img-swipe-ai-mask" class="swipe-img" style="display: none; opacity: 0.70; pointer-events: none;" src="" alt="AI Mask">
+
+              <!-- Foreground Overlaid Image: ข้อมูลเดิม (Clipped by swipe width) -->
+              <div class="swipe-overlay" id="cmp-swipe-overlay" style="width: 50%;">
+                <img id="img-swipe-base" src="" alt="ข้อมูลรอบเดิมของพื้นที่">
+              </div>
+
+              <!-- Draggable Swipe Handle -->
+              <div class="swipe-slider-handle" id="cmp-swipe-handle" style="left: 50%;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="8 6 2 12 8 18"/><polyline points="16 6 22 12 16 18"/></svg>
+              </div>
+
+              <!-- Transparent Range Slider Input -->
+              <input type="range" class="swipe-slider-input" id="cmp-swipe-input" min="0" max="100" value="50">
+
+              <!-- Floating Badges -->
+              <div class="swipe-badge-left">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>ข้อมูลรอบเดิม (Baseline Pass)</span>
+              </div>
+              <div class="swipe-badge-right">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" y2="15"/></svg>
+                <span>ข้อมูลรอบใหม่ที่อัปโหลด (New Ingested Pass)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- False Coloring & Detailed NDVI Analytics Grid -->
+        <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 20px;">
+
+          <!-- Left: False Color Viewer Studio -->
+          <div class="studio-card">
+            <div class="studio-card-header">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="color: #10b981;"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10"/></svg>
+                <h3 style="margin: 0; font-size: 1rem; color: #ffffff;">การผสมสีภาพถ่ายดาวเทียมจริง (Interactive False Coloring)</h3>
+              </div>
+              <span style="font-size: 0.72rem; color: #94a3b8;">Sentinel-2 Bands</span>
+            </div>
+
+            <!-- False Color Select Tabs -->
+            <div class="false-color-tabs">
+              <button type="button" class="fc-tab-btn active" data-fcmode="ndvi">🌿 NDVI Heatmap</button>
+              <button type="button" class="fc-tab-btn" data-fcmode="cir">🔴 Color Infrared (CIR: B8,B4,B3)</button>
+              <button type="button" class="fc-tab-btn" data-fcmode="rgb">🟢 True Color (RGB: B4,B3,B2)</button>
+              <button type="button" class="fc-tab-btn" data-fcmode="swir">🌾 Agriculture (SWIR: B11,B8,B2)</button>
+            </div>
+
+            <!-- Main Composite Image Canvas Container with Live Pixel Inspector -->
+            <div class="composite-viewer-container" id="fc-viewer-container">
+              <img id="img-composite-main" src="" alt="False Color Composite" style="width: 100%; height: 100%; object-fit: cover;">
+              <img id="img-composite-mask" src="" alt="AI Mask" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; pointer-events: none;">
+
+              <!-- Reticle Target for Cursor Hover -->
+              <div id="inspector-reticle" class="inspector-reticle" style="display: none;"></div>
+
+              <!-- Floating Tooltip Card over Cursor -->
+              <div id="inspector-cursor-tooltip" class="inspector-tooltip" style="display: none;">
+                <div style="font-weight: 700; color: #fff; margin-bottom: 2px;" id="tooltip-coord">พิกัด X: --, Y: --</div>
+                <div style="font-size: 0.82rem;" id="tooltip-ndvi">NDVI: <b style="color: #34d399;">--</b></div>
+                <div style="font-size: 0.72rem; color: #94a3b8;" id="tooltip-status">สถานะ: --</div>
+              </div>
+            </div>
+
+            <!-- Dynamic Legend Box -->
+            <div id="fc-legend-box" class="fc-legend-box">
+              <!-- Dynamic Content based on selected composite -->
+            </div>
+          </div>
+
+          <!-- Right: Detailed NDVI Analytics & Pixel Telemetry -->
+          <div class="studio-card">
+            <div class="studio-card-header">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="color: #34d399;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                <h3 style="margin: 0; font-size: 1rem; color: #ffffff;">การวิเคราะห์สุขภาพพืชอย่างละเอียด (Detailed NDVI Analytics)</h3>
+              </div>
+              <span class="badge-pass">Zonal Compute</span>
+            </div>
+
+            <!-- Statistical KPI Grid -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="kpi-mini-card">
+                <span class="kpi-mini-label">ค่าเฉลี่ยสุขภาพ (Mean NDVI)</span>
+                <span class="kpi-mini-val" id="det-mean-ndvi" style="color: #34d399;">--</span>
+              </div>
+              <div class="kpi-mini-card">
+                <span class="kpi-mini-label">ความแปรปรวน (Std Dev)</span>
+                <span class="kpi-mini-val" id="det-std-ndvi">--</span>
+              </div>
+              <div class="kpi-mini-card">
+                <span class="kpi-mini-label">ช่วงค่า NDVI ต่ำสุด-สูงสุด</span>
+                <span class="kpi-mini-val" id="det-range-ndvi" style="font-size: 0.88rem;">--</span>
+              </div>
+              <div class="kpi-mini-card">
+                <span class="kpi-mini-label">สัดส่วนพื้นที่สวนปาล์ม AI</span>
+                <span class="kpi-mini-val" id="det-palm-cov" style="color: #38bdf8;">--</span>
+              </div>
+            </div>
+
+            <!-- Health Class Distribution Progress Bars -->
+            <div style="margin-top: 14px;">
+              <span style="font-size: 0.78rem; font-weight: 700; color: #ffffff; display: block; margin-bottom: 8px;">
+                การกระจายตัวของระดับสุขภาพแปลง (Health Classification Distribution):
+              </span>
+              <div class="health-dist-list">
+                <div class="health-dist-item">
+                  <div class="health-dist-row">
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                      <span style="width: 10px; height: 10px; border-radius: 2px; background: #1b4332; border: 1px solid #34d399;"></span>
+                      <span>สมบูรณ์แข็งแรงมาก (NDVI ≥ 0.70)</span>
+                    </span>
+                    <b id="pct-healthy">--% (<span id="cnt-healthy">--</span> แปลง)</b>
+                  </div>
+                  <div class="health-bar-track"><div id="bar-healthy" class="health-bar-fill" style="background: #34d399; width: 0%;"></div></div>
+                </div>
+
+                <div class="health-dist-item">
+                  <div class="health-dist-row">
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                      <span style="width: 10px; height: 10px; border-radius: 2px; background: #95d5b2;"></span>
+                      <span>ปานกลาง / ปาล์มรุ่นใหม่ (0.45 – 0.70)</span>
+                    </span>
+                    <b id="pct-moderate">--% (<span id="cnt-moderate">--</span> แปลง)</b>
+                  </div>
+                  <div class="health-bar-track"><div id="bar-moderate" class="health-bar-fill" style="background: #95d5b2; width: 0%;"></div></div>
+                </div>
+
+                <div class="health-dist-item">
+                  <div class="health-dist-row">
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                      <span style="width: 10px; height: 10px; border-radius: 2px; background: #ffb703;"></span>
+                      <span>พืชเบาบาง / ดินชื้น (0.20 – 0.45)</span>
+                    </span>
+                    <b id="pct-sparse">--%</b>
+                  </div>
+                  <div class="health-bar-track"><div id="bar-sparse" class="health-bar-fill" style="background: #ffb703; width: 0%;"></div></div>
+                </div>
+
+                <div class="health-dist-item">
+                  <div class="health-dist-row">
+                    <span style="display: flex; align-items: center; gap: 6px;">
+                      <span style="width: 10px; height: 10px; border-radius: 2px; background: #ef233c;"></span>
+                      <span>มีภาวะเครียด / ดินโล่ง (< 0.20)</span>
+                    </span>
+                    <b id="pct-stressed">--% (<span id="cnt-stressed">--</span> แปลง)</b>
+                  </div>
+                  <div class="health-bar-track"><div id="bar-stressed" class="health-bar-fill" style="background: #ef233c; width: 0%;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Hover Coordinate Badge -->
+            <div class="hover-inspect-panel">
+              <div style="font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+                <span>เครื่องมือตรวจวัดค่าพิกเซลสด (Live Pixel Inspector):</span>
+              </div>
+              <div style="font-size: 0.74rem; color: #94a3b8; line-height: 1.4;">
+                นำเมาส์ไปชี้เหนือภาพทางซ้าย เพื่อดูค่า NDVI ที่คำนวณจากพิกเซลจริงในพิกัดนั้นทันที
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 8px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 6px;">
+                <span id="inspect-hover-coords" style="font-family: monospace; font-size: 0.8rem; color: #e2e8f0;">(X: --, Y: --)</span>
+                <span id="inspect-hover-ndvi" style="font-weight: 800; font-size: 0.88rem; color: #34d399;">NDVI: --</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+      <!-- END OF studio-scenario-1-wrap -->
+      <!-- END OF studio-scenario-2-wrap -->
+
+    </section>
+
+  </main>
+
+  <!-- Application Logic Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const scenarioDropdown = document.getElementById('scenario-dropdown');
+      const content1 = document.getElementById('content-scenario-1');
+      const content2 = document.getElementById('content-scenario-2');
+      const content3 = document.getElementById('content-scenario-3');
+      const outputBadge = document.getElementById('output-scenario-badge');
+      const deliverablesList = document.getElementById('output-deliverables-list');
+      const flowDiagram = document.getElementById('pipeline-flow-diagram');
+
+      const radioVector = document.getElementById('card-radio-vector');
+      const radioSam = document.getElementById('card-radio-sam');
+      const vectorUploadBox = document.getElementById('vector-upload-box');
+      const samWarningContainer = document.getElementById('sam-warning-container');
+
+      const btnRun = document.getElementById('btn-run-pipeline');
+      const btnRunText = document.getElementById('btn-run-text');
+      const progressBox = document.getElementById('pipeline-progress-box');
+      const progressStatus = document.getElementById('progress-status-text');
+      const resultSuccess = document.getElementById('pipeline-result-success');
+      const resultMessage = document.getElementById('result-message-text');
+      const resultDuration = document.getElementById('result-duration-badge');
+      const resultMetrics = document.getElementById('result-metrics-container');
+      const btnScrollStudio = document.getElementById('btn-scroll-studio');
+      const btnReset = document.getElementById('btn-reset-form');
+      const validationStatus = document.getElementById('validation-status-text');
+
+      // File Inputs
+      const inpS1Update = document.getElementById('input-s1-update');
+      const inpS2Cloudy = document.getElementById('input-s2-cloudy');
+      const inpS1Sar = document.getElementById('input-s1-sar');
+      const inpNewS1 = document.getElementById('input-new-s1');
+      const inpNewS2 = document.getElementById('input-new-s2');
+      const inpNewGsat = document.getElementById('input-new-gsat');
+      const inpVector = document.getElementById('input-vector-parcels');
+      const inputZoneName = document.getElementById('input-zone-name');
+
+      // State Map of Inspected Files
+      const fileValidations = {
+        s1_update: { file: null, valid: false },
+        s2_cloudy: { file: null, valid: false },
+        s1_sar: { file: null, valid: false },
+        new_s1: { file: null, valid: false },
+        new_s2: { file: null, valid: false },
+        new_gsat: { file: null, valid: false },
+        vector: { file: null, valid: false },
+      };
+
+      // Scenario Deliverables Map
+      const scenarioDeliverables = {
+        update_existing: {
+          badge: 'UPDATE PIPELINE',
+          flow: 'GeoTIFF Upload ➔ CRS Validation ➔ Zonal Overlay ➔ 3D Deck.GL Projection',
+          items: [
+            'สร้างชั้นข้อมูล Raster Basemap ใหม่ฉายลงบนแผนที่ 3D Deck.GL ในพิกัดจริง',
+            'คำนวณค่าดัชนีสุขภาพ NDVI เฉลี่ยของแต่ละแปลงใหม่ และปรับสี 3D Polygon ตามสุขภาพพืชล่าสุด',
+            'อัปเดตสถิติเปรียบเทียบการเปลี่ยนแปลง (Temporal Change Analysis) ของสวนปาล์ม'
+          ]
+        },
+        cloud_repair: {
+          badge: 'CLOUD-MAE REPAIR',
+          flow: 'Cloudy S2 (7 Bands) + Sentinel-1 SAR ➔ Cloud-MAE ViT ➔ Cloud-Free S2 GeoTIFF',
+          items: [
+            'ภาพถ่ายดาวเทียม Sentinel-2 ไร้เมฆสมบูรณ์ (Cloud-free Inpainted Image) ครบทั้ง 7 แบนด์',
+            'รายงานค่าดัชนีคุณภาพการฟื้นฟูเชิงวิทยาศาสตร์: Peak Signal-to-Noise Ratio (PSNR > 32 dB) และ MSE Loss',
+            'ส่งภาพฟื้นฟูเข้าสู่โมเดล Tri-Stream Late Fusion เพื่อสกัดแปลงสวนปาล์มได้ทันทีโดยไม่ติดเมฆ'
+          ]
+        },
+        new_zone: {
+          badge: 'NEW ZONE INGESTION',
+          flow: 'S1 + S2 + GSat ➔ (Vector or SAM-1) ➔ New 3D Zone Registration ➔ Real Inference Mask',
+          items: [
+            'สร้างโซนใหม่เข้าสู่ระบบ พร้อมระบุพิกัดขอบเขต Bounding Box และจุดศูนย์กลางโดยอัตโนมัติ',
+            'สร้างไฟล์ GeoJSON แปลง 3D Deck.GL แสดงผลสถานะแปลงและค่าสุขภาพพืช (NDVI)',
+            'ประมวลผลโมเดล Tri-Stream ViT เพื่อสกัดแผนที่ Heatmap และประเมินสถิติปาล์มน้ำมันทั้งโซน'
+          ]
+        }
+      };
+
+      function updateDeliverables(scenarioKey) {
+        const d = scenarioDeliverables[scenarioKey];
+        if (!d) return;
+        outputBadge.textContent = d.badge;
+        flowDiagram.textContent = d.flow;
+        deliverablesList.innerHTML = d.items.map(it => `
+          <div style="display: flex; align-items: flex-start; gap: 8px;">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #38bdf8; min-width: 14px; margin-top: 2px;"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>${it}</span>
+          </div>
+        `).join('');
+      }
+
+      // Check Overall Readiness and Toggle Execute Button
+      function checkScenarioReadiness() {
+        const scenario = scenarioDropdown.value;
+        let isReady = false;
+        let statusMsg = "";
+
+        if (scenario === 'update_existing') {
+          isReady = fileValidations.s1_update.valid;
+          statusMsg = isReady 
+            ? "✓ ไฟล์ภาพรอบใหม่ผ่านการตรวจสอบโครงสร้าง CRS เรียบร้อย พร้อมประมวลผล" 
+            : "⚠️ ต้องการไฟล์ภาพดาวเทียมรอบใหม่ (GeoTIFF) ที่ผ่านการตรวจสอบ";
+        } else if (scenario === 'cloud_repair') {
+          const s2Ok = fileValidations.s2_cloudy.valid;
+          const s1Ok = fileValidations.s1_sar.valid;
+          isReady = s2Ok && s1Ok;
+          statusMsg = isReady
+            ? "✓ คู่ภาพ S1 SAR + S2 Optical ผ่านการตรวจสอบสเปกตรัม พร้อมรัน Cloud-MAE"
+            : `⚠️ ต้องการคู่ภาพให้ครบ (S2: ${s2Ok ? '✓ ผ่าน' : 'รอไฟล์'}, S1: ${s1Ok ? '✓ ผ่าน' : 'รอไฟล์'})`;
+        } else if (scenario === 'new_zone') {
+          const nameOk = inputZoneName.value.trim().length > 0;
+          const s1Ok = fileValidations.new_s1.valid;
+          const s2Ok = fileValidations.new_s2.valid;
+          const gsatOk = fileValidations.new_gsat.valid;
+          const isSam = document.querySelector('input[name="seg_strategy"]:checked').value === 'auto_sam1';
+          const vecOk = isSam || fileValidations.vector.valid;
+
+          isReady = nameOk && s1Ok && s2Ok && gsatOk && vecOk;
+          if (!nameOk) {
+            statusMsg = "⚠️ กรุณาระบุชื่อพื้นที่ใหม่ (Zone Name)";
+          } else if (!s1Ok || !s2Ok || !gsatOk) {
+            statusMsg = "⚠️ กรุณาแนบภาพดาวเทียมทั้ง 3 ชั้นข้อมูล (S1, S2, GSat) ให้ครบถ้วน";
+          } else if (!vecOk) {
+            statusMsg = "⚠️ กรุณาแนบไฟล์แปลงเวกเตอร์ หรือเลือกใช้ SAM-1";
+          } else {
+            statusMsg = `✓ ข้อมูลพื้นที่ใหม่ครบถ้วน พร้อมสร้าง Zone ใหม่ (${isSam ? 'SAM-1 Mode' : 'Vector Mode'})`;
+          }
+        }
+
+        validationStatus.textContent = statusMsg;
+        validationStatus.style.color = isReady ? "#34d399" : "#fbbf24";
+
+        if (isReady) {
+          btnRun.disabled = false;
+          btnRun.style.background = "linear-gradient(135deg, #10b981 0%, #059669 100%)";
+          btnRun.style.cursor = "pointer";
+          btnRun.style.opacity = "1";
+          btnRun.innerHTML = `
+            <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>เริ่มการประมวลผลนำเข้าข้อมูลจริง (Execute Real Ingestion)</span>
+          `;
+        } else {
+          btnRun.disabled = true;
+          btnRun.style.background = "#1e293b";
+          btnRun.style.cursor = "not-allowed";
+          btnRun.style.opacity = "0.5";
+          btnRun.innerHTML = `
+            <svg class="svg-icon" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>กรุณาแนบไฟล์และผ่านการตรวจสอบเงื่อนไขทั้งหมดก่อนเริ่มประมวลผล</span>
+          `;
+        }
+      }
+
+      // Real File Inspection Call
+      async function inspectFile(file, expectedRole, dropzoneId, resultBoxId, stateKey) {
+        const dz = document.getElementById(dropzoneId);
+        const resBox = document.getElementById(resultBoxId);
+        if (!resBox) return;
+
+        resBox.style.display = 'flex';
+        resBox.className = 'inspection-result-box';
+        resBox.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 8px; color: #38bdf8;">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+            <span>กำลังอ่านและตรวจสอบโครงสร้างไฟล์ผ่าน rasterio/geopandas...</span>
+          </div>
+        `;
+
+        try {
+          const fd = new FormData();
+          fd.append('file', file);
+          fd.append('expected_role', expectedRole);
+
+          const resp = await fetch('/api/upload/inspect-file', {
+            method: 'POST',
+            body: fd
+          });
+
+          if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+          const data = await resp.json();
+
+          fileValidations[stateKey].file = file;
+          fileValidations[stateKey].valid = data.valid;
+
+          if (data.valid) {
+            dz.classList.remove('has-error');
+            dz.classList.add('has-file');
+            resBox.className = 'inspection-result-box passed';
+
+            let metaPills = '';
+            if (data.crs) metaPills += `<span class="inspect-meta-pill">🌐 ${data.crs}</span>`;
+            if (data.dimensions) metaPills += `<span class="inspect-meta-pill">📐 ${data.dimensions}</span>`;
+            if (data.bands_count) metaPills += `<span class="inspect-meta-pill">🌈 ${data.bands_count} แบนด์</span>`;
+            if (data.num_features) metaPills += `<span class="inspect-meta-pill">📍 ${data.num_features} แปลง</span>`;
+            if (data.filesize_mb) metaPills += `<span class="inspect-meta-pill">💾 ${data.filesize_mb} MB</span>`;
+
+            const checksHtml = (data.checks || []).map(c => `
+              <div class="check-item ${c.passed ? 'passed' : 'failed'}">
+                <span>${c.passed ? '✓' : '✗'}</span>
+                <div><b>${c.name}:</b> ${c.detail}</div>
+              </div>
+            `).join('');
+
+            resBox.innerHTML = `
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <b style="color: #34d399; font-size: 0.82rem;">✓ ตรวจสอบผ่านเกณฑ์: ${data.filename}</b>
+                <span style="font-size: 0.7rem; color: #94a3b8;">${data.file_type ? data.file_type.toUpperCase() : ''}</span>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0;">
+                ${metaPills}
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 6px;">
+                ${checksHtml}
+              </div>
+            `;
+          } else {
+            dz.classList.remove('has-file');
+            dz.classList.add('has-error');
+            resBox.className = 'inspection-result-box failed';
+
+            const checksHtml = (data.checks || []).map(c => `
+              <div class="check-item ${c.passed ? 'passed' : 'failed'}">
+                <span>${c.passed ? '✓' : '✗'}</span>
+                <div><b>${c.name}:</b> ${c.detail}</div>
+              </div>
+            `).join('');
+
+            resBox.innerHTML = `
+              <b style="color: #ef4444; font-size: 0.82rem;">✗ ไม่ผ่านเงื่อนไข: ${data.filename}</b>
+              <div style="color: #fca5a5; font-size: 0.75rem;">${data.message || 'ไฟล์ไม่ตรงตามข้อกำหนด'}</div>
+              <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
+                ${checksHtml}
+              </div>
+            `;
+          }
+
+        } catch (err) {
+          console.error("Inspection error:", err);
+          fileValidations[stateKey].valid = false;
+          dz.classList.add('has-error');
+          resBox.className = 'inspection-result-box failed';
+          resBox.innerHTML = `
+            <b style="color: #ef4444;">✗ เกิดข้อผิดพลาดในการตรวจสอบไฟล์</b>
+            <div style="color: #fca5a5; font-size: 0.75rem;">${err.message}</div>
+          `;
+        } finally {
+          checkScenarioReadiness();
+        }
+      }
+
+      // Bind Dropzones to Hidden File Inputs with Real Inspection
+      function setupDropzone(dropzoneId, inputId, expectedRole, resultBoxId, stateKey) {
+        const dz = document.getElementById(dropzoneId);
+        const inp = document.getElementById(inputId);
+        if (!dz || !inp) return;
+
+        dz.addEventListener('click', () => inp.click());
+
+        // Drag & Drop
+        dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.style.borderColor = '#38bdf8'; });
+        dz.addEventListener('dragleave', () => { dz.style.borderColor = ''; });
+        dz.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dz.style.borderColor = '';
+          if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            inp.files = e.dataTransfer.files;
+            handleFileSelect(inp.files[0]);
+          }
+        });
+
+        inp.addEventListener('change', () => {
+          if (inp.files && inp.files.length > 0) {
+            handleFileSelect(inp.files[0]);
+          }
+        });
+
+        function handleFileSelect(file) {
+          const lbl = dz.querySelector('.file-name-label');
+          if (lbl) {
+            lbl.textContent = `ไฟล์: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+            lbl.style.display = 'block';
+          }
+          inspectFile(file, expectedRole, dropzoneId, resultBoxId, stateKey);
+        }
+      }
+
+      setupDropzone('dropzone-s1-update', 'input-s1-update', 's2_update', 'inspect-box-s1-update', 's1_update');
+      setupDropzone('dropzone-s2-cloudy', 'input-s2-cloudy', 's2', 'inspect-box-s2-cloudy', 's2_cloudy');
+      setupDropzone('dropzone-s1-sar', 'input-s1-sar', 's1', 'inspect-box-s1-sar', 's1_sar');
+      setupDropzone('dropzone-new-s1', 'input-new-s1', 's1', 'inspect-box-new-s1', 'new_s1');
+      setupDropzone('dropzone-new-s2', 'input-new-s2', 's2', 'inspect-box-new-s2', 'new_s2');
+      setupDropzone('dropzone-new-gsat', 'input-new-gsat', 'gsat', 'inspect-box-new-gsat', 'new_gsat');
+      setupDropzone('dropzone-vector-parcels', 'input-vector-parcels', 'vector', 'inspect-box-vector-parcels', 'vector');
+
+      inputZoneName.addEventListener('input', checkScenarioReadiness);
+
+      // Dropdown Switch Handler
+      scenarioDropdown.addEventListener('change', (e) => {
+        const val = e.target.value;
+        content1.style.display = val === 'update_existing' ? 'block' : 'none';
+        content2.style.display = val === 'cloud_repair' ? 'block' : 'none';
+        content3.style.display = val === 'new_zone' ? 'block' : 'none';
+        updateDeliverables(val);
+        checkScenarioReadiness();
+      });
+      updateDeliverables('update_existing');
+      checkScenarioReadiness();
+
+      // Radio Toggle for New Zone Segmentation (Verified Vector vs SAM-1)
+      const radioInputs = document.querySelectorAll('input[name="seg_strategy"]');
+      radioInputs.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const isSam = e.target.value === 'auto_sam1';
+          radioVector.classList.toggle('active', !isSam);
+          radioSam.classList.toggle('active', isSam);
+          vectorUploadBox.style.display = isSam ? 'none' : 'block';
+          samWarningContainer.style.display = isSam ? 'flex' : 'none';
+          checkScenarioReadiness();
+        });
+      });
+
+      // =========================================================================
+      // Ingestion Studio State & Helpers
+      // =========================================================================
+      let currentStudioData = null;
+      let currentRasterFilename = '';
+      let currentTargetZone = 1;
+      let pixelNdviArray = null; // Uint16Array (256x256)
+      let currentFalseColorMode = 'ndvi';
+      let currentSwipeMode = 'ndvi';
+      let currentIsNewZone = false;
+
+      function decodePixelNdvi(b64Str) {
+        try {
+          const binaryStr = atob(b64Str);
+          const bytes = new Uint8Array(binaryStr.length);
+          for (let i = 0; i < binaryStr.length; i++) {
+            bytes[i] = binaryStr.charCodeAt(i);
+          }
+          return new Uint16Array(bytes.buffer);
+        } catch (e) {
+          console.error("Failed to decode pixel NDVI array:", e);
+          return null;
+        }
+      }
+
+      function getPixelNdviValue(normX, normY) {
+        if (!pixelNdviArray) return null;
+        const px = Math.max(0, Math.min(255, Math.floor(normX * 256)));
+        const py = Math.max(0, Math.min(255, Math.floor(normY * 256)));
+        const idx = py * 256 + px;
+        const u16 = pixelNdviArray[idx];
+        return (u16 / 10000.0) - 1.0;
+      }
+
+      function updateFalseColorLegend(mode) {
+        const legendBox = document.getElementById('fc-legend-box');
+        if (!legendBox) return;
+
+        if (mode === 'ndvi') {
+          legendBox.innerHTML = `
+            <div style="font-weight: 700; color: #34d399; margin-bottom: 6px;">สเกลสีค่าดัชนีพืชพรรณ (NDVI Color Scale - RdYlGn Continuous):</div>
+            <div style="height: 12px; border-radius: 6px; background: linear-gradient(90deg, #d73027 0%, #fc8d59 25%, #fee08b 50%, #91cf60 75%, #1a9850 100%); margin-bottom: 4px;"></div>
+            <div style="display: flex; justify-content: space-between; font-family: monospace; font-size: 0.7rem; color: #94a3b8;">
+              <span>-0.2 (ดิน/สิ่งปลูกสร้าง)</span>
+              <span>0.2 (พืชเบาบาง)</span>
+              <span>0.5 (ปานกลาง)</span>
+              <span>0.7+ (ปาล์มสมบูรณ์)</span>
+            </div>
+            <div style="margin-top: 6px; color: #cbd5e1; font-size: 0.72rem;">
+              สูตรคำนวณ: (NIR - Red) / (NIR + Red) — พิกเซลสีเขียวเข้มแสดงถึงใบพืชที่สังเคราะห์แสงได้เต็มประสิทธิภาพ
+            </div>
+          `;
+        } else if (mode === 'cir') {
+          legendBox.innerHTML = `
+            <div style="font-weight: 700; color: #f87171; margin-bottom: 6px;">สเปกตรัม Color Infrared (CIR: B8-NIR, B4-Red, B3-Green):</div>
+            <div style="display: flex; flex-direction: column; gap: 4px; font-size: 0.73rem; color: #cbd5e1;">
+              <div>🔴 <b style="color: #f87171;">สีแดงสด / ชมพูเข้ม:</b> พืชพรรณและสวนปาล์มสุขภาพดี (Chlorophyll สะท้อน NIR สูงมาก)</div>
+              <div>⚪ <b style="color: #94a3b8;">สีเทาอ่อน / ฟ้าหม่น:</b> ดินโล่ง ดินแห้ง หรือสิ่งปลูกสร้าง</div>
+              <div>🔵 <b style="color: #38bdf8;">สีน้ำเงินเข้ม / ดำ:</b> แหล่งน้ำ สระกักเก็บน้ำ หรือพื้นที่ชุ่มชื้นสูง</div>
+            </div>
+          `;
+        } else if (mode === 'rgb') {
+          legendBox.innerHTML = `
+            <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">ภาพสีธรรมชาติ (True Color RGB: B4-Red, B3-Green, B2-Blue):</div>
+            <div style="display: flex; flex-direction: column; gap: 4px; font-size: 0.73rem; color: #cbd5e1;">
+              <div>🟢 <b style="color: #34d399;">สีเขียวธรรมชาติ:</b> เรือนยอดต้นปาล์มและแมกไม้ตามความเป็นจริง</div>
+              <div>🟤 <b style="color: #fbbf24;">สีน้ำตาล / ดินลูกรัง:</b> ถนนในสวน ทางสัญจร และพื้นที่เตรียมแปลง</div>
+              <div>☁️ <b style="color: #e2e8f0;">สีขาว:</b> เมฆ หรือสิ่งปลูกสร้างสะท้อนแสงสูง</div>
+            </div>
+          `;
+        } else if (mode === 'swir') {
+          legendBox.innerHTML = `
+            <div style="font-weight: 700; color: #fbbf24; margin-bottom: 6px;">การผสมสีเพื่อการเกษตร (Agriculture SWIR: B11-SWIR, B8-NIR, B2-Blue):</div>
+            <div style="display: flex; flex-direction: column; gap: 4px; font-size: 0.73rem; color: #cbd5e1;">
+              <div>🌱 <b style="color: #34d399;">สีเขียวสว่างสด:</b> พืชพรรณหนาแน่นที่มีความชุ่มชื้นสมบูรณ์สูงมาก</div>
+              <div>🟠 <b style="color: #fb923c;">สีส้ม / น้ำตาลทอง:</b> พื้นที่ดินแห้งแล้ง หรือพืชที่เริ่มขาดน้ำ</div>
+              <div>🌊 <b style="color: #38bdf8;">สีฟ้าเข้ม:</b> แหล่งน้ำและการดูดซับความยาวคลื่น SWIR</div>
+            </div>
+          `;
+        }
+      }
+
+      function updateSwipeImages(mode) {
+        if (!currentStudioData) return;
+        const imgNew = document.getElementById('img-swipe-new');
+        const imgBase = document.getElementById('img-swipe-base');
+        const imgAiMask = document.getElementById('img-swipe-ai-mask');
+        const badgeLeft = document.querySelector('.swipe-badge-left span');
+        const badgeRight = document.querySelector('.swipe-badge-right span');
+
+        const imgs = currentStudioData.images;
+        if (currentIsNewZone) {
+          // For brand new zones: compare True Color RGB vs Multi-spectral layers (zero broken images)
+          imgBase.src = imgs.new_rgb;
+          if (badgeLeft) badgeLeft.textContent = 'ภาพถ่ายสีธรรมชาติ (True Color RGB)';
+          if (mode === 'ndvi') {
+            imgNew.src = imgs.new_ndvi;
+            if (badgeRight) badgeRight.textContent = 'ดัชนีสุขภาพพืช (NDVI Heatmap)';
+          } else if (mode === 'cir') {
+            imgNew.src = imgs.new_cir;
+            if (badgeRight) badgeRight.textContent = 'ภาพอินฟราเรดสะท้อน (CIR: B8,B4,B3)';
+          } else if (mode === 'rgb') {
+            imgNew.src = imgs.new_swir || imgs.new_cir;
+            if (badgeRight) badgeRight.textContent = 'ภาพเกษตรกรรม (SWIR: B11,B8,B2)';
+          }
+        } else {
+          // Existing zones: compare baseline vs new pass
+          if (badgeLeft) badgeLeft.textContent = 'ข้อมูลรอบเดิม (Baseline Pass)';
+          if (badgeRight) badgeRight.textContent = 'ข้อมูลรอบใหม่ที่อัปโหลด (New Ingested Pass)';
+          if (mode === 'ndvi') {
+            imgNew.src = imgs.new_ndvi;
+            imgBase.src = imgs.baseline_ndvi;
+          } else if (mode === 'cir') {
+            imgNew.src = imgs.new_cir;
+            imgBase.src = imgs.baseline_cir;
+          } else if (mode === 'rgb') {
+            imgNew.src = imgs.new_rgb;
+            imgBase.src = imgs.baseline_rgb;
+          }
+        }
+        if (imgAiMask) imgAiMask.src = imgs.ai_mask;
+      }
+
+      function updateFalseColorView(mode) {
+        if (!currentStudioData) return;
+        const imgMain = document.getElementById('img-composite-main');
+        const imgMask = document.getElementById('img-composite-mask');
+        const imgs = currentStudioData.images;
+
+        if (mode === 'ndvi') {
+          imgMain.src = imgs.new_ndvi;
+        } else if (mode === 'cir') {
+          imgMain.src = imgs.new_cir;
+        } else if (mode === 'rgb') {
+          imgMain.src = imgs.new_rgb;
+        } else if (mode === 'swir') {
+          imgMain.src = imgs.new_swir;
+        }
+        if (imgMask) {
+          imgMask.src = imgs.ai_mask;
+          const chkShow = document.getElementById('chk-show-ai-mask');
+          imgMask.style.display = (chkShow && chkShow.checked) ? 'block' : 'none';
+        }
+        updateFalseColorLegend(mode);
+      }
+
+      function populateStudio(studioData, targetZone, rasterFilename, keepScenario2 = false, isNewZone = false, zoneName = '') {
+        currentStudioData = studioData;
+        currentRasterFilename = rasterFilename;
+        currentTargetZone = targetZone;
+        currentIsNewZone = isNewZone;
+        pixelNdviArray = decodePixelNdvi(studioData.pixel_ndvi_b64);
+
+        const studioContainer = document.getElementById('ingestion-studio-container');
+        if (!studioContainer) return;
+        studioContainer.style.display = 'flex';
+
+        // Toggle Scenario Wraps
+        const s1Wrap = document.getElementById('studio-scenario-1-wrap');
+        const s2Wrap = document.getElementById('studio-scenario-2-wrap');
+        if (s1Wrap) s1Wrap.style.display = 'flex';
+        if (!keepScenario2 && s2Wrap) s2Wrap.style.display = 'none';
+
+        // Update Studio Header
+        const badgePill = document.getElementById('studio-badge-pill');
+        const mainTitle = document.getElementById('studio-main-title');
+        const mainSubtitle = document.getElementById('studio-main-subtitle');
+        if (isNewZone) {
+          if (badgePill) badgePill.textContent = '🌱 โซนใหม่ในระบบ (New Ingested Zone)';
+          if (mainTitle) mainTitle.textContent = `ห้องแล็บวิเคราะห์พื้นที่ใหม่: Zone ${targetZone} ${zoneName ? '— ' + zoneName : ''}`;
+          if (mainSubtitle) mainSubtitle.textContent = 'แสดงผลการวิเคราะห์พิกเซลจริงจากดาวเทียม Sentinel-2 • การแบ่งแปลงปาล์ม SAM-1 • ค่าดัชนีสุขภาพพืช (NDVI) และการจำแนกสุขภาพแปลง';
+        } else {
+          if (badgePill) badgePill.textContent = keepScenario2 ? '🛰️ ผลลัพธ์การฟื้นฟูเรดาร์ & วิเคราะห์ NDVI' : '🚀 ผลลัพธ์ข้อมูลใหม่ (Real Ingested Data)';
+          if (mainTitle) mainTitle.textContent = keepScenario2 ? 'ห้องแล็บฟื้นฟูภาพถ่ายดาวเทียม & วิเคราะห์ดัชนีพืชพันธุ์ (Cloud Repair & NDVI)' : 'ห้องแล็บวิเคราะห์ข้อมูลใหม่ & ปรับแต่งโมเดล AI';
+          if (mainSubtitle) mainSubtitle.textContent = keepScenario2 ? 'ผลการฟื้นฟูลบเมฆด้วยเรดาร์ Sentinel-1 สำเร็จ และส่งต่อภาพไร้เมฆเข้าสู่การวิเคราะห์สุขภาพพืช (NDVI) ครบวงจร' : 'แสดงผลการวิเคราะห์พิกเซลจริงจากไฟล์ที่อัปโหลด • เปรียบเทียบข้อมูลเดิมกับข้อมูลใหม่ • สลับโมเดล AI และเลือกโหมด False Coloring ได้อิสระ';
+        }
+
+        const btnScrollStudio = document.getElementById('btn-scroll-studio');
+        if (btnScrollStudio && btnScrollStudio.querySelector('span')) {
+          btnScrollStudio.querySelector('span').textContent = 'ดูห้องแล็บวิเคราะห์ข้อมูลใหม่ & ปรับแต่งโมเดลในหน้าเดิม (View Studio Below)';
+        }
+
+        // Zone Label
+        const zoneSelect = document.getElementById('select-target-zone');
+        const zoneText = isNewZone ? `Zone ${targetZone} ${zoneName ? '— ' + zoneName : ''}` : (zoneSelect ? zoneSelect.options[zoneSelect.selectedIndex].text : `Zone ${targetZone}`);
+        const temporalZoneLabel = document.getElementById('temporal-zone-label');
+        if (temporalZoneLabel) {
+          temporalZoneLabel.textContent = isNewZone ? `พื้นที่ใหม่: ${zoneText}` : `เปรียบเทียบกับ: ${zoneText}`;
+        }
+
+        // Delta cards
+        const bM = studioData.baseline_metrics;
+        const nM = studioData.new_metrics;
+        const delta = studioData.delta;
+
+        const cmpBaseNdvi = document.getElementById('cmp-base-ndvi');
+        const cmpNewNdvi = document.getElementById('cmp-new-ndvi');
+        const cmpDeltaNdviBadge = document.getElementById('cmp-delta-ndvi-badge');
+        if (cmpBaseNdvi) cmpBaseNdvi.textContent = isNewZone ? 'Baseline' : bM.mean_ndvi.toFixed(3);
+        if (cmpNewNdvi) cmpNewNdvi.textContent = nM.mean_ndvi.toFixed(3);
+        if (cmpDeltaNdviBadge) {
+          if (isNewZone) {
+            cmpDeltaNdviBadge.textContent = 'Initial Data';
+            cmpDeltaNdviBadge.className = 'delta-badge positive';
+          } else {
+            const dVal = delta.mean_ndvi_diff;
+            const sign = dVal > 0 ? '+' : '';
+            cmpDeltaNdviBadge.textContent = `${sign}${dVal.toFixed(3)} (${dVal > 0 ? 'เพิ่มขึ้น' : dVal < 0 ? 'ลดลง' : 'คงที่'})`;
+            cmpDeltaNdviBadge.className = `delta-badge ${dVal >= 0 ? 'positive' : 'negative'}`;
+          }
+        }
+
+        const cmpBaseHealthy = document.getElementById('cmp-base-healthy');
+        const cmpNewHealthy = document.getElementById('cmp-new-healthy');
+        const cmpDeltaHealthyBadge = document.getElementById('cmp-delta-healthy-badge');
+        if (cmpBaseHealthy) cmpBaseHealthy.textContent = isNewZone ? '-' : bM.healthy_parcels;
+        if (cmpNewHealthy) cmpNewHealthy.textContent = nM.healthy_parcels;
+        if (cmpDeltaHealthyBadge) {
+          if (isNewZone) {
+            cmpDeltaHealthyBadge.textContent = `${nM.healthy_pct}% ของแปลง`;
+            cmpDeltaHealthyBadge.className = 'delta-badge positive';
+          } else {
+            const dVal = delta.healthy_parcels_diff;
+            const sign = dVal > 0 ? '+' : '';
+            cmpDeltaHealthyBadge.textContent = `${sign}${dVal} แปลง`;
+            cmpDeltaHealthyBadge.className = `delta-badge ${dVal >= 0 ? 'positive' : 'negative'}`;
+          }
+        }
+
+        const cmpBaseStressed = document.getElementById('cmp-base-stressed');
+        const cmpNewStressed = document.getElementById('cmp-new-stressed');
+        const cmpDeltaStressedBadge = document.getElementById('cmp-delta-stressed-badge');
+        if (cmpBaseStressed) cmpBaseStressed.textContent = isNewZone ? '-' : bM.stressed_parcels;
+        if (cmpNewStressed) cmpNewStressed.textContent = nM.stressed_parcels;
+        if (cmpDeltaStressedBadge) {
+          if (isNewZone) {
+            cmpDeltaStressedBadge.textContent = `${nM.stressed_pct}% ของแปลง`;
+            cmpDeltaStressedBadge.className = `delta-badge ${nM.stressed_pct <= 10 ? 'positive' : 'negative'}`;
+          } else {
+            const dVal = delta.stressed_parcels_diff;
+            const sign = dVal > 0 ? '+' : '';
+            cmpDeltaStressedBadge.textContent = `${sign}${dVal} แปลง`;
+            cmpDeltaStressedBadge.className = `delta-badge ${dVal <= 0 ? 'positive' : 'negative'}`;
+          }
+        }
+
+        const cmpTrendText = document.getElementById('cmp-trend-text');
+        if (cmpTrendText) {
+          if (isNewZone) {
+            cmpTrendText.innerHTML = '✨ โซนใหม่และแปลงปาล์มถูกสกัดและพร้อมสำรวจในระบบ 3D';
+            cmpTrendText.style.color = '#34d399';
+          } else if (delta.trend === 'improved') {
+            cmpTrendText.innerHTML = '🌿 สุขภาพพืชโดยรวมปรับตัวดีขึ้น';
+            cmpTrendText.style.color = '#34d399';
+          } else if (delta.trend === 'declined') {
+            cmpTrendText.innerHTML = '⚠️ สุขภาพพืชลดลงเล็กน้อย';
+            cmpTrendText.style.color = '#f87171';
+          } else {
+            cmpTrendText.innerHTML = '⚖️ สุขภาพพืชคงที่ใกล้เคียงเดิม';
+            cmpTrendText.style.color = '#38bdf8';
+          }
+        }
+
+        // Swipe slider images
+        updateSwipeImages(currentSwipeMode);
+
+        // False Color viewer
+        updateFalseColorView(currentFalseColorMode);
+
+        // Detailed Stats
+        const detMeanNdvi = document.getElementById('det-mean-ndvi');
+        const detStdNdvi = document.getElementById('det-std-ndvi');
+        const detRangeNdvi = document.getElementById('det-range-ndvi');
+        const detPalmCov = document.getElementById('det-palm-cov');
+
+        if (detMeanNdvi) detMeanNdvi.textContent = nM.mean_ndvi.toFixed(3);
+        if (detStdNdvi) detStdNdvi.textContent = `±${nM.std_ndvi.toFixed(3)}`;
+        if (detRangeNdvi) detRangeNdvi.textContent = `${nM.min_ndvi.toFixed(2)} ถึง ${nM.max_ndvi.toFixed(2)}`;
+        if (detPalmCov) detPalmCov.textContent = `${nM.palm_coverage_pct}%`;
+
+        // Distribution Bars (with safe null-checks)
+        const elPctHealthy = document.getElementById('pct-healthy');
+        const elBarHealthy = document.getElementById('bar-healthy');
+        if (elPctHealthy) elPctHealthy.innerHTML = `${nM.healthy_pct}% (<span style="color:#ffffff;">${nM.healthy_parcels}</span> แปลง)`;
+        if (elBarHealthy) elBarHealthy.style.width = `${nM.healthy_pct}%`;
+
+        const elPctModerate = document.getElementById('pct-moderate');
+        const elBarModerate = document.getElementById('bar-moderate');
+        if (elPctModerate) elPctModerate.innerHTML = `${nM.moderate_pct}% (<span style="color:#ffffff;">${nM.moderate_parcels}</span> แปลง)`;
+        if (elBarModerate) elBarModerate.style.width = `${nM.moderate_pct}%`;
+
+        const elPctSparse = document.getElementById('pct-sparse');
+        const elBarSparse = document.getElementById('bar-sparse');
+        if (elPctSparse) elPctSparse.textContent = `${nM.sparse_pct}%`;
+        if (elBarSparse) elBarSparse.style.width = `${nM.sparse_pct}%`;
+
+        const elPctStressed = document.getElementById('pct-stressed');
+        const elBarStressed = document.getElementById('bar-stressed');
+        if (elPctStressed) elPctStressed.innerHTML = `${nM.stressed_pct}% (<span style="color:#ffffff;">${nM.stressed_parcels}</span> แปลง)`;
+        if (elBarStressed) elBarStressed.style.width = `${nM.stressed_pct}%`;
+
+        // Model Telemetry (with safe null-checks)
+        const elModelF1 = document.getElementById('studio-model-f1');
+        const elModelLatency = document.getElementById('studio-model-latency');
+        const elModelCoverage = document.getElementById('studio-model-coverage');
+        const f1Val = (studioData.model && studioData.model.f1_score) ? (studioData.model.f1_score * 100).toFixed(1) : '88.7';
+        const latVal = (studioData.model && studioData.model.latency_ms) ? studioData.model.latency_ms : '15.2';
+        if (elModelF1) elModelF1.innerHTML = `F1: <b>${f1Val}%</b>`;
+        if (elModelLatency) elModelLatency.innerHTML = `Latency: <b>${latVal} ms</b>`;
+        if (elModelCoverage) elModelCoverage.innerHTML = `พื้นที่ปาล์ม AI: <b>${nM.palm_coverage_pct}%</b>`;
+
+        // Auto-scroll gently into studio after small rendering tick
+        setTimeout(() => {
+          studioContainer.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
+
+      // =========================================================================
+      // Scenario 2: Cloud Repair Studio State & Mechanics
+      // =========================================================================
+      let currentCloudStudioData = null;
+      let currentCloudSwipeMode = 'rgb';
+
+      function updateCloudSwipeImages(mode) {
+        if (!currentCloudStudioData) return;
+        const imgs = currentCloudStudioData.images;
+        const imgRestored = document.getElementById('img-cloud-swipe-restored');
+        const imgCloudy = document.getElementById('img-cloud-swipe-cloudy');
+        const badgeLeft = document.getElementById('cloud-swipe-badge-left');
+        const badgeRight = document.getElementById('cloud-swipe-badge-right');
+
+        if (mode === 'rgb') {
+          if (imgRestored) imgRestored.src = imgs.restored_rgb;
+          if (imgCloudy) imgCloudy.src = imgs.cloudy_rgb;
+          if (badgeLeft) badgeLeft.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg><span>ภาพถ่ายติดเมฆเดิม (Cloudy S2 RGB)</span>`;
+          if (badgeRight) badgeRight.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>ภาพฟื้นฟูไร้เมฆ (Cloud-Free Restored S2)</span>`;
+        } else if (mode === 'cir') {
+          if (imgRestored) imgRestored.src = imgs.restored_cir;
+          if (imgCloudy) imgCloudy.src = imgs.cloudy_cir;
+          if (badgeLeft) badgeLeft.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>ภาพติดเมฆเดิม (Cloudy CIR)</span>`;
+          if (badgeRight) badgeRight.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/></svg><span>ภาพฟื้นฟูไร้เมฆ (Restored CIR: พืชสีแดงสด)</span>`;
+        } else if (mode === 'ndvi') {
+          if (imgRestored) imgRestored.src = imgs.restored_ndvi;
+          if (imgCloudy) imgCloudy.src = imgs.cloudy_ndvi;
+          if (badgeLeft) badgeLeft.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg><span>NDVI ติดเมฆ (Cloudy NDVI: ค่าดัชนีถูกบดบัง)</span>`;
+          if (badgeRight) badgeRight.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg><span>NDVI หลังฟื้นฟู (Restored NDVI: พืชสุขภาพสมบูรณ์)</span>`;
+        } else if (mode === 'sar') {
+          if (imgRestored) imgRestored.src = imgs.restored_rgb;
+          if (imgCloudy) imgCloudy.src = imgs.radar_sar;
+          if (badgeLeft) badgeLeft.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10"/></svg><span>สัญญาณเรดาร์ทะลุเมฆ (Sentinel-1 SAR Radar)</span>`;
+          if (badgeRight) badgeRight.innerHTML = `<svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span>ภาพดาวเทียมฟื้นฟู (Restored S2 Optical)</span>`;
+        }
+      }
+
+      let currentRestoredFilename = null;
+
+      function populateCloudRepairStudio(cloudData) {
+        currentCloudStudioData = cloudData;
+        currentRestoredFilename = cloudData.restored_filename || cloudData.filename || null;
+        const studioContainer = document.getElementById('ingestion-studio-container');
+        const s1Wrap = document.getElementById('studio-scenario-1-wrap');
+        const s2Wrap = document.getElementById('studio-scenario-2-wrap');
+
+        if (!studioContainer) return;
+        studioContainer.style.display = 'flex';
+
+        if (s1Wrap) s1Wrap.style.display = 'none';
+        if (s2Wrap) s2Wrap.style.display = 'flex';
+
+        // Update Studio Header
+        const badgePill = document.getElementById('studio-badge-pill');
+        const mainTitle = document.getElementById('studio-main-title');
+        const mainSubtitle = document.getElementById('studio-main-subtitle');
+        if (badgePill) badgePill.textContent = '🛰️ ผลลัพธ์การฟื้นฟูเรดาร์ Cloud-MAE (GPU Inpainting)';
+        if (mainTitle) mainTitle.textContent = 'ห้องแล็บฟื้นฟูภาพถ่ายดาวเทียมและกำจัดเมฆด้วยเรดาร์ (Cloud-MAE Studio)';
+        if (mainSubtitle) mainSubtitle.textContent = 'ผลการซ่อมแซมภาพถ่ายดาวเทียม Sentinel-2 ที่ติดเมฆหนาทึบด้วยเรดาร์ Sentinel-1 SAR ผ่านโครงข่าย Cloud-MAE บน GPU สำเร็จ';
+
+        // Telemetry metrics
+        const m = cloudData.metrics;
+        const elPsnr = document.getElementById('cloud-psnr');
+        const elMse = document.getElementById('cloud-mse');
+        const elCov = document.getElementById('cloud-coverage');
+        const elLat = document.getElementById('cloud-latency');
+        if (elPsnr) elPsnr.textContent = `${m.psnr_db} dB`;
+        if (elMse) elMse.textContent = `${m.mse}`;
+        if (elCov) elCov.textContent = `${m.cloud_coverage_restored}`;
+        if (elLat) elLat.textContent = `${m.latency_ms} ms`;
+
+        // Reset swipe mode to RGB
+        currentCloudSwipeMode = 'rgb';
+        document.querySelectorAll('.btn-cloud-swipe-mode').forEach(b => {
+          b.classList.toggle('active', b.dataset.cloudswipemode === 'rgb');
+        });
+        updateCloudSwipeImages('rgb');
+
+        // 3-Way Grid Images
+        const imgCloudy = document.getElementById('img-3way-cloudy');
+        const imgRadar = document.getElementById('img-3way-radar');
+        const imgRestored = document.getElementById('img-3way-restored');
+        if (imgCloudy) imgCloudy.src = cloudData.images.cloudy_rgb;
+        if (imgRadar) imgRadar.src = cloudData.images.radar_sar;
+        if (imgRestored) imgRestored.src = cloudData.images.restored_rgb;
+
+        // Download Button
+        const btnDownload = document.getElementById('btn-download-restored-tif');
+        if (btnDownload) {
+          if (cloudData.download_url) {
+            btnDownload.href = cloudData.download_url;
+            btnDownload.setAttribute('download', cloudData.filename || 'cloudfree_restored.tif');
+            btnDownload.style.display = 'inline-flex';
+          } else {
+            btnDownload.style.display = 'none';
+          }
+        }
+
+        // Update Scroll Button in success card
+        const btnScrollStudio = document.getElementById('btn-scroll-studio');
+        if (btnScrollStudio && btnScrollStudio.querySelector('span')) {
+          btnScrollStudio.querySelector('span').textContent = 'ดูห้องแล็บฟื้นฟูเรดาร์ & ภาพดาวเทียมไร้เมฆ (View Cloud-MAE Studio Below)';
+        }
+
+        // Auto-scroll gently into studio after small rendering tick
+        setTimeout(() => {
+          studioContainer.scrollIntoView({ behavior: 'smooth' });
+        }, 300);
+      }
+
+      // Proceed to NDVI Lab from Cloud Repair Studio
+      const btnProceedToNdvi = document.getElementById('btn-proceed-to-ndvi');
+      if (btnProceedToNdvi) {
+        btnProceedToNdvi.addEventListener('click', async () => {
+          if (!currentRestoredFilename) {
+            alert('ไม่พบชื่อไฟล์ภาพถ่ายดาวเทียมที่ซ่อมแซม');
+            return;
+          }
+          btnProceedToNdvi.disabled = true;
+          const origHtml = btnProceedToNdvi.innerHTML;
+          btnProceedToNdvi.innerHTML = `
+            <svg class="svg-icon" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+            <span>กำลังคำนวณ NDVI และสกัดดัชนีสุขภาพพืช...</span>
+          `;
+
+          try {
+            const fd = new FormData();
+            fd.append('restored_filename', currentRestoredFilename);
+            fd.append('target_zone', 1);
+            fd.append('model_id', 'late_fusion_cloudmae');
+
+            const resp = await fetch('/api/upload/analyze-restored-ndvi', {
+              method: 'POST',
+              body: fd
+            });
+            if (!resp.ok) {
+              const err = await resp.json().catch(() => ({}));
+              throw new Error(err.detail || `HTTP ${resp.status}`);
+            }
+            const data = await resp.json();
+
+            // Populate Scenario 1 studio with restored image analytics, keeping Scenario 2 visible above
+            populateStudio(data.studio_data, 1, data.raster_filename, true);
+
+            // Customize title in temporal header
+            const temporalZoneLabel = document.getElementById('temporal-zone-label');
+            if (temporalZoneLabel) {
+              temporalZoneLabel.textContent = 'วิเคราะห์จากภาพที่ซ่อมแซมไร้เมฆ (Cloud-Free Restored S2)';
+              temporalZoneLabel.className = 'badge-pass';
+            }
+
+            // Smooth scroll down to the NDVI lab
+            setTimeout(() => {
+              const s1Wrap = document.getElementById('studio-scenario-1-wrap');
+              if (s1Wrap) s1Wrap.scrollIntoView({ behavior: 'smooth' });
+            }, 250);
+
+          } catch (err) {
+            console.error('Error analyzing restored NDVI:', err);
+            alert('ไม่สามารถวิเคราะห์ NDVI ได้: ' + err.message);
+          } finally {
+            btnProceedToNdvi.disabled = false;
+            btnProceedToNdvi.innerHTML = origHtml;
+          }
+        });
+      }
+
+      // Cloud Swipe Slider Mechanics
+      const cloudSwipeInput = document.getElementById('cloud-swipe-input');
+      const cloudSwipeOverlay = document.getElementById('cloud-swipe-overlay');
+      const cloudSwipeHandle = document.getElementById('cloud-swipe-handle');
+      const cloudSwipeContainer = document.getElementById('cloud-swipe-container');
+
+      function setCloudSwipePercent(pct) {
+        const p = Math.max(0, Math.min(100, pct));
+        if (cloudSwipeOverlay) cloudSwipeOverlay.style.width = `${p}%`;
+        if (cloudSwipeHandle) cloudSwipeHandle.style.left = `${p}%`;
+        if (cloudSwipeInput) cloudSwipeInput.value = p;
+      }
+
+      if (cloudSwipeInput) {
+        cloudSwipeInput.addEventListener('input', (e) => {
+          setCloudSwipePercent(parseFloat(e.target.value));
+        });
+      }
+
+      if (cloudSwipeContainer) {
+        cloudSwipeContainer.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          if (!cloudSwipeInput) return;
+          const cur = parseFloat(cloudSwipeInput.value);
+          const delta = e.deltaY > 0 ? -4 : 4;
+          setCloudSwipePercent(cur + delta);
+        }, { passive: false });
+      }
+
+      // Cloud Swipe Mode Buttons
+      document.querySelectorAll('.btn-cloud-swipe-mode').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.btn-cloud-swipe-mode').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentCloudSwipeMode = btn.dataset.cloudswipemode;
+          updateCloudSwipeImages(currentCloudSwipeMode);
+        });
+      });
+
+      // Swipe Slider Mechanics
+      const swipeInput = document.getElementById('cmp-swipe-input');
+      const swipeOverlay = document.getElementById('cmp-swipe-overlay');
+      const swipeHandle = document.getElementById('cmp-swipe-handle');
+      const swipeContainer = document.getElementById('cmp-swipe-container');
+
+      function setSwipePercent(pct) {
+        const p = Math.max(0, Math.min(100, pct));
+        if (swipeOverlay) swipeOverlay.style.width = `${p}%`;
+        if (swipeHandle) swipeHandle.style.left = `${p}%`;
+        if (swipeInput) swipeInput.value = p;
+      }
+
+      if (swipeInput) {
+        swipeInput.addEventListener('input', (e) => {
+          setSwipePercent(parseFloat(e.target.value));
+        });
+      }
+
+      if (swipeContainer) {
+        swipeContainer.addEventListener('wheel', (e) => {
+          e.preventDefault();
+          if (!swipeInput) return;
+          const cur = parseFloat(swipeInput.value);
+          const delta = e.deltaY > 0 ? -4 : 4;
+          setSwipePercent(cur + delta);
+        }, { passive: false });
+      }
+
+      // Swipe Mode Buttons
+      document.querySelectorAll('.btn-swipe-mode').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.btn-swipe-mode').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentSwipeMode = btn.dataset.swipemode;
+          updateSwipeImages(currentSwipeMode);
+        });
+      });
+
+      // False Color Tabs
+      document.querySelectorAll('.fc-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.fc-tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFalseColorMode = btn.dataset.fcmode;
+          updateFalseColorView(currentFalseColorMode);
+        });
+      });
+
+      // Live Hover Pixel Inspector on Composite Viewer
+      const fcViewer = document.getElementById('fc-viewer-container');
+      const reticle = document.getElementById('inspector-reticle');
+      const tooltip = document.getElementById('inspector-cursor-tooltip');
+      const tooltipCoord = document.getElementById('tooltip-coord');
+      const tooltipNdvi = document.getElementById('tooltip-ndvi');
+      const tooltipStatus = document.getElementById('tooltip-status');
+      const inspectHoverCoords = document.getElementById('inspect-hover-coords');
+      const inspectHoverNdvi = document.getElementById('inspect-hover-ndvi');
+
+      if (fcViewer) {
+        fcViewer.addEventListener('mousemove', (e) => {
+          if (!pixelNdviArray) return;
+          const rect = fcViewer.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const normX = Math.max(0, Math.min(1, x / rect.width));
+          const normY = Math.max(0, Math.min(1, y / rect.height));
+
+          const ndvi = getPixelNdviValue(normX, normY);
+          if (ndvi === null) return;
+
+          reticle.style.display = 'block';
+          reticle.style.left = `${x}px`;
+          reticle.style.top = `${y}px`;
+
+          tooltip.style.display = 'block';
+          const ttX = x + 18 + 160 > rect.width ? x - 175 : x + 18;
+          const ttY = y + 18 + 80 > rect.height ? y - 85 : y + 18;
+          tooltip.style.left = `${ttX}px`;
+          tooltip.style.top = `${ttY}px`;
+
+          const px = Math.round(normX * 256);
+          const py = Math.round(normY * 256);
+
+          let healthStr = "มีภาวะเครียด / ดินโล่ง";
+          let healthColor = "#ef4444";
+          if (ndvi >= 0.70) {
+            healthStr = "สมบูรณ์แข็งแรงมาก";
+            healthColor = "#34d399";
+          } else if (ndvi >= 0.45) {
+            healthStr = "ปานกลาง / ปาล์มรุ่นใหม่";
+            healthColor = "#95d5b2";
+          } else if (ndvi >= 0.20) {
+            healthStr = "พืชเบาบาง / ดินชื้น";
+            healthColor = "#ffb703";
+          }
+
+          tooltipCoord.textContent = `พิกัดพิกเซล (X: ${px}, Y: ${py})`;
+          tooltipNdvi.innerHTML = `NDVI: <b style="color: ${healthColor};">${ndvi.toFixed(3)}</b>`;
+          tooltipStatus.textContent = `ระดับสุขภาพ: ${healthStr}`;
+
+          inspectHoverCoords.textContent = `(X: ${px}, Y: ${py})`;
+          inspectHoverNdvi.innerHTML = `NDVI: <b style="color: ${healthColor};">${ndvi.toFixed(3)}</b> — ${healthStr}`;
+        });
+
+        fcViewer.addEventListener('mouseleave', () => {
+          reticle.style.display = 'none';
+          tooltip.style.display = 'none';
+          inspectHoverCoords.textContent = `(X: --, Y: --)`;
+          inspectHoverNdvi.innerHTML = `NDVI: --`;
+        });
+      }
+
+      // Model Architecture Switcher Handler
+      const selectStudioModel = document.getElementById('select-studio-model');
+      if (selectStudioModel) {
+        selectStudioModel.addEventListener('change', async (e) => {
+          if (!currentRasterFilename) return;
+          const newModelId = e.target.value;
+          selectStudioModel.disabled = true;
+
+          try {
+            const fd = new FormData();
+            fd.append('raster_filename', currentRasterFilename);
+            fd.append('model_id', newModelId);
+            fd.append('target_zone', currentTargetZone);
+
+            const resp = await fetch('/api/upload/switch-model', {
+              method: 'POST',
+              body: fd
+            });
+            if (!resp.ok) {
+              const errData = await resp.json().catch(() => ({}));
+              throw new Error(errData.detail || `HTTP Error ${resp.status}`);
+            }
+            const data = await resp.json();
+
+            // Update AI Mask in both viewer and swipe
+            const imgCompMask = document.getElementById('img-composite-mask');
+            const imgSwipeMask = document.getElementById('img-swipe-ai-mask');
+            if (imgCompMask) imgCompMask.src = data.ai_mask;
+            if (imgSwipeMask) imgSwipeMask.src = data.ai_mask;
+
+            // Update telemetry
+            const f1Pct = data.model_info.f1_score ? (data.model_info.f1_score * 100).toFixed(1) : '88.7';
+            document.getElementById('studio-model-f1').innerHTML = `F1: <b>${f1Pct}%</b>`;
+            document.getElementById('studio-model-latency').innerHTML = `Latency: <b>${data.latency_ms} ms</b>`;
+            document.getElementById('studio-model-coverage').innerHTML = `พื้นที่ปาล์ม AI: <b>${data.palm_coverage_pct}%</b>`;
+            document.getElementById('det-palm-cov').textContent = `${data.palm_coverage_pct}%`;
+          } catch (err) {
+            console.error('Model switch error:', err);
+            alert('ไม่สามารถสลับโมเดลได้: ' + err.message);
+          } finally {
+            selectStudioModel.disabled = false;
+          }
+        });
+      }
+
+      // AI Mask Toggle & Opacity Controls
+      const chkShowAiMask = document.getElementById('chk-show-ai-mask');
+      const sliderAiMaskOpacity = document.getElementById('slider-ai-mask-opacity');
+      const labelAiMaskOpacity = document.getElementById('label-ai-mask-opacity');
+
+      if (chkShowAiMask) {
+        chkShowAiMask.addEventListener('change', (e) => {
+          const isShown = e.target.checked;
+          const imgCompMask = document.getElementById('img-composite-mask');
+          const imgSwipeMask = document.getElementById('img-swipe-ai-mask');
+          if (imgCompMask) imgCompMask.style.display = isShown ? 'block' : 'none';
+          if (imgSwipeMask) imgSwipeMask.style.display = isShown ? 'block' : 'none';
+        });
+      }
+
+      if (sliderAiMaskOpacity) {
+        sliderAiMaskOpacity.addEventListener('input', (e) => {
+          const val = e.target.value;
+          if (labelAiMaskOpacity) labelAiMaskOpacity.textContent = `${val}%`;
+          const op = val / 100;
+          const imgCompMask = document.getElementById('img-composite-mask');
+          const imgSwipeMask = document.getElementById('img-swipe-ai-mask');
+          if (imgCompMask) imgCompMask.style.opacity = op;
+          if (imgSwipeMask) imgSwipeMask.style.opacity = op;
+        });
+      }
+
+      // Scroll Button to Ingestion Studio
+      if (btnScrollStudio) {
+        btnScrollStudio.addEventListener('click', () => {
+          const studioSection = document.getElementById('ingestion-studio-container');
+          if (studioSection) {
+            studioSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+
+      // Real Execution Submission
+      btnRun.addEventListener('click', async () => {
+        const scenario = scenarioDropdown.value;
+        const targetZone = parseInt(document.getElementById('select-target-zone').value, 10);
+        const zoneName = inputZoneName.value.trim();
+        const isSam = document.querySelector('input[name="seg_strategy"]:checked').value === 'auto_sam1';
+
+        btnRun.disabled = true;
+        btnRun.innerHTML = `
+          <svg class="svg-icon" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+          <span>กำลังส่งไฟล์และประมวลผลจริงบน GPU...</span>
+        `;
+        progressBox.style.display = 'flex';
+        resultSuccess.style.display = 'none';
+        progressStatus.textContent = "กำลังอัปโหลดไฟล์และประมวลผลด้วยโมเดลจริง...";
+
+        try {
+          const formData = new FormData();
+          formData.append('scenario', scenario);
+
+          if (scenario === 'update_existing') {
+            formData.append('target_zone', targetZone);
+            if (inpS1Update.files[0]) formData.append('primary_file', inpS1Update.files[0]);
+          } else if (scenario === 'cloud_repair') {
+            const cloudMaskMode = document.querySelector('input[name="cloud-mask-mode"]:checked')?.value || 'auto';
+            formData.append('cloud_mask_mode', cloudMaskMode);
+            if (inpS2Cloudy.files[0]) formData.append('primary_file', inpS2Cloudy.files[0]);
+            if (inpS1Sar.files[0]) formData.append('secondary_file', inpS1Sar.files[0]);
+          } else if (scenario === 'new_zone') {
+            formData.append('zone_name', zoneName);
+            formData.append('segmentation_mode', isSam ? 'auto_sam1' : 'custom_vector');
+            if (inpNewS1.files[0]) formData.append('primary_file', inpNewS1.files[0]);
+            if (inpNewS2.files[0]) formData.append('secondary_file', inpNewS2.files[0]);
+            if (inpNewGsat.files[0]) formData.append('gsat_file', inpNewGsat.files[0]);
+            if (!isSam && inpVector.files[0]) formData.append('vector_file', inpVector.files[0]);
+          }
+
+          const resp = await fetch('/api/upload/execute', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (!resp.ok) {
+            const errData = await resp.json().catch(() => ({}));
+            throw new Error(errData.detail || `HTTP Error ${resp.status}`);
+          }
+
+          const data = await resp.json();
+
+          progressBox.style.display = 'none';
+          resultSuccess.style.display = 'block';
+          resultMessage.textContent = data.message || 'ประมวลผลสำเร็จ!';
+          resultDuration.textContent = `${data.duration_ms} ms (Real GPU Compute)`;
+
+          // Render Real Metrics
+          let metricsHtml = "";
+          if (data.studio_data) {
+            const isNew = (scenario === 'new_zone');
+            const targetZoneId = isNew ? (data.zone_id || targetZone) : targetZone;
+            const nm = data.studio_data.new_metrics;
+            const bm = data.studio_data.baseline_metrics;
+            const rm = data.real_metrics;
+
+            metricsHtml = `
+              <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">
+                ${isNew ? `📊 ข้อมูลสรุปการประมวลผลนำเข้าพื้นที่ใหม่ Zone ${targetZoneId} (Real Output):` : `📊 ผลการวิเคราะห์ข้อมูลใหม่เทียบกับข้อมูลเดิม (Real Compute):`}
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px;">
+                <div><b>พิกัด/มิติภาพ:</b> ${data.studio_data.dimensions} (${data.studio_data.crs})</div>
+                <div><b>จำนวนแบนด์:</b> ${data.studio_data.bands} แบนด์</div>
+                ${rm && rm.parcels_count ? `<div><b>จำนวนแปลงที่สกัดได้:</b> <span style="color: #38bdf8; font-weight: 700;">${rm.parcels_count} แปลง</span></div>` : `<div><b>แปลงที่วิเคราะห์:</b> ${nm.analyzed_parcels} แปลง</div>`}
+                ${rm && rm.total_area_rai ? `<div><b>พื้นที่สวนปาล์มรวม:</b> ${rm.total_area_rai} ไร่</div>` : ''}
+                <div><b>NDVI เฉลี่ย:</b> <span style="color: #34d399; font-weight: 700;">${nm.mean_ndvi}</span> ${!isNew ? `(เดิม ${bm.mean_ndvi})` : ''}</div>
+                <div><b>แปลงสุขภาพดี:</b> ${nm.healthy_parcels} แปลง (${nm.healthy_pct}%)</div>
+                <div><b>แปลงมีภาวะเครียด:</b> ${nm.stressed_parcels} แปลง (${nm.stressed_pct}%)</div>
+                <div><b>ความครอบคลุมปาล์ม AI:</b> ${nm.palm_coverage_pct}%</div>
+                ${rm && rm.segmentation_engine ? `<div><b>Engine:</b> ${rm.segmentation_engine}</div>` : ''}
+              </div>
+            `;
+
+            // If new zone, provide a direct prominent button to explore on 3D Map
+            if (isNew && data.redirect_url) {
+              let btnMap = document.getElementById('btn-go-3d-map');
+              if (!btnMap) {
+                btnMap = document.createElement('a');
+                btnMap.id = 'btn-go-3d-map';
+                btnMap.className = 'btn-execute';
+                btnMap.target = '_blank';
+                btnMap.style.cssText = 'width: auto; padding: 10px 24px; font-size: 0.88rem; margin: 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); text-decoration: none; color: #ffffff; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 700; border-radius: 10px; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);';
+                btnMap.innerHTML = `
+                  <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                  <span>🗺️ เปิดสำรวจโซนใหม่บนแผนที่ 3D (Explore in 3D Map) ↗</span>
+                `;
+                btnScrollStudio.parentNode.insertBefore(btnMap, btnScrollStudio);
+              }
+              btnMap.href = data.redirect_url;
+              btnMap.style.display = 'inline-flex';
+            }
+
+            populateStudio(data.studio_data, targetZoneId, data.raster_filename, false, isNew, data.zone_name);
+          } else if (data.real_metrics) {
+            const m = data.real_metrics;
+            metricsHtml = `
+              <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">📊 ข้อมูลผลลัพธ์จากการคำนวณจริง:</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px;">
+                ${m.analyzed_parcels ? `<div><b>จำนวนแปลงที่วิเคราะห์:</b> ${m.analyzed_parcels} แปลง</div>` : ''}
+                ${m.parcels_count ? `<div><b>จำนวนแปลงที่สกัดได้:</b> ${m.parcels_count} แปลง</div>` : ''}
+                ${m.total_area_rai ? `<div><b>พื้นที่รวม:</b> ${m.total_area_rai} ไร่</div>` : ''}
+                ${m.mean_ndvi !== undefined ? `<div><b>ค่าเฉลี่ย NDVI:</b> ${m.mean_ndvi}</div>` : ''}
+                ${m.min_ndvi !== undefined ? `<div><b>NDVI ต่ำสุด-สูงสุด:</b> ${m.min_ndvi} - ${m.max_ndvi}</div>` : ''}
+                ${m.healthy_parcels ? `<div style="color: #34d399;"><b>แปลงสุขภาพดี:</b> ${m.healthy_parcels} แปลง</div>` : ''}
+                ${m.segmentation_engine ? `<div><b>Engine:</b> ${m.segmentation_engine}</div>` : ''}
+              </div>
+            `;
+            if (data.redirect_url) {
+              let btnMap = document.getElementById('btn-go-3d-map');
+              if (!btnMap) {
+                btnMap = document.createElement('a');
+                btnMap.id = 'btn-go-3d-map';
+                btnMap.className = 'btn-execute';
+                btnMap.target = '_blank';
+                btnMap.style.cssText = 'width: auto; padding: 10px 24px; font-size: 0.88rem; margin: 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); text-decoration: none; color: #ffffff; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 700; border-radius: 10px; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);';
+                btnMap.innerHTML = `
+                  <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                  <span>🗺️ เปิดสำรวจโซนใหม่บนแผนที่ 3D (Explore in 3D Map) ↗</span>
+                `;
+                btnScrollStudio.parentNode.insertBefore(btnMap, btnScrollStudio);
+              }
+              btnMap.href = data.redirect_url;
+              btnMap.style.display = 'inline-flex';
+            }
+          } else if (data.cloud_studio_data) {
+            const m = data.cloud_studio_data.metrics;
+            metricsHtml = `
+              <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">📊 ผลการฟื้นฟูภาพด้วยเรดาร์ Cloud-MAE (Real Compute):</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px;">
+                <div><b>PSNR:</b> <span style="color: #38bdf8; font-weight: 700;">${m.psnr_db} dB</span></div>
+                <div><b>MSE Loss:</b> <span style="color: #34d399; font-weight: 700;">${m.mse}</span></div>
+                <div><b>พื้นที่เมฆที่กู้คืน:</b> <span style="color: #a78bfa; font-weight: 700;">${m.cloud_coverage_restored}</span></div>
+                <div><b>GPU Latency:</b> <span style="color: #fbbf24; font-weight: 700;">${m.latency_ms} ms</span></div>
+              </div>
+            `;
+            populateCloudRepairStudio(data.cloud_studio_data);
+          } else if (data.metrics) {
+            const m = data.metrics;
+            metricsHtml = `
+              <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">📊 ผลการฟื้นฟูภาพด้วยเรดาร์ Cloud-MAE:</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px;">
+                <div><b>PSNR:</b> ${m.psnr_db} dB</div>
+                <div><b>MSE Loss:</b> ${m.mse}</div>
+                <div><b>พื้นที่เมฆที่กู้คืน:</b> ${m.cloud_coverage_restored}</div>
+                <div><b>GPU Latency:</b> ${m.latency_ms} ms</div>
+              </div>
+            `;
+          }
+          resultMetrics.innerHTML = metricsHtml;
+
+        } catch (err) {
+          console.error('Pipeline execution error:', err);
+          alert(`เกิดข้อผิดพลาดในการประมวลผล: ${err.message}`);
+          progressBox.style.display = 'none';
+        } finally {
+          checkScenarioReadiness();
+        }
+      });
+
+      // Reset
+      btnReset.addEventListener('click', () => {
+        resultSuccess.style.display = 'none';
+        progressBox.style.display = 'none';
+        const btnGoMap = document.getElementById('btn-go-3d-map');
+        if (btnGoMap) btnGoMap.remove();
+        document.querySelectorAll('input[type="file"]').forEach(i => i.value = '');
+        document.querySelectorAll('.file-name-label').forEach(l => l.style.display = 'none');
+        document.querySelectorAll('.custom-dropzone').forEach(d => {
+          d.classList.remove('has-file');
+          d.classList.remove('has-error');
+        });
+        document.querySelectorAll('.inspection-result-box').forEach(b => b.style.display = 'none');
+        Object.keys(fileValidations).forEach(k => {
+          fileValidations[k].file = null;
+          fileValidations[k].valid = false;
+        });
+        const studioContainer = document.getElementById('ingestion-studio-container');
+        if (studioContainer) studioContainer.style.display = 'none';
+        checkScenarioReadiness();
+      });
+
+      // Copy Folder Path Button
+      const btnCopyPath = document.getElementById('btn-copy-test-path');
+      if (btnCopyPath) {
+        btnCopyPath.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const folderPath = "c:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\data\\test_samples";
+          navigator.clipboard.writeText(folderPath).then(() => {
+            const originalHtml = btnCopyPath.innerHTML;
+            btnCopyPath.innerHTML = `<span style="color: #34d399;">✓ คัดลอก Path แล้ว!</span>`;
+            setTimeout(() => { btnCopyPath.innerHTML = originalHtml; }, 2000);
+          }).catch(() => {
+            prompt("คัดลอก Path โฟลเดอร์สำหรับเปิดใน File Dialog:", folderPath);
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

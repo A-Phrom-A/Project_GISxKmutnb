@@ -50,14 +50,23 @@ class ViTCrossAttnModel(nn.Module):
     def num_parameters(self) -> int:
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
-    def forward(self, x):
+    def forward(self, x=None, s2=None, gsat=None, s1=None):
         """
-        x: (B, 12, H, W)
+        Supports either:
+          - Single 12-band tensor: forward(x) where x is (B, 12, H, W)
+          - Three tensors: forward(s1, s2, gsat) or forward(s1=s1, s2=s2, gsat=gsat)
         """
-        # 1. Split modalities
-        x_s1   = x[:, 0:2, :, :]
-        x_s2   = x[:, 2:9, :, :]
-        x_gsat = x[:, 9:12, :, :]
+        # 1. Resolve modalities
+        if s2 is not None and gsat is not None:
+            x_s1, x_s2, x_gsat = x, s2, gsat
+        elif s1 is not None and s2 is not None and gsat is not None:
+            x_s1, x_s2, x_gsat = s1, s2, gsat
+        elif x is not None and x.shape[1] == 12:
+            x_s1   = x[:, 0:2, :, :]
+            x_s2   = x[:, 2:9, :, :]
+            x_gsat = x[:, 9:12, :, :]
+        else:
+            raise ValueError("Expected either a 12-band tensor (B, 12, H, W) or 3 separate tensors (s1, s2, gsat).")
         
         # 2. Extract features
         feat_s1   = self.encoder_s1(x_s1)     # (B, L, C)

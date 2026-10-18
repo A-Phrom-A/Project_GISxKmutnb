@@ -1,0 +1,53 @@
+# Config กลางสำหรับโครงการ Cross-Band Recovery (Sentinel-1 -> Sentinel-2)
+# สอดคล้องตามแผน cross_band_recovery_development_plan.md
+
+system:
+  seed: 42
+  device: "cuda"          # "cuda" หรือ "cpu"
+  dtype: "bfloat16"       # "bfloat16" หรือ "float32" (RTX 5060 Ti รองรับ BF16 สมบูรณ์)
+  num_workers: 4
+  benchmark: false
+  deterministic: true
+
+data:
+  tile_size: 128          # 128x128 (ลด VRAM/Sequence length ลง 4 เท่า) หรือ 256x256
+  patch_size: 16
+  max_dt_days: 6          # ช่องว่างเวลาสูงสุดระหว่าง S1 กับ S2 (|dt| <= 3 สำหรับ Tier 1-2, ขยายถึง 6 วัน)
+  max_cloud_roi: 0.05     # สัดส่วนเมฆสูงสุดระดับ ROI (5%)
+  
+  optical_bands:
+    names: ["B02", "B03", "B04", "B8A", "B08", "B11", "B12"]
+    count: 7
+  sar_bands:
+    names: ["VV", "VH"]
+    count: 2
+  total_bands: 9
+
+  # การแบ่งข้อมูลเชิงพื้นที่ (Spatial Block Split)
+  split:
+    block_size_km: 5.0
+    buffer_meters: 500.0
+    train_ratio: 0.70
+    val_ratio: 0.15
+    test_ratio: 0.15
+
+masking:
+  p_sar_dropout: 0.20     # อัตราการสุ่มดรอปเรดาร์ระหว่างการเทรน (MultiMAE / SAR Modality Dropout)
+  k_optical_min: 1        # ปิดอย่างน้อย 1 แบนด์
+  k_optical_max: 7        # ปิดสูงสุด 7 แบนด์
+  sampling_strategy: "uniform" # "uniform" ข้าม k in [1, 7]
+
+model:
+  embed_dim: 512
+  depth: 6
+  num_heads: 8
+  mlp_ratio: 4.0
+  dropout: 0.1
+
+paths:
+  raw_paired: "projects/cross_band_recovery/data/raw_paired"
+  manifests: "projects/cross_band_recovery/data/manifests"
+  tiles: "projects/cross_band_recovery/data/tiles"
+  results_metrics: "projects/cross_band_recovery/results/metrics"
+  results_figures: "projects/cross_band_recovery/results/figures"
+  evidence: "projects/cross_band_recovery/docs/tracking/evidence"

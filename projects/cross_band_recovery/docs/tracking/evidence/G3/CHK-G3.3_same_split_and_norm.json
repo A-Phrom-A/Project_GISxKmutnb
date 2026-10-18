@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "spatial_split_file": "spatial_split.parquet",
+  "norm_stats_file": "norm_stats.json",
+  "train_samples_used": 100,
+  "val_samples_used": 80
+}

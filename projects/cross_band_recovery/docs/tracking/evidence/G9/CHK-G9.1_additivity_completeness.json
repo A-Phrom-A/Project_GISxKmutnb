@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "max_relative_error": 0.03126025761366134,
+  "threshold": 0.05,
+  "details": [
+    {
+      "target_band": "B04",
+      "delta_target": -0.02057585120201111,
+      "sum_attributions": -0.020560448494507,
+      "relative_error": 0.0007485781509145044
+    },
+    {
+      "target_band": "B08",
+      "delta_target": 0.15807685256004333,
+      "sum_attributions": 0.1580166689818725,
+      "relative_error": 0.0003807232945484325
+    },
+    {
+      "target_band": "B11",
+      "delta_target": 0.0036901533603668213,
+      "sum_attributions": 0.003574795089662075,
+      "relative_error": 0.03126025761366134
+    }
+  ]
+}

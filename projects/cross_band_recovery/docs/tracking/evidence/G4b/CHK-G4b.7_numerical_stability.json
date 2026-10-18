@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "fp32_nan_inf": 0,
+  "bf16_nan_inf": 0,
+  "passes": 50
+}

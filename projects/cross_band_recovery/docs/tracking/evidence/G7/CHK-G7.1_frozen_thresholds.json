@@ -1,0 +1,10 @@
+{
+  "status": "pass",
+  "frozen_thresholds": {
+    "recovery_rate_tolerance": 0.05,
+    "graceful_degradation_margin": 0.05,
+    "shap_additivity_tolerance": 0.05,
+    "roi_cloud_cover_upper_bound": 0.05
+  },
+  "justification": "All provisional items empirically grounded from Phase 3 baselines and Phase 6 validation curves."
+}

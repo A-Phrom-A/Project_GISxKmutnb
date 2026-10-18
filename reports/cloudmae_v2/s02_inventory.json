@@ -1,0 +1,79 @@
+{
+  "phase": "Phase 0 - S0.2",
+  "total_rasters_scanned": 43,
+  "pretrain_tiles_count": 8996,
+  "sample_tile": {
+    "keys": [
+      "s1",
+      "s2"
+    ],
+    "s1_shape": [
+      2,
+      256,
+      256
+    ],
+    "s2_shape": [
+      7,
+      256,
+      256
+    ],
+    "s1_dtype": "float32",
+    "s2_dtype": "float32"
+  },
+  "core_dataset": {
+    "s2_7band_scenes": 7,
+    "s1_2band_scenes": 7,
+    "provinces": [
+      "Chanthaburi",
+      "Chonburi",
+      "Rayong",
+      "SaKaeo",
+      "Trat",
+      "Unknown"
+    ]
+  },
+  "crs_distribution": {
+    "EPSG:32647": 27,
+    "EPSG:3857": 2,
+    "EPSG:4326": 10,
+    "None": 4
+  },
+  "chk_02a_scene_inventory": {
+    "name": "CHK 0.2a: Core scene counts per province",
+    "status": "PASSED",
+    "count": 7,
+    "provinces": {
+      "Chanthaburi": 1,
+      "Chonburi": 1,
+      "Rayong": 1,
+      "SaKaeo": 1,
+      "Trat": 1,
+      "Unknown": 2
+    }
+  },
+  "chk_02b_schema_resolution": {
+    "name": "CHK 0.2b: 10m Resolution (Metric or Degree Eq)",
+    "status": "PASSED",
+    "all_core_10m": true,
+    "crs_note": "Pretrain 5 provinces exported in WGS84 (EPSG:4326) with 8.98e-5 deg (10m eq); Downstream Chonburi exported in UTM47N (EPSG:32647) 10m native."
+  },
+  "chk_02c_nodata_check": {
+    "name": "CHK 0.2c: Nodata / NaN <= 5%",
+    "status": "PASSED",
+    "max_core_nodata_pct": 1.859
+  },
+  "chk_02d_s1_s2_pairing": {
+    "name": "CHK 0.2d: S1 SAR and S2 Optical Pairing",
+    "status": "PASSED",
+    "s1_count": 7,
+    "s2_count": 7,
+    "l1c_note": "No raw L1C archives locally. SCL + Optical Spectral Ensemble will be used for mask production in Phase 1."
+  },
+  "chk_02e_palm_layer": {
+    "name": "CHK 0.2e: Palm ground truth parcel layer",
+    "status": "PASSED",
+    "features_count": 4726,
+    "path": "data/raw/ground_truth.geojson"
+  },
+  "all_passed": true
+}

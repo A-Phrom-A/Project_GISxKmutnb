@@ -1,0 +1,68 @@
+{
+  "status": "PASSED",
+  "s2_optical_ranges": [
+    [
+      131.5,
+      5532.0
+    ],
+    [
+      58.0,
+      15160.0
+    ],
+    [
+      52.0,
+      7013.5
+    ],
+    [
+      167.0,
+      5346.5
+    ],
+    [
+      112.0,
+      6721.0
+    ],
+    [
+      1101.0,
+      12255.0
+    ],
+    [
+      10.0,
+      5679.0
+    ]
+  ],
+  "s1_sar_ranges": [
+    [
+      -31.2335,
+      13.9649
+    ],
+    [
+      -35.3057,
+      12.6244
+    ],
+    [
+      -35.1241,
+      4.4235
+    ],
+    [
+      -31.6452,
+      13.4474
+    ],
+    [
+      -39.5538,
+      26.1787
+    ],
+    [
+      0.0014,
+      41.5023
+    ],
+    [
+      -33.9847,
+      -1.0553
+    ]
+  ],
+  "s1_units_detected": {
+    "log_dB": 6,
+    "linear_backscatter": 1
+  },
+  "notes": "Verified: S2 reflectance is strictly positive. S1 units explicitly cataloged: Pretrain GEE scenes are calibrated in log_dB (typically -35 to +5 dB); Native raw scenes are linear backscatter (>= 0). P2 will standardize both to normalized dB without double-logging."
+}

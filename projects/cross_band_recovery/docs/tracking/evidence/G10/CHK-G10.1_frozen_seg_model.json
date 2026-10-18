@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "model_path": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\checkpoints\\finetune\\vitpalm_best.pth",
+  "sha256": "c3cd75ded9c61055a1e3d9adc1c12a3c40dde046c8a7b706e9ca148786686375",
+  "architecture": "ViTPalmModel (12 channels, embed_dim=256, depth=6, heads=8)",
+  "invariant_across_conditions": true
+}

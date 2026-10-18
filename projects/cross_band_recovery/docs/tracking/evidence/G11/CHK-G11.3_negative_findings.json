@@ -1,0 +1,17 @@
+{
+  "status": "pass",
+  "negative_findings_reported": [
+    {
+      "finding": "Limited SAR impact when multiple optical bands are intact (k=1 to k=3)",
+      "detail": "When 4-6 optical bands remain visible, optical cross-band correlation dominates prediction. Mean SAR Delta-MAE is +0.00036 at k=1, showing that SAR is secondary when direct optical reflectance is abundant."
+    },
+    {
+      "finding": "Baseline B3 (Pixel-wise Random Forest) severe downstream distortion",
+      "detail": "While Random Forest achieved acceptable pixel MAE (0.0322), its lack of spatial context created high-frequency spatial discontinuities that caused downstream palm segmentation F1 to collapse to 0.0267."
+    },
+    {
+      "finding": "Occasional negative SAR transfer under specific atmospheric states",
+      "detail": "In a small fraction of conditions with minimal cloud interference, withholding SAR yielded slightly lower MAE (minimum SAR Delta-MAE = -0.00136), indicating that radar speckle can introduce slight noise if optical visibility is pristine."
+    }
+  ]
+}

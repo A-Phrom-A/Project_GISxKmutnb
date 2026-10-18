@@ -1,0 +1,9 @@
+{
+  "status": "PASSED",
+  "total_tiles_checked": 4829,
+  "nan_inf_count": 0,
+  "s2_norm_min": -2.099569082260132,
+  "s2_norm_max": 4.299415111541748,
+  "s1_norm_min": -0.8925223350524902,
+  "s1_norm_max": 2.535522699356079
+}

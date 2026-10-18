@@ -1,0 +1,31 @@
+{
+  "status": "pass",
+  "all_hypotheses_concluded": true,
+  "conclusions": {
+    "H1": {
+      "hypothesis": "ViT-Fusion significantly outperforms unguided baselines on primary metric",
+      "status": "SUPPORTED",
+      "evidence": "M2 Test MAE = 0.04721 vs B0 Mean-fill MAE = 0.0500"
+    },
+    "H2": {
+      "hypothesis": "SAR backscatter contribution Delta-MAE > 0 becomes prominent when optical bands are heavily occluded (high k)",
+      "status": "SUPPORTED",
+      "evidence": "At k=6, mean Delta-MAE = +0.00165 (+2.84% error reduction), reaching up to +0.00401"
+    },
+    "H3": {
+      "hypothesis": "SAR benefit varies by band type (canopy vegetation bands benefit more than visible)",
+      "status": "SUPPORTED",
+      "evidence": "Vegetation canopy patterns (e.g. Pattern 126 masking NIR/Red-Edge) exhibit largest SAR gain (+0.00288)"
+    },
+    "H4": {
+      "hypothesis": "Feature attribution of SAR increases as visible optical bands decrease",
+      "status": "SUPPORTED",
+      "evidence": "xAI Integrated Gradients confirms SAR structural attribution anchors recovery when optical signals are absent"
+    },
+    "H5": {
+      "hypothesis": "Reconstructed optical imagery restores downstream oil palm segmentation accuracy over unrepaired data",
+      "status": "SUPPORTED",
+      "evidence": "M2 F1 = 0.4537 vs Unrepaired F1 = 0.2779 (+0.1758 absolute F1 improvement, +63.3% relative gain)"
+    }
+  }
+}

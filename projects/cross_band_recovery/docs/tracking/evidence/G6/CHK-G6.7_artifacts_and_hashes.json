@@ -1,0 +1,41 @@
+{
+  "status": "pass",
+  "artifacts": {
+    "M1_S2only_s42": {
+      "checkpoint": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\checkpoints\\M1_S2only_seed42_best.pt",
+      "sha256": "ec190a32b70ef78d83d67a136bc6e116851201a6e51db64744397364ab198a68",
+      "best_epoch": 83,
+      "best_val_loss": 0.063059416184626
+    },
+    "M1_S2only_s101": {
+      "checkpoint": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\checkpoints\\M1_S2only_seed101_best.pt",
+      "sha256": "94d7fa17b4245daa488fab1f3004ad7ee7bdf9f8d2aceba7e08e4db63ef7f37f",
+      "best_epoch": 35,
+      "best_val_loss": 0.06503160827156931
+    },
+    "M1_S2only_s2024": {
+      "checkpoint": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\checkpoints\\M1_S2only_seed2024_best.pt",
+      "sha256": "05d65a0d5b554434cd7f11a60b4ac9addaa9a1afdcc4b3c3f170f6f624617b57",
+      "best_epoch": 31,
+      "best_val_loss": 0.06660721447355676
+    },
+    "M2_Fusion_s42": {
+      "checkpoint": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\checkpoints\\M2_Fusion_seed42_best.pt",
+      "sha256": "2b692f34db4bfe429af9cc3f234dcf916e7849427c23665ee78aa2af5307512b",
+      "best_epoch": 31,
+      "best_val_loss": 0.06586349412503809
+    },
+    "M2_Fusion_s101": {
+      "checkpoint": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\checkpoints\\M2_Fusion_seed101_best.pt",
+      "sha256": "d87ac80c62999cb4699366af2a2ddf4d30c623a0c3b09611e114efe2b2d67b45",
+      "best_epoch": 108,
+      "best_val_loss": 0.060988432331250446
+    },
+    "M2_Fusion_s2024": {
+      "checkpoint": "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\results\\checkpoints\\M2_Fusion_seed2024_best.pt",
+      "sha256": "26b6d39fe910b8471cc60228ee09da3feace3fa5adcb2fcff2491016e1718231",
+      "best_epoch": 65,
+      "best_val_loss": 0.0648489374630522
+    }
+  }
+}

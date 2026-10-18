@@ -1,0 +1,45 @@
+{
+  "dataset": "GISxKMUTNB Colab Demo Testset",
+  "samples": [
+    {
+      "id": "sample_01_dense_palm",
+      "description": "Dense oil palm plantation canopy (27.9% coverage)",
+      "palm_coverage_pct": 27.9,
+      "files": {
+        "12band_tile": "sample_01_dense_palm_12band.npy",
+        "ground_truth_mask": "sample_01_dense_palm_mask.npy",
+        "cloud_mae_pair": "sample_01_dense_palm_cloud_mae.npz"
+      }
+    },
+    {
+      "id": "sample_02_medium_palm",
+      "description": "Medium-to-dense plantation parcels (25.0% coverage)",
+      "palm_coverage_pct": 25.04,
+      "files": {
+        "12band_tile": "sample_02_medium_palm_12band.npy",
+        "ground_truth_mask": "sample_02_medium_palm_mask.npy",
+        "cloud_mae_pair": "sample_02_medium_palm_cloud_mae.npz"
+      }
+    },
+    {
+      "id": "sample_03_sparse_palm",
+      "description": "Sparse palm mixed with secondary vegetation (14.8% coverage)",
+      "palm_coverage_pct": 14.75,
+      "files": {
+        "12band_tile": "sample_03_sparse_palm_12band.npy",
+        "ground_truth_mask": "sample_03_sparse_palm_mask.npy",
+        "cloud_mae_pair": "sample_03_sparse_palm_cloud_mae.npz"
+      }
+    },
+    {
+      "id": "sample_04_low_palm",
+      "description": "Low palm density / rural road and forest border (6.7% coverage)",
+      "palm_coverage_pct": 6.7,
+      "files": {
+        "12band_tile": "sample_04_low_palm_12band.npy",
+        "ground_truth_mask": "sample_04_low_palm_mask.npy",
+        "cloud_mae_pair": "sample_04_low_palm_cloud_mae.npz"
+      }
+    }
+  ]
+}

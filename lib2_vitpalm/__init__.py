@@ -25,19 +25,36 @@ Quick start:
     history = trainer.train()
 """
 
-from lib2_vitpalm.model    import ViTPalmModel, MAEModel, ViTEncoder, SegDecoder, PatchEmbed
+from lib2_vitpalm.model    import (
+    ViTPalmModel,
+    ViTLateFusionModel,
+    ViTCrossAttnModel,
+    CloudMAEModel,
+    MAEModel,
+    ViTEncoder,
+    SegDecoder,
+    PatchEmbed,
+)
 from lib2_vitpalm.loss     import CombinedLoss, combined_loss, dice_loss, mae_reconstruction_loss
 from lib2_vitpalm.training import Trainer, compute_metrics
+from lib2_vitpalm.mask_pipeline import CloudMaskPipeline, compute_spectral_cloud_prob, classify_cloud_bin
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 
 __all__ = [
-    # Model
+    # Models
     "ViTPalmModel",
+    "ViTLateFusionModel",
+    "ViTCrossAttnModel",
+    "CloudMAEModel",
     "MAEModel",
     "ViTEncoder",
     "SegDecoder",
     "PatchEmbed",
+    # Mask Pipeline
+    "CloudMaskPipeline",
+    "compute_spectral_cloud_prob",
+    "classify_cloud_bin",
     # Loss
     "CombinedLoss",
     "combined_loss",

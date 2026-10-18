@@ -1,0 +1,51 @@
+[
+  {
+    "Modality Condition": "Full Fusion (S1 + S2 + GSat)",
+    "Val F1 (%)": 81.87,
+    "Val IoU (%)": 69.36,
+    "Precision (%)": 80.49,
+    "Recall (%)": 83.48
+  },
+  {
+    "Modality Condition": "Sentinel-2 Optical Only",
+    "Val F1 (%)": 0.86,
+    "Val IoU (%)": 0.43,
+    "Precision (%)": 72.54,
+    "Recall (%)": 0.43
+  },
+  {
+    "Modality Condition": "Sentinel-1 SAR Radar Only",
+    "Val F1 (%)": 26.2,
+    "Val IoU (%)": 15.38,
+    "Precision (%)": 45.29,
+    "Recall (%)": 19.58
+  },
+  {
+    "Modality Condition": "GEO-Sat High-Res RGB Only",
+    "Val F1 (%)": 0.0,
+    "Val IoU (%)": 0.0,
+    "Precision (%)": 17.5,
+    "Recall (%)": 0.0
+  },
+  {
+    "Modality Condition": "S2 (Optical) + S1 (SAR Radar)",
+    "Val F1 (%)": 72.18,
+    "Val IoU (%)": 56.69,
+    "Precision (%)": 90.12,
+    "Recall (%)": 60.76
+  },
+  {
+    "Modality Condition": "Under 50% Cloud: S1 SAR Active",
+    "Val F1 (%)": 63.21,
+    "Val IoU (%)": 46.39,
+    "Precision (%)": 57.56,
+    "Recall (%)": 71.32
+  },
+  {
+    "Modality Condition": "Under 50% Cloud: S1 SAR Zeroed",
+    "Val F1 (%)": 1.16,
+    "Val IoU (%)": 0.59,
+    "Precision (%)": 49.59,
+    "Recall (%)": 0.59
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "status": "PASSED",
+  "target_rois": [
+    "Chanthaburi",
+    "Chonburi",
+    "Rayong",
+    "SaKaeo",
+    "Surat_Thani",
+    "Trat"
+  ],
+  "covered_rois": [
+    "Chanthaburi",
+    "Chonburi",
+    "Rayong",
+    "SaKaeo",
+    "Surat_Thani",
+    "Trat"
+  ],
+  "coverage_ratio": "6/6",
+  "notes": "All 6 major target agricultural provinces covered (Chonburi, Rayong, Chanthaburi, SaKaeo, Trat, Surat Thani)"
+}

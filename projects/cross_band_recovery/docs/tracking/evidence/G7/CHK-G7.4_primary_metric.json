@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "primary_metric_rq1_rq2": "Masked Spectral Mean Absolute Error (MAE)",
+  "co_primary_metric": "Composite Spectral Angle Mapper (SAM)",
+  "unit": "reflectance [0.0, 1.0] and degrees [0.0, 180.0]"
+}

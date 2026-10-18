@@ -5,7 +5,8 @@
 **เป้าหมาย:** สหกิจศึกษา / ปริญญานิพนธ์ (Thesis) และ Research Paper Publication  
 **แพลตฟอร์มฮาร์ดแวร์:** Local Workstation (CPU 16 Cores, RAM 16 GB, GPU NVIDIA GeForce RTX 5060 Ti 16 GB VRAM)  
 **เวอร์ชันเอกสาร:** 4.0 (Full 7-Band S2 & Eastern Thailand 5 Provinces Integration)  
-**อัปเดตล่าสุด:** 2026-10-13  
+**อัปเดตล่าสุด:** 2026-10-14  
+**เอกสารประกอบการพัฒนาซอฟต์แวร์:** [Library & Web App Master Roadmap](file:///c:/Users/kittisak/OneDrive/Documents/Project_GISxKmutnb/docs/library_and_webapp_roadmap.md)  
 
 ---
 

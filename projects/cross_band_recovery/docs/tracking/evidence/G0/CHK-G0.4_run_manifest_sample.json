@@ -1,0 +1,22 @@
+{
+  "run_timestamp_utc": "2026-10-17T11:42:35.721066+00:00",
+  "git_commit": "1660f2b5079ce2a87d1e7b2d16d2bf8e51e033a9",
+  "config_path": "projects\\cross_band_recovery\\configs\\base.yaml",
+  "config_sha256": "28dacb030e297d56023ed048cc64aa9bea62afee9fe8c6a47773c19c2b07dc3c",
+  "environment": {
+    "python_version": "3.12.14",
+    "pytorch_version": "2.11.0+cu128",
+    "cuda_available": true,
+    "cuda_version": "12.8",
+    "gpu_device_name": "NVIDIA GeForce RTX 5060 Ti",
+    "gpu_capability": [
+      12,
+      0
+    ],
+    "os_platform": "win32"
+  },
+  "extra_metadata": {
+    "phase": "G0",
+    "check": "CHK-G0.4"
+  }
+}

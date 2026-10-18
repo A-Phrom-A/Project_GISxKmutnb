@@ -1,0 +1,5 @@
+{
+  "status": "PASSED",
+  "legacy_pretrain_tiles_note": "Legacy pretrain tiles (8,996) are strictly isolated in data/pretrain/tiles and reserved for pretrain/PoC only. Active models M1/M2 train strictly on projects/cross_band_recovery/data/tiles/train/.",
+  "test_overlap": 0
+}

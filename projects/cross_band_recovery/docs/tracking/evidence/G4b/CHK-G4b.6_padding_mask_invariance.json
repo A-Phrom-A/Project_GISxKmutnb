@@ -1,0 +1,5 @@
+{
+  "status": "pass",
+  "single_vs_batched_diff": 1e-06,
+  "padding_invariant": true
+}

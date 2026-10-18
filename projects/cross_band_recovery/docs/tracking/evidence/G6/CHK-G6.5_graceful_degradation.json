@@ -1,0 +1,12 @@
+{
+  "status": "pass",
+  "diagnostics": {
+    "mean_s1_on_loss": 0.05085504874587059,
+    "mean_s1_off_loss": 0.05146563351154328,
+    "mean_s1_shuffled_loss": 0.051365400478243825,
+    "degradation_ratio": 1.0120061756043546,
+    "graceful_degradation_passed": true,
+    "shortcut_detected": false,
+    "sar_sensitivity_delta": 0.0005103517323732376
+  }
+}

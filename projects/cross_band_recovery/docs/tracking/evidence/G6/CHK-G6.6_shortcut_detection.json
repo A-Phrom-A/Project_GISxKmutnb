@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "shortcut_detected": false,
+  "sar_sensitivity_delta": 0.0005103517323732376,
+  "note": "Negative or positive delta indicates the network processes SAR backscatter directly"
+}

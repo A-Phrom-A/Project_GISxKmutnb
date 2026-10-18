@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "checkpoint_file": "test_resume_exactness.pt",
+  "resumed_epoch": 3,
+  "state_dict_exact": true
+}

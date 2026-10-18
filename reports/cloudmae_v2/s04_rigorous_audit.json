@@ -1,0 +1,279 @@
+{
+  "benchmark": "Rigorous Mask Quality, False Alarm, and Dilation Inflation Audit",
+  "false_alarm_benchmark_clean_tiles": {
+    "tau_0.30": {
+      "threshold": 0.3,
+      "false_positive_pixels": 16122,
+      "total_pixels_evaluated": 6553600,
+      "pixel_commission_rate_pct": 0.246,
+      "tile_commission_rate_pct": 86.0
+    },
+    "tau_0.35": {
+      "threshold": 0.35,
+      "false_positive_pixels": 13017,
+      "total_pixels_evaluated": 6553600,
+      "pixel_commission_rate_pct": 0.1986,
+      "tile_commission_rate_pct": 75.0
+    },
+    "tau_0.40": {
+      "threshold": 0.4,
+      "false_positive_pixels": 10528,
+      "total_pixels_evaluated": 6553600,
+      "pixel_commission_rate_pct": 0.1606,
+      "tile_commission_rate_pct": 64.0
+    },
+    "tau_0.45": {
+      "threshold": 0.45,
+      "false_positive_pixels": 8380,
+      "total_pixels_evaluated": 6553600,
+      "pixel_commission_rate_pct": 0.1279,
+      "tile_commission_rate_pct": 56.0
+    },
+    "tau_0.50": {
+      "threshold": 0.5,
+      "false_positive_pixels": 6998,
+      "total_pixels_evaluated": 6553600,
+      "pixel_commission_rate_pct": 0.1068,
+      "tile_commission_rate_pct": 50.0
+    },
+    "tau_0.60": {
+      "threshold": 0.6,
+      "false_positive_pixels": 4205,
+      "total_pixels_evaluated": 6553600,
+      "pixel_commission_rate_pct": 0.0642,
+      "tile_commission_rate_pct": 36.0
+    }
+  },
+  "dilation_and_inflation_sweep": {
+    "dilation_0px": {
+      "dilation_radius_px": 0,
+      "dilation_radius_m": 0,
+      "mean_undilated_coverage_pct": 22.748,
+      "mean_dilated_coverage_pct": 22.748,
+      "true_dilation_added_pct": 0.0,
+      "bin_distribution": {
+        "0-2% (Clear)": 4,
+        "2-5%": 1,
+        "5-10%": 0,
+        "10-20%": 1,
+        "20-25% (Margin)": 1,
+        ">25% (Rejected)": 5
+      },
+      "rejected_tiles_count": 5,
+      "sample_tiles": [
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c0",
+          "undilated_coverage_pct": 0.015,
+          "dilated_coverage_pct": 0.015,
+          "true_dilation_added_pct": 0.0,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c1",
+          "undilated_coverage_pct": 0.023,
+          "dilated_coverage_pct": 0.023,
+          "true_dilation_added_pct": 0.0,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c0",
+          "undilated_coverage_pct": 0.085,
+          "dilated_coverage_pct": 0.085,
+          "true_dilation_added_pct": 0.0,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c1",
+          "undilated_coverage_pct": 0.017,
+          "dilated_coverage_pct": 0.017,
+          "true_dilation_added_pct": 0.0,
+          "assigned_bin": "0-2% (Clear)"
+        }
+      ]
+    },
+    "dilation_1px": {
+      "dilation_radius_px": 1,
+      "dilation_radius_m": 10,
+      "mean_undilated_coverage_pct": 22.748,
+      "mean_dilated_coverage_pct": 24.065,
+      "true_dilation_added_pct": 1.317,
+      "bin_distribution": {
+        "0-2% (Clear)": 4,
+        "2-5%": 0,
+        "5-10%": 1,
+        "10-20%": 1,
+        "20-25% (Margin)": 1,
+        ">25% (Rejected)": 5
+      },
+      "rejected_tiles_count": 5,
+      "sample_tiles": [
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c0",
+          "undilated_coverage_pct": 0.015,
+          "dilated_coverage_pct": 0.046,
+          "true_dilation_added_pct": 0.031,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c1",
+          "undilated_coverage_pct": 0.023,
+          "dilated_coverage_pct": 0.069,
+          "true_dilation_added_pct": 0.046,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c0",
+          "undilated_coverage_pct": 0.085,
+          "dilated_coverage_pct": 0.177,
+          "true_dilation_added_pct": 0.092,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c1",
+          "undilated_coverage_pct": 0.017,
+          "dilated_coverage_pct": 0.063,
+          "true_dilation_added_pct": 0.046,
+          "assigned_bin": "0-2% (Clear)"
+        }
+      ]
+    },
+    "dilation_2px": {
+      "dilation_radius_px": 2,
+      "dilation_radius_m": 20,
+      "mean_undilated_coverage_pct": 22.748,
+      "mean_dilated_coverage_pct": 25.181,
+      "true_dilation_added_pct": 2.433,
+      "bin_distribution": {
+        "0-2% (Clear)": 4,
+        "2-5%": 0,
+        "5-10%": 1,
+        "10-20%": 1,
+        "20-25% (Margin)": 0,
+        ">25% (Rejected)": 6
+      },
+      "rejected_tiles_count": 6,
+      "sample_tiles": [
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c0",
+          "undilated_coverage_pct": 0.015,
+          "dilated_coverage_pct": 0.089,
+          "true_dilation_added_pct": 0.073,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c1",
+          "undilated_coverage_pct": 0.023,
+          "dilated_coverage_pct": 0.136,
+          "true_dilation_added_pct": 0.113,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c0",
+          "undilated_coverage_pct": 0.085,
+          "dilated_coverage_pct": 0.311,
+          "true_dilation_added_pct": 0.226,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c1",
+          "undilated_coverage_pct": 0.017,
+          "dilated_coverage_pct": 0.133,
+          "true_dilation_added_pct": 0.116,
+          "assigned_bin": "0-2% (Clear)"
+        }
+      ]
+    },
+    "dilation_3px": {
+      "dilation_radius_px": 3,
+      "dilation_radius_m": 30,
+      "mean_undilated_coverage_pct": 22.748,
+      "mean_dilated_coverage_pct": 26.507,
+      "true_dilation_added_pct": 3.759,
+      "bin_distribution": {
+        "0-2% (Clear)": 4,
+        "2-5%": 0,
+        "5-10%": 1,
+        "10-20%": 1,
+        "20-25% (Margin)": 0,
+        ">25% (Rejected)": 6
+      },
+      "rejected_tiles_count": 6,
+      "sample_tiles": [
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c0",
+          "undilated_coverage_pct": 0.015,
+          "dilated_coverage_pct": 0.156,
+          "true_dilation_added_pct": 0.14,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c1",
+          "undilated_coverage_pct": 0.023,
+          "dilated_coverage_pct": 0.244,
+          "true_dilation_added_pct": 0.221,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c0",
+          "undilated_coverage_pct": 0.085,
+          "dilated_coverage_pct": 0.522,
+          "true_dilation_added_pct": 0.436,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c1",
+          "undilated_coverage_pct": 0.017,
+          "dilated_coverage_pct": 0.252,
+          "true_dilation_added_pct": 0.235,
+          "assigned_bin": "0-2% (Clear)"
+        }
+      ]
+    },
+    "dilation_5px": {
+      "dilation_radius_px": 5,
+      "dilation_radius_m": 50,
+      "mean_undilated_coverage_pct": 22.748,
+      "mean_dilated_coverage_pct": 29.137,
+      "true_dilation_added_pct": 6.389,
+      "bin_distribution": {
+        "0-2% (Clear)": 4,
+        "2-5%": 0,
+        "5-10%": 0,
+        "10-20%": 2,
+        "20-25% (Margin)": 0,
+        ">25% (Rejected)": 6
+      },
+      "rejected_tiles_count": 6,
+      "sample_tiles": [
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c0",
+          "undilated_coverage_pct": 0.015,
+          "dilated_coverage_pct": 0.354,
+          "true_dilation_added_pct": 0.339,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r0_c1",
+          "undilated_coverage_pct": 0.023,
+          "dilated_coverage_pct": 0.546,
+          "true_dilation_added_pct": 0.523,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c0",
+          "undilated_coverage_pct": 0.085,
+          "dilated_coverage_pct": 1.103,
+          "true_dilation_added_pct": 1.018,
+          "assigned_bin": "0-2% (Clear)"
+        },
+        {
+          "tile_id": "s2_cloud_under_10pct_r1_c1",
+          "undilated_coverage_pct": 0.017,
+          "dilated_coverage_pct": 0.612,
+          "true_dilation_added_pct": 0.595,
+          "assigned_bin": "0-2% (Clear)"
+        }
+      ]
+    }
+  }
+}

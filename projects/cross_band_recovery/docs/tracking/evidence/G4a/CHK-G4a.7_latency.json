@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "batch_size": 64,
+  "device": "cuda",
+  "latency_ms": 0.28
+}

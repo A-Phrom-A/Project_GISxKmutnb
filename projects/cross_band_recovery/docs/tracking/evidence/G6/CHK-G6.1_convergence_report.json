@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "m1_convergence": true,
+  "m2_convergence": true,
+  "zero_nan_encountered": true
+}

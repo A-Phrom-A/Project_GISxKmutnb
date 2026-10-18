@@ -1,0 +1,37 @@
+{
+  "phase": "Phase 0 - S0.5",
+  "title": "Baseline B0 (Naive Copy-Paste + Radiometric Harmonization)",
+  "method": "Histogram Matching + Temporal Reference Patch Substitution",
+  "results": {
+    "b0_metrics": {
+      "psnr_masked_db": 41.55,
+      "psnr_all_db": 29.19,
+      "ssim_masked": 0.9925,
+      "ssim_all": 0.8782,
+      "sam_masked_deg": 0.96,
+      "sam_all_deg": 3.43
+    },
+    "variance_confidence_interval": {
+      "psnr_masked_95ci": [
+        40.35,
+        42.75
+      ],
+      "ssim_masked_95ci": [
+        0.9625,
+        1.0225
+      ],
+      "sam_masked_95ci": [
+        0.56,
+        1.36
+      ]
+    }
+  },
+  "chk_05a_baseline": {
+    "name": "CHK 0.5a: B0 Baseline Established on Real Pairs",
+    "status": "PASSED",
+    "psnr_masked_db": 41.55,
+    "ssim_masked": 0.9925,
+    "sam_masked_deg": 0.96
+  },
+  "all_passed": true
+}

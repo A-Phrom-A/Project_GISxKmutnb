@@ -13,6 +13,8 @@ Provides easy-to-use pipelines for:
 from lib3_geoai.config import GeoAIConfig
 from lib3_geoai.builder import GeoAI
 
+__version__ = "1.0.0"
+
 __all__ = [
     "GeoAIConfig",
     "GeoAI",

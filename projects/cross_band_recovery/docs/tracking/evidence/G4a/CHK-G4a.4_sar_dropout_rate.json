@@ -1,0 +1,7 @@
+{
+  "status": "pass",
+  "target_p": 0.2,
+  "empirical_p": 0.1985,
+  "samples": 85762,
+  "ci_99_passed": true
+}

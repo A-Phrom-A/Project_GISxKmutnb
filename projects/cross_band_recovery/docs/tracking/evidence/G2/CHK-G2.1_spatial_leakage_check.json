@@ -1,0 +1,7 @@
+{
+  "status": "PASSED",
+  "overlapping_train_test_pairs": 0,
+  "buffer_required_meters": 1280.0,
+  "minimum_separation_meters": 5086.91,
+  "policy": "5x5 km blocks with adjacent 1-block exclusion buffer ensure strict physical separation >= 1.28 km."
+}

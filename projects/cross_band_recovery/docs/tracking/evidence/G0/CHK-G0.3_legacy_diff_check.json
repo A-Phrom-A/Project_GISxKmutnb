@@ -1,0 +1,5 @@
+{
+  "status": "PASSED",
+  "legacy_cloud_mae_path": "lib2_vitpalm/model/cloud_mae.py",
+  "isolated_project_path": "projects/cross_band_recovery/"
+}

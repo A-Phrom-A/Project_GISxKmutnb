@@ -1,3 +1,4 @@
+
 เป้าหมายหลัก """
 สร้างเป็น LIb public ได้ไหม แบ่งเป็น 2อย่าง 
 1 lib สำหรับการแปลง S1 , S2 ,G-sat ให้เป็นไฟล์ที่เหมาสม ทำได้สามแบบ (Early Fusion (Stack)Late FusionCross-Modal Attention)

@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "test_tiles_accessed": false,
+  "directories_accessed": [
+    "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\data\\tiles\\train",
+    "C:\\Users\\kittisak\\OneDrive\\Documents\\Project_GISxKmutnb\\projects\\cross_band_recovery\\data\\tiles\\val"
+  ]
+}

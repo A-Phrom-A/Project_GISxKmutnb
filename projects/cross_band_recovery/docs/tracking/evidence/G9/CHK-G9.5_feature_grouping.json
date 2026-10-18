@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "target_band_evaluated": "B08",
+  "group_attribution_shares": {
+    "RGB": 0.16900600766358176,
+    "NIR_RedEdge": 0.5175345779746846,
+    "SWIR": 0.2639548579710496,
+    "SAR": 0.04950444361648599
+  },
+  "channel_attribution_shares": {
+    "B02": 0.052424874101120504,
+    "B03": 0.02606890877389702,
+    "B04": 0.09309664030509594,
+    "B8A": 0.4913204767331109,
+    "B08": 0.0,
+    "B11": 0.1932527018313137,
+    "B12": 0.06613298143777127,
+    "vv": 0.03948981779873679,
+    "vh": 0.038213491956981344
+  },
+  "collinearity_note": "B08 and B8A exhibit severe spectral collinearity (r > 0.94); group aggregation into NIR_RedEdge prevents distorted individual Shapley interpretations."
+}

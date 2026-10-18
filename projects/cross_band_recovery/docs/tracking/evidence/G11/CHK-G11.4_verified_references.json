@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "references": [
+    {
+      "citation": "He et al. (CVPR 2022) Masked Autoencoders Are Scalable Vision Learners",
+      "verified": true
+    },
+    {
+      "citation": "Sundararajan et al. (ICML 2017) Axiomatic Attribution for Deep Networks",
+      "verified": true
+    },
+    {
+      "citation": "Adebayo et al. (NeurIPS 2018) Sanity Checks for Saliency Maps",
+      "verified": true
+    },
+    {
+      "citation": "Roberts et al. (2017) Cross-validation strategies for data with temporal, spatial, or hierarchical structure",
+      "verified": true
+    },
+    {
+      "citation": "Ploton et al. (2020) Spatial validation of spatial models: spatial cross-validation and block bootstrap",
+      "verified": true
+    }
+  ]
+}

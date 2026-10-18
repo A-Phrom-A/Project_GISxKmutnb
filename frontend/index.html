@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GISxKMUTNB — True Miracle GeoAI Platform</title>
+  <meta name="description" content="Multi-Modal Satellite Oil Palm Detection & Radar-Guided Cloud-MAE Web Platform by KMUTNB">
+
+  <!-- MapLibre GL CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css">
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+  <!-- Deck.GL v9 -->
+  <script src="https://unpkg.com/deck.gl@9.0.0/dist.min.js"></script>
+
+  <!-- Custom Stylesheet with Cache Busting -->
+  <link rel="stylesheet" href="/css/style.css?v=20261015_07">
+  <style>
+    /* Critical UI styles to ensure instant layout rendering */
+    * {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+    *::-webkit-scrollbar {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+    .svg-icon, .svg-icon *, .svg-icon-sm, .svg-icon-sm *, .svg-icon-lg, .svg-icon-lg * {
+      fill: none !important;
+      stroke: currentColor !important;
+      stroke-width: 2px;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .svg-icon {
+      width: 16px !important;
+      height: 16px !important;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .svg-icon-sm {
+      width: 14px !important;
+      height: 14px !important;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .svg-icon-lg {
+      width: 20px !important;
+      height: 20px !important;
+      display: inline-block;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .svg-fill, .svg-fill * {
+      fill: currentColor !important;
+      stroke: none !important;
+    }
+    .right-panel {
+      position: absolute !important;
+      top: 16px !important;
+      right: 16px !important;
+      width: 375px !important;
+      max-height: calc(100% - 32px) !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      z-index: 30 !important;
+      background: rgba(18, 21, 29, 0.92) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 20px !important;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.65) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 14px !important;
+      padding: 16px !important;
+    }
+    .map-floating-card {
+      position: absolute !important;
+      bottom: 24px !important;
+      left: 24px !important;
+      top: auto !important;
+      right: auto !important;
+    }
+    .switch-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      gap: 8px;
+      user-select: none;
+      margin: 0;
+    }
+    .switch-toggle input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: relative;
+      width: 38px;
+      height: 20px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .toggle-slider::before {
+      content: "";
+      position: absolute;
+      height: 14px;
+      width: 14px;
+      left: 2px;
+      bottom: 2px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    .switch-toggle input:checked + .toggle-slider {
+      background-color: #35c778;
+      border-color: #35c778;
+    }
+    .switch-toggle input:checked + .toggle-slider::before {
+      transform: translateX(18px);
+      background-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="header-bar">
+    <div class="brand-section">
+      <div class="brand-logo">TM</div>
+      <div>
+        <h1 class="brand-title">True Miracle GeoAI</h1>
+        <div class="brand-subtitle">GISxKMUTNB • Oil Palm Intelligence</div>
+      </div>
+    </div>
+
+    <!-- Mode Switcher Tabs -->
+    <nav class="mode-tabs">
+      <a href="/" class="tab-btn active" data-mode="explore" id="tab-explore" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+        <span>สำรวจและทดสอบโมเดล</span>
+      </a>
+      <a href="/cloudmae" class="tab-btn" id="tab-cloud" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+        <span>ซ่อมแซมเมฆ (Cloud-MAE)</span>
+      </a>
+      <a href="/?mode=health" class="tab-btn" data-mode="health" id="tab-health" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        <span>สุขภาพพืช (NDVI)</span>
+      </a>
+      <a href="/import" class="tab-btn" id="tab-upload" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        <span>นำเข้าและจัดการแปลง (Import)</span>
+      </a>
+      <a href="/research" class="tab-btn" id="tab-research" style="text-decoration: none;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+        <span>งานวิจัยและผลทดสอบ (Research)</span>
+      </a>
+    </nav>
+
+    <!-- Header Actions & GPU Status -->
+    <div class="header-actions">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span id="gpu-status-badge">NVIDIA GPU Online</span>
+      </div>
+      <a href="/admin" class="admin-link-btn" id="link-admin" style="display: inline-flex; align-items: center; gap: 6px;">
+        <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="8" rx="1"/><rect x="12" y="6" width="3" height="12" rx="1"/><rect x="17" y="13" width="3" height="5" rx="1"/></svg>
+        <span>แดชบอร์ด & Log</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Application Workspace -->
+  <main class="app-container">
+
+    <!-- Left Controls Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-content">
+
+        <!-- 1. Demo Zones Selection Card -->
+        <section class="bento-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-green);"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>เลือกพื้นที่สาธิต (Demo Zones)</span>
+            </h2>
+            <span class="card-subtitle">อ.บ้านบึง จ.ชลบุรี</span>
+          </div>
+          <div class="zone-grid">
+            <button class="zone-btn active" data-zone="1" id="zone-btn-1">
+              <span class="zone-name">Zone 1: บ้านบึง-ใต้</span>
+              <span class="zone-meta">509 แปลง • 5,569 ไร่</span>
+            </button>
+            <button class="zone-btn" data-zone="2" id="zone-btn-2">
+              <span class="zone-name">Zone 2: บ้านบึง-ตะวันออก</span>
+              <span class="zone-meta">344 แปลง • 4,223 ไร่</span>
+            </button>
+            <button class="zone-btn" data-zone="3" id="zone-btn-3">
+              <span class="zone-name">Zone 3: บ้านบึง-เหนือ</span>
+              <span class="zone-meta">250 แปลง • 2,995 ไร่</span>
+            </button>
+            <button class="zone-btn" data-zone="4" id="zone-btn-4">
+              <span class="zone-name">Zone 4: ชลบุรี-ระยอง</span>
+              <span class="zone-meta">124 แปลง • 1,794 ไร่</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- 2. Basemap & Satellite Layer Control Card -->
+        <section class="bento-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-blue);"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4"/><path d="m16 8 4-4"/><path d="M9 21a6 6 0 0 0 6-6"/></svg>
+              <span>แผนที่ดาวเทียมด้านหลัง (Basemap)</span>
+            </h2>
+            <span class="card-subtitle">Remote Sensing Imagery</span>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="select-basemap">เลือกดาวเทียม / ชั้นข้อมูลด้านหลัง (Basemap):</label>
+            <select id="select-basemap" class="select-control">
+              <option value="gsat">GSat (ภาพถ่ายดาวเทียมความละเอียดสูง 0.5m)</option>
+              <option value="s1">Sentinel-1 (เรดาร์ SAR ทะลุเมฆ - Dual Pol VV/VH)</option>
+              <option value="s2">Sentinel-2 (มัลติสเปกตรัม Optical Multispectral)</option>
+              <option value="ai_heatmap">ผลลัพธ์ AI Heatmap (สถาปัตยกรรมที่เลือก)</option>
+              <option value="ai_mask">ผลลัพธ์ AI Binary Map (สถาปัตยกรรมที่เลือก)</option>
+            </select>
+          </div>
+
+          <!-- S2 False Color Option (shown when Sentinel-2 is selected) -->
+          <div class="control-group" id="group-falsecolor" style="display: none;">
+            <label class="control-label" for="select-falsecolor">รูปแบบการผสมสี (Color Composite):</label>
+            <select id="select-falsecolor" class="select-control">
+              <option value="s2_rgb">True Color (RGB: B4, B3, B2) — สีธรรมชาติ</option>
+              <option value="s2_cir" selected>Color Infrared / NIR (B8, B4, B3) — ปาล์มสะท้อนสีแดงสด</option>
+              <option value="s2_swir">Agriculture / SWIR (B11, B8, B2) — ดินและความชื้น</option>
+              <option value="s2_ndvi">NDVI Heatmap (B8-B4)/(B8+B4) — ไล่เฉดสีสุขภาพพืช</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Remote Sensing Color Legend Guide -->
+          <div id="basemap-legend-container" style="display: none; background: rgba(14, 18, 28, 0.9); border: 1px solid var(--border); border-radius: var(--r-md); padding: 12px; margin-top: 10px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span id="legend-title" style="font-size: 0.76rem; font-weight: 700; color: var(--accent-green); display: flex; align-items: center; gap: 6px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <span>คำอธิบายเฉดสีภาพดาวเทียม</span>
+              </span>
+              <span id="legend-badge" style="font-size: 0.65rem; background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; color: var(--text-muted);">Sentinel Guide</span>
+            </div>
+            
+            <div id="legend-content" style="font-size: 0.73rem; line-height: 1.5; color: var(--text-base); display: flex; flex-direction: column; gap: 6px;">
+              <!-- Dynamic content populated by JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================
+             PANEL 1: EXPLORE & BENCHMARK
+             ========================================== -->
+        <div id="panel-explore" class="mode-panel" style="display: flex; flex-direction: column; gap: 20px;">
+          <section class="bento-card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-green);"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+                <span>เลือกสถาปัตยกรรมโมเดล</span>
+              </h2>
+              <span class="card-subtitle">PyTorch GPU</span>
+            </div>
+
+            <!-- Active Primary Model Highlight Banner -->
+            <div style="background: rgba(53, 199, 120, 0.12); border: 1px solid rgba(53, 199, 120, 0.35); border-radius: var(--r-md); padding: 10px 14px; font-size: 0.8rem; display: flex; align-items: center; gap: 10px;">
+              <svg class="svg-icon-lg" viewBox="0 0 24 24" style="color: #35c778;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <div style="line-height: 1.35;">
+                <div style="color: #35c778; font-weight: 700;">* โมเดลหลักที่ใช้ทำนายปัจจุบัน:</div>
+                <div style="color: #ffffff; font-weight: 600; font-size: 0.82rem;">Tri-Stream Late Fusion (Cloud-MAE)</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 2px;">หลอมรวมภาพถ่าย Optical + เรดาร์ทะลุเมฆ • F1: 88.7% (ประมวลผลทันที)</div>
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label" for="select-model">Model Architecture:</label>
+              <select id="select-model" class="select-control">
+                <option value="late_fusion_cloudmae" selected>* Tri-Stream Late Fusion (Cloud-MAE) — โมเดลหลักปัจจุบัน ★ (F1: 88.7%)</option>
+                <option value="cross_attn_cloudmae">Cross-Attention (Cloud-MAE) — F1: 88.1%</option>
+                <option value="early_fusion_cloudmae">Early Fusion (Cloud-MAE) — F1: 86.2%</option>
+                <option value="late_fusion_scratch">Late Fusion (Scratch) — F1: 84.1%</option>
+                <option value="cross_attn_scratch">Cross-Attention (Scratch) — F1: 83.5%</option>
+                <option value="early_fusion_scratch">Early Fusion (Scratch) — F1: 81.9%</option>
+              </select>
+            </div>
+
+            <!-- Auto-Inference Status Indicator (Runs automatically on selection) -->
+            <div id="inference-status-badge" style="display: flex; align-items: center; justify-content: space-between; background: rgba(53, 199, 120, 0.08); border: 1px solid rgba(53, 199, 120, 0.25); padding: 9px 12px; border-radius: var(--r-md); font-size: 0.76rem;">
+              <span style="display: flex; align-items: center; gap: 7px; color: var(--accent-green); font-weight: 600;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span id="infer-status-text">ทำงานทันทีที่เลือกรูปแบบ (Auto-Inference Active)</span>
+              </span>
+              <span id="infer-spinner" style="display: none; width: 14px; height: 14px; border: 2px solid var(--accent-green); border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+            </div>
+
+            <!-- Results box: Replaces background map instead of side thumbnails -->
+            <div id="seg-results-box" style="display: flex; flex-direction: column; gap: 12px; margin-top: 4px;">
+              <!-- Map Background Controller for AI Prediction Output -->
+              <div style="background: rgba(58, 175, 255, 0.1); border: 1px solid rgba(58, 175, 255, 0.35); border-radius: var(--r-md); padding: 12px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <span style="font-weight: 700; color: #3aafff; display: flex; align-items: center; gap: 6px;">
+                    <svg class="svg-icon" viewBox="0 0 24 24"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></svg>
+                    <span>ฉายผลลัพธ์ลงบนแผนที่ด้านหลังแล้ว</span>
+                  </span>
+                  <span style="background: #3aafff; color: #000; font-weight: 700; font-size: 0.68rem; padding: 2px 7px; border-radius: 4px;">ACTIVE ON MAP</span>
+                </div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); line-height: 1.4;">
+                  ผลลัพธ์โมเดลถูกนำมาฉายแทนภาพดาวเทียมด้านหลังในพิกัดจริงเรียบร้อยแล้ว:
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                  <button id="btn-show-bg-heatmap" class="layer-chip active" style="justify-content: center; font-size: 0.74rem; padding: 6px 4px; text-align: center; gap: 5px;">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #ff6b6b;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                    <span>AI Heatmap</span>
+                  </button>
+                  <button id="btn-show-bg-mask" class="layer-chip" style="justify-content: center; font-size: 0.74rem; padding: 6px 4px; text-align: center; gap: 5px;">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #35c778;"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+                    <span>Binary Map</span>
+                  </button>
+                  <button id="btn-show-bg-sat" class="layer-chip" style="justify-content: center; font-size: 0.74rem; padding: 6px 4px; text-align: center; gap: 5px;">
+                    <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #3aafff;"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4"/><path d="m16 8 4-4"/><path d="M9 21a6 6 0 0 0 6-6"/></svg>
+                    <span>ภาพดาวเทียม</span>
+                  </button>
+                </div>
+
+                <!-- Opacity Slider for Background AI Result -->
+                <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 2px;">
+                  <div style="display: flex; justify-content: space-between; font-size: 0.72rem;">
+                    <span style="color: var(--text-body);">ความโปร่งแสงภาพผลลัพธ์บนแผนที่:</span>
+                    <span id="label-ai-bg-opacity" style="color: #3aafff; font-weight: 600;">90%</span>
+                  </div>
+                  <input type="range" id="slider-ai-bg-opacity" min="0" max="100" value="90" class="range-slider" style="accent-color: #3aafff;">
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ==========================================
+             PANEL 2: CLOUD INPAINTING STUDIO LINK
+             ========================================== -->
+        <div id="panel-cloud" class="mode-panel" style="display: none; flex-direction: column; gap: 20px;">
+          <section class="bento-card" style="text-align: center; padding: 28px 20px; background: linear-gradient(135deg, rgba(20, 28, 45, 0.8) 0%, rgba(14, 18, 30, 0.95) 100%); border: 1px solid rgba(58, 175, 255, 0.25);">
+            <div style="width: 54px; height: 54px; border-radius: 14px; background: rgba(58, 175, 255, 0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto; color: #3aafff;">
+              <svg class="svg-icon-lg" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+            </div>
+            <h2 style="font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0 0 8px 0;">สตูดิโอนำเสนอ Radar-Guided Cloud-MAE</h2>
+            <p style="font-size: 0.8rem; line-height: 1.6; color: var(--text-muted); margin: 0 0 18px 0;">
+              เปิดหน้าสตูดิโอแบบเต็มจอสำหรับการนำเสนอผลงาน: เปรียบเทียบเรดาร์ SAR Sentinel-1 ทะลุเมฆ, สไลเดอร์ Before/After Swipe, และการฟื้นฟูข้อมูลพืชพรรณความแม่นยำสูง (F1: 88.7%)
+            </p>
+            <a href="/cloudmae" class="btn-primary" style="text-decoration: none; justify-content: center; font-weight: 700; gap: 8px; width: 100%; box-sizing: border-box;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>เปิดหน้าสตูดิโอนำเสนอ Cloud-MAE เต็มจอ ↗</span>
+            </a>
+          </section>
+        </div>
+
+        <!-- ==========================================
+             PANEL 3: PALM HEALTH ANALYTICS (NDVI)
+             ========================================== -->
+        <div id="panel-health" class="mode-panel" style="display: none; flex-direction: column; gap: 20px;">
+          <section class="bento-card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-green);"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                <span>ดัชนีสุขภาพปาล์มน้ำมัน (NDVI)</span>
+              </h2>
+              <span class="card-subtitle">Sentinel-2 NIR/Red Bands</span>
+            </div>
+
+            <div class="kpi-row">
+              <div class="kpi-badge">
+                <span class="kpi-label">ค่าเฉลี่ยสุขภาพ (Mean NDVI)</span>
+                <span class="kpi-value" id="ndvi-mean" style="color: var(--accent-green);">--</span>
+              </div>
+              <div class="kpi-badge">
+                <span class="kpi-label">ความแปรปรวน (Std Dev)</span>
+                <span class="kpi-value" id="ndvi-std">--</span>
+              </div>
+              <div class="kpi-badge">
+                <span class="kpi-label">ช่วงค่า (Range)</span>
+                <span class="kpi-value" id="ndvi-range">--</span>
+              </div>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--text-body); line-height: 1.5; background: var(--bg-input); padding: 12px; border-radius: var(--r-md);">
+              <div style="font-weight: 600; margin-bottom: 6px; color: var(--text-h); display: flex; align-items: center; gap: 6px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>เกณฑ์การประเมินสุขภาพแปลง (Deck.GL Mode):</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; background: #35c778;"></span>
+                <span><b>สมบูรณ์แข็งแรงมาก (NDVI > 0.85):</b> ใบแน่น คลอโรฟิลล์สูง</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; background: #ffb347;"></span>
+                <span><b>ปานกลาง (0.75 – 0.85):</b> เติบโตปกติ หรือปาล์มรุ่นใหม่</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 12px; height: 12px; border-radius: 2px; background: #ff6b6b;"></span>
+                <span><b>มีภาวะเครียด (NDVI < 0.75):</b> ขาดน้ำหรือโรคพืช</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ==========================================
+             PANEL 4: DATA IMPORT & PIPELINE STUDIO
+             ========================================== -->
+        <div id="panel-upload" class="mode-panel" style="display: none; flex-direction: column; gap: 16px;">
+          <section class="bento-card">
+            <div class="card-header">
+              <h2 class="card-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-blue);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                <span>ศูนย์นำเข้าและจัดการแปลง (Import)</span>
+              </h2>
+              <span class="card-subtitle">Dedicated Studio</span>
+            </div>
+
+            <p style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin: 0;">
+              ระบบนำเข้าข้อมูลดาวเทียมภูมิสารสนเทศถูกยกระดับเป็น <b>Dedicated Studio เต็มรูปแบบ</b> เพื่อรองรับกระบวนการทำงานจริงตามเงื่อนไข:
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.75rem;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px; display: flex; align-items: center; gap: 8px;">
+                <span style="color: #38bdf8; font-weight: 700;">1. อัปเดตโซนเดิม:</span>
+                <span>นำเข้าภาพรอบใหม่เพื่อคำนวณสถิติซ้ำ</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px; display: flex; align-items: center; gap: 8px;">
+                <span style="color: #34d399; font-weight: 700;">2. ซ่อมเมฆ S2:</span>
+                <span>ป้อนคู่ภาพเรดาร์ผ่าน Cloud-MAE</span>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px; display: flex; align-items: center; gap: 8px;">
+                <span style="color: #fbbf24; font-weight: 700;">3. พื้นที่ใหม่:</span>
+                <span>นำเข้าแปลงจริง หรือใช้ SAM-1 สกัด</span>
+              </div>
+            </div>
+
+            <a href="/import" class="btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; padding: 12px; font-weight: 700; font-size: 0.85rem; border-radius: 10px; margin-top: 4px;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <span>เปิดหน้านำเข้าข้อมูล (Open Import Studio)</span>
+            </a>
+          </section>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- Center/Right Map Viewport -->
+    <section class="map-viewport">
+      <div id="map-container"></div>
+      <canvas id="deck-canvas"></canvas>
+
+      <!-- Active Layer Floating Pill on Map Canvas -->
+      <div id="map-layer-indicator" style="display: none; position: absolute; top: 16px; left: 24px; z-index: 25; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(58, 175, 255, 0.45); border-radius: 30px; padding: 6px 14px; font-size: 0.78rem; color: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.5); align-items: center; gap: 10px;">
+        <span id="map-indicator-text" style="display: flex; align-items: center; gap: 6px;">
+          <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #ff6b6b;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          <span>ผลทำนาย AI ฉายบนแผนที่ด้านหลัง (Heatmap)</span>
+        </span>
+        <button id="btn-quick-reset-sat" style="background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.25); color: #e2e8f0; border-radius: 14px; padding: 2px 10px; font-size: 0.7rem; cursor: pointer; transition: all 0.2s;">✕ คืนภาพดาวเทียม</button>
+      </div>
+
+      <!-- Right Floating Control Panel: 3D Parcel Engine, Overlays & Inspector -->
+      <aside id="right-control-panel" class="right-panel">
+        <div class="card-header" style="margin-bottom: 2px;">
+          <h2 class="card-title" style="font-size: 0.95rem;">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-blue);"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="m3 8 9 5v10l-9-5V8Z"/><path d="m21 8-9 5v10l9-5V8Z"/></svg>
+            <span>การแสดงผลแปลง & 3 มิติ</span>
+          </h2>
+          <span class="card-subtitle">3D NDVI Height Engine</span>
+        </div>
+
+        <!-- 3D Toggle Button -->
+        <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); padding: 10px 14px; border-radius: var(--r-md); border: 1px solid var(--border);">
+          <div>
+            <div style="font-size: 0.82rem; font-weight: 600; color: var(--text-h);">โหมด 3 มิติ (3D NDVI Height)</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);">ความสูงอิงตามค่า NDVI เฉลี่ย (0.0 - 1.0)</div>
+          </div>
+          <button id="btn-toggle-3d" class="layer-chip" style="font-weight: 600; padding: 6px 14px; display: inline-flex; align-items: center; gap: 6px;">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24"><path d="m21 8-9-5-9 5 9 5 9-5Z"/><path d="m3 8 9 5v10l-9-5V8Z"/><path d="m21 8-9 5v10l9-5V8Z"/></svg>
+            <span>ปิด 3D (OFF)</span>
+          </button>
+        </div>
+
+        <!-- Parcel Filtering (Non-Palm Toggle - Modern Switch) -->
+        <div style="background: var(--bg-input); padding: 10px 14px; border-radius: var(--r-md); border: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--text-muted); width: 16px; height: 16px;"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            <span style="font-size: 0.82rem; font-weight: 600; color: var(--text-h);">แสดงแปลงที่ไม่เกี่ยวข้อง</span>
+          </div>
+          <label class="switch-toggle" title="เปิด/ปิดการแสดงแปลงที่ไม่เกี่ยวข้อง">
+            <input type="checkbox" id="chk-filter-palm">
+            <span class="toggle-slider"></span>
+            <span id="label-nonpalm-toggle" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); min-width: 26px;">ปิด</span>
+          </label>
+        </div>
+
+        <!-- Parcel Layer Mode Segmented Tabs -->
+        <div class="control-group">
+          <label class="control-label">รูปแบบการแสดงแปลง (Parcel Layer):</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+            <button class="layer-chip active" data-parcel-mode="gt" id="mode-btn-gt" style="justify-content: center; text-align: center; gap: 5px;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #35c778;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              <span>แปลงจริง (GT)</span>
+            </button>
+            <button class="layer-chip" data-parcel-mode="pred" id="mode-btn-pred" style="justify-content: center; text-align: center; gap: 5px;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #3aafff;"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+              <span>AI ทำนาย</span>
+            </button>
+            <button class="layer-chip" data-parcel-mode="compare" id="mode-btn-compare" style="justify-content: center; text-align: center; gap: 5px;">
+              <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #ffe600;"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>
+              <span>เปรียบเทียบ</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Overlay Setting Controls (GT / Pred checkboxes & Opacity) -->
+        <div style="background: var(--bg-input); padding: 12px; border-radius: var(--r-md); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-h); display: flex; align-items: center; gap: 6px;">
+            <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-blue);"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+            <span>ปรับการทับซ้อน (Overlay Controls):</span>
+          </div>
+
+          <!-- GT Toggle & Slider -->
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem;">
+              <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-body);">
+                <input type="checkbox" id="chk-show-gt" checked style="accent-color: #35c778; width: 14px; height: 14px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #35c778;"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                <span><b style="color: #35c778;">แปลงจริง (Ground Truth)</b></span>
+              </label>
+              <span id="label-gt-opacity" style="color: var(--text-muted); font-size: 0.72rem;">75%</span>
+            </div>
+            <input type="range" id="slider-gt-opacity" min="0" max="100" value="75" class="range-slider" style="accent-color: #35c778;">
+          </div>
+
+          <!-- Pred Toggle & Slider -->
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem;">
+              <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--text-body);">
+                <input type="checkbox" id="chk-show-pred" checked style="accent-color: #3aafff; width: 14px; height: 14px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: #3aafff;"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+                <span><b style="color: #3aafff;">ผล AI ทำนาย (Prediction)</b></span>
+              </label>
+              <span id="label-pred-opacity" style="color: var(--text-muted); font-size: 0.72rem;">75%</span>
+            </div>
+            <input type="range" id="slider-pred-opacity" min="0" max="100" value="75" class="range-slider" style="accent-color: #3aafff;">
+          </div>
+        </div>
+
+        <!-- Dynamic Parcel Statistics Card -->
+        <div id="parcel-stats-card" style="display: flex; flex-direction: column; gap: 8px; background: var(--bg-input); padding: 12px; border-radius: var(--r-md); border: 1px solid var(--border); font-size: 0.78rem;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span id="stats-card-title" style="font-weight: 700; color: var(--text-h); display: flex; align-items: center; gap: 6px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-green);"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="8" rx="1"/><rect x="12" y="6" width="3" height="12" rx="1"/><rect x="17" y="13" width="3" height="5" rx="1"/></svg>
+              <span>เมทริกซ์การเปรียบเทียบ (GT vs AI):</span>
+            </span>
+            <span id="stats-active-model-tag" style="background: rgba(58, 175, 255, 0.15); color: #3aafff; font-size: 0.68rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Cloud-MAE</span>
+          </div>
+
+          <!-- Compare Mode Matrix View -->
+          <div id="stats-compare-view" style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <span style="width: 10px; height: 10px; border-radius: 2px; background: #35c778;"></span>
+                <span><b>True Positive (ตรงกัน):</b></span>
+              </span>
+              <span id="cmp-tp-count" style="color: #35c778; font-weight: 700;">450 แปลง (88.4%)</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <span style="width: 10px; height: 10px; border-radius: 2px; background: #ffb347;"></span>
+                <span><b>False Positive (AI ทายเกิน):</b></span>
+              </span>
+              <span id="cmp-fp-count" style="color: #ffb347; font-weight: 700;">38 แปลง (7.5%)</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <span style="width: 10px; height: 10px; border-radius: 2px; background: #ff6b6b;"></span>
+                <span><b>False Negative (AI ตกหล่น):</b></span>
+              </span>
+              <span id="cmp-fn-count" style="color: #ff6b6b; font-weight: 700;">59 แปลง (11.6%)</span>
+            </div>
+            <div style="margin-top: 4px; padding-top: 6px; border-top: 1px dashed rgba(255,255,255,0.1); display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted);">
+              <span>Precision: <b id="cmp-precision" style="color: #fff;">92.2%</b></span>
+              <span>Recall: <b id="cmp-recall" style="color: #fff;">88.4%</b></span>
+              <span style="color: var(--accent-green); font-weight: 600;">F1: <b id="cmp-f1">88.7%</b></span>
+            </div>
+          </div>
+
+          <!-- Single Mode (GT / Pred) View -->
+          <div id="stats-single-view" style="display: none; flex-direction: column; gap: 6px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="color: var(--text-muted);" id="label-single-count">แปลงปาล์มสำรวจจริง:</span>
+              <b id="val-single-count" style="color: #35c778; font-size: 0.9rem;">509 แปลง</b>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="color: var(--text-muted);" id="label-single-area">พื้นที่รวม:</span>
+              <b id="val-single-area" style="color: #fff;">16,442 ไร่</b>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="color: var(--text-muted);" id="label-single-extra">ความครอบคลุม:</span>
+              <b id="val-single-extra" style="color: #3aafff;">100% Surveyed</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected Parcel Inspector Card (Updates on Click/Hover of Parcel) -->
+        <div id="selected-parcel-card" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(58, 175, 255, 0.25); border-radius: var(--r-md); padding: 12px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" style="color: var(--accent-blue);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <span>ข้อมูลแปลงที่เลือก (Inspector):</span>
+            </span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span id="sel-parcel-badge" style="background: rgba(53, 199, 120, 0.15); color: #35c778; font-weight: 700; font-size: 0.68rem; padding: 2px 7px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>พร้อมตรวจแปลง</span>
+              </span>
+              <button id="btn-clear-parcel-selection" style="display: none; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border); color: #ff6b6b; cursor: pointer; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; align-items: center; gap: 4px;" title="ล้างการเลือกแปลง">
+                <svg class="svg-icon-sm" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <span>ล้าง</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="sel-parcel-placeholder" style="color: var(--text-muted); font-size: 0.73rem; text-align: center; padding: 8px 4px; line-height: 1.5; background: rgba(0,0,0,0.15); border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <svg class="svg-icon-sm" viewBox="0 0 24 24" style="color: var(--accent-blue);"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="m13 13 6 6"/></svg>
+            <span><b>คลิกหรือเลื่อนเมาส์ชี้</b> แปลงบนแผนที่ 3D เพื่อดูข้อมูล</span>
+          </div>
+
+          <div id="sel-parcel-body" style="display: none; flex-direction: column; gap: 5px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">รหัสแปลง (ID):</span>
+              <b id="sel-parcel-id" style="color: #ffe600; font-size: 0.82rem;">-</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">สถานะของแปลงนี้:</span>
+              <span id="sel-parcel-status" style="font-weight: 700; color: #35c778;">-</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">ขนาดพื้นที่:</span>
+              <b id="sel-parcel-area" style="color: #fff;">-</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">ดัชนีสุขภาพ (NDVI):</span>
+              <b id="sel-parcel-ndvi" style="color: #35c778;">-</b>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 4px;">
+              <span style="color: var(--text-muted);">การครอบคลุมของ AI:</span>
+              <b id="sel-parcel-ai-cov" style="color: #35c778;">-</b>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">ความเชื่อมั่นโมเดล:</span>
+              <b id="sel-parcel-conf" style="color: #3aafff;">-</b>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Floating Map Info Badge -->
+      <div class="map-floating-card">
+        <h3 class="floating-title" id="floating-zone-name">Zone 1 — บ้านบึง-ใต้</h3>
+        <p class="floating-desc" id="floating-zone-desc">สวนปาล์มแปลงใหญ่หนาแน่น พื้นที่ปลูกคุณภาพสูง</p>
+        <div class="kpi-row" style="margin-top: 4px;">
+          <div class="kpi-badge">
+            <span class="kpi-label">แปลงปาล์ม</span>
+            <span class="kpi-value" id="kpi-palms">509</span>
+          </div>
+          <div class="kpi-badge">
+            <span class="kpi-label">พื้นที่รวม</span>
+            <span class="kpi-value" id="kpi-area">5,569 ไร่</span>
+          </div>
+          <div class="kpi-badge">
+            <span class="kpi-label">เฉลี่ย NDVI</span>
+            <span class="kpi-value" id="kpi-ndvi" style="color: var(--accent-green);">0.655</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Application Logic Scripts -->
+  <script src="/js/deck_layers.js?v=20261015_08"></script>
+  <script src="/js/map.js?v=20261015_08"></script>
+  <script src="/js/app.js?v=20261015_08"></script>
+</body>
+</html>

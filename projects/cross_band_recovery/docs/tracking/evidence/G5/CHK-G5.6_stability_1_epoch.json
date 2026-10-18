@@ -1,0 +1,8 @@
+{
+  "status": "pass",
+  "train_loss": 0.6505137433608373,
+  "loss_l1": 0.5474913070599238,
+  "loss_sam": 1.0302243729432423,
+  "parameters_finite": true,
+  "device": "cuda"
+}

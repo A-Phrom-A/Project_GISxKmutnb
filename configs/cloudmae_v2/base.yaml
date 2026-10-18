@@ -1,0 +1,29 @@
+seed: 42
+project_name: "gisx_cloudmae_v2"
+target_cloud_range: [0.02, 0.20]  # 2% - 20%
+margin_cloud_range: [0.20, 0.25]  # 20% - 25% warning margin
+max_rejection_cloud: 0.25         # > 25% reject
+
+hardware:
+  device: "cuda"
+  amp_dtype: "bfloat16"
+  target_gpu: "NVIDIA GeForce RTX 5060 Ti"
+  max_vram_gb: 15.9
+
+bands:
+  s2_bands: ["B02", "B03", "B04", "B08", "B11", "B12", "B8A"]
+  s2_band_indices: [0, 1, 2, 3, 4, 5, 6]
+  s2_resolution_m: 10
+  s1_bands: ["VV", "VH"]
+  target_crs: "EPSG:32647"
+
+paths:
+  raw_dir: "data/cloudmae_v2/raw"
+  pretrain_raw_dir: "data/pretrain/raw"
+  pretrain_tiles_dir: "data/pretrain/tiles"
+  interim_dir: "data/cloudmae_v2/interim"
+  processed_dir: "data/cloudmae_v2/processed"
+  manifests_dir: "data/cloudmae_v2/manifests"
+  splits_dir: "data/cloudmae_v2/splits"
+  reports_dir: "reports/cloudmae_v2"
+  checkpoints_dir: "checkpoints/cloud_mae_v2"

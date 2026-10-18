@@ -1,0 +1,5 @@
+{
+  "status": "pass",
+  "benchmark_file": "data/manifests/val_baseline_benchmarks.parquet",
+  "total_conditions_logged": 52
+}

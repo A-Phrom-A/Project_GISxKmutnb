@@ -1,0 +1,21 @@
+{
+  "gate": "G3",
+  "item": "CHK-G3.1",
+  "status": "pass",
+  "timestamp_utc": "2026-10-18T05:14:00Z",
+  "tests_passed": [
+    "test_mae_hand_computed",
+    "test_rmse_hand_computed",
+    "test_psnr_hand_computed",
+    "test_ssim_identity",
+    "test_composite_sam_hand_computed"
+  ],
+  "verification_details": {
+    "mae_hand_expected": 0.200000,
+    "rmse_hand_expected": 2.000000,
+    "psnr_hand_expected": 20.000000,
+    "ssim_identity_expected": 1.000000,
+    "sam_composite_hand_rad": 0.615480,
+    "sam_composite_hand_deg": 35.264
+  }
+}

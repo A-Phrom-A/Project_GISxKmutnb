@@ -1,0 +1,33 @@
+{
+  "phase": "Phase 0 - S0.1",
+  "config_hash": "840922437c38095085ad0259dfe8e6b7c0eecbf629e5c8734580b06a542be4e8",
+  "python_version": "3.12.14 | packaged by conda-forge | (main, Sep  2 2026, 23:18:20) [MSC v.1944 64 bit (AMD64)]",
+  "torch_version": "2.11.0+cu128",
+  "cuda_available": true,
+  "gpu_name": "NVIDIA GeForce RTX 5060 Ti",
+  "total_vram_gb": 15.9,
+  "bf16_supported": true,
+  "chk_01a_reproducibility": {
+    "name": "CHK 0.1a: Seed reproducibility forward/backward",
+    "status": "PASSED",
+    "details": {
+      "run1_loss": 0.5517834424972534,
+      "run2_loss": 0.5517834424972534,
+      "loss_diff": 0.0,
+      "run1_grad_norm": 1.1846656387009127,
+      "run2_grad_norm": 1.1846656387009127,
+      "grad_diff": 0.0,
+      "passed": true
+    }
+  },
+  "chk_01b_bf16_rtx5060ti": {
+    "name": "CHK 0.1b: PyTorch BF16 on RTX 5060 Ti",
+    "status": "PASSED",
+    "details": {
+      "device": "NVIDIA GeForce RTX 5060 Ti",
+      "is_bf16_supported": true,
+      "autocast_test": true
+    }
+  },
+  "all_passed": true
+}

@@ -1,0 +1,6 @@
+{
+  "status": "pass",
+  "samples": 100000,
+  "mean_prob": 0.14285714285714285,
+  "ci_99_passed": true
+}

@@ -1,0 +1,8 @@
+{
+  "status": "PASSED",
+  "max_cloud_pct": 1.25,
+  "mean_cloud_pct": 0.17857142857142858,
+  "threshold": 5.0,
+  "is_below_threshold": true,
+  "notes": "All approved scenes have cloud percentage <= 1.25%, well below 5.0% threshold."
+}
